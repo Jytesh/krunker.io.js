@@ -33,7 +33,7 @@ module.exports = class {
                 
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
                 
-                resolve(new Player(userData));
+                resolve(new Player(JSON.parse(userData)));
             };
         });
     }
