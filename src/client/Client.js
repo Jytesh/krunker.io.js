@@ -3,8 +3,21 @@ const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 const ws = require("ws");
 const {encode, decode} = require("msgpack-lite");
 
+// from my BetterJS
+Object.prototype.forEach = function (callback) {
+    Object.keys(this).forEach((key, index) => {
+        callback(key, this[key], index, this);
+    });
+}
+
 module.exports = class {
-    constructor () {
+    constructor (username) {
+        if (!username) return;
+        
+        let userData; // not using async/await because <Promise>.catch is easier than try-catch
+        this.fetchPlayer(username).then(u => userData = u).catch(() => {});
+        
+        userData.forEach((k, v) => this[k] = v);
     }
     connectToSocket () {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", {
