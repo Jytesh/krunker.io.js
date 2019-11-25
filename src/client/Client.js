@@ -16,7 +16,7 @@ module.exports = class {
     }
     
     fetchProfile (username) {
-        if (!username) throw new Error("No username given.");
+        if (!username) throw new RangeError("No username given.");
         
         this.connectToSocket();
         
