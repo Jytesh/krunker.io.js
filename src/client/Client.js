@@ -1,7 +1,9 @@
-const Player = require("../structures/Player.js");
-const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 const ws = require("ws");
 const {encode, decode} = require("msgpack-lite");
+const {Collection} = require("discord.js"); // credit to discord.js for Collections, a better version of JS Maps (discord.js.org)
+
+const Player = require("../structures/Player.js");
+const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 
 // from my BetterJS
 Object.prototype.forEach = function (callback) {
@@ -11,13 +13,27 @@ Object.prototype.forEach = function (callback) {
 }
 
 module.exports = class {
-    constructor (username) {
-        if (!username) return;
+    async constructor (username) {
+        this._cache = new Collection();
+        this._updateCache = () => {
+            const usernames = this._cache.keyArray().map(d => d.username);
+            
+            for (const un in usernames) {
+                const u = await this.fetchPlayer(un);
+                this._cache.set({
+                    id: u.id,
+                    username: u.username
+                }, u);
+            }
+        };
         
-        let userData; // not using async/await because <Promise>.catch is easier than try-catch
-        this.fetchPlayer(username).then(u => userData = u).catch(() => {});
+        if (username) {
         
-        userData.forEach((k, v) => this[k] = v);
+            let userData; // not using async-await because <Promise>.catch is easier than try-catch
+            this.fetchPlayer(username).then(u => userData = u).catch(() => {});
+        
+            userData.forEach((k, v) => this[k] = v);
+        }
     }
     connectToSocket () {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", {
@@ -46,8 +62,29 @@ module.exports = class {
                 
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
                 
-                res(new Player(userData));
+                const p = new Player(userData);
+                this._cache.set({
+                    id: p.id,
+                    username: p.username
+                }, p);
+                res(p);
             };
         });
+    }
+    
+    // using get methods are not recommended because only cached (fetched) users are avaliable
+    getUser (nameOrID) {
+        const cachedIDs = this._cache.keyArray().map(d => d.id);
+        const cachedNames = this._cache.keyArray().map(d => d.username);
+        
+        let u = cachedIDs.find(id => nameOrID === id);
+        if (!u) u = cachedNames.find(n => n === nameOrID);
+        
+        if (!u) return new Error("Requested user not cached - use fetchPlayer instead");
+        
+        u = this._cache.get(u);
+        
+        this._updateCache();
+        return u;
     }
 }
