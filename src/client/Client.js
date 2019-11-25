@@ -15,7 +15,7 @@ module.exports = class {
         if (this.ws && this.ws.readyState === 1) this.ws.close();
     }
     
-    fetchProfile (username) {
+    fetchPlayer (username) {
         if (!username) throw new RangeError("No username given.");
         
         this.connectToSocket();
