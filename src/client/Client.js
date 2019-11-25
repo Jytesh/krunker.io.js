@@ -28,7 +28,7 @@ module.exports = class {
             };
             
             this.socket.onmessage = buffer => {
-                const userData = decode(new Uint8Array(buff.data))[1][2];
+                const userData = decode(new Uint8Array(buffer.data))[1][2];
                 this.disconnectFromSocket();
                 
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
