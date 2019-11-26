@@ -25,6 +25,7 @@ module.exports = class {
         };
     
         const sniperRifle = {
+            name: "Sniper Rifle",
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 0.95,
@@ -40,9 +41,33 @@ module.exports = class {
             zoom: 2.7,
             recoil: 0.009
         };
+
+        const submachineGun = {
+            name: "Submachine Gun",
+            swapTime: 300,
+            aimSpeed: 120,
+            speedMultiplier: 1.04,
+            ammo: 24,
+            reloadTime: 1000,
+            damage: {
+                damage: 18,
+                dropoff: 12,
+                toNumber(){
+                    return 18;
+                }
+                toString(){
+                    return 12;
+                }
+            },
+            range: 700,
+            rateOfFire: 70,
+            spread: 70,
+            zoom: 1.65,
+            recoil: 0.0034
+        };
         
         return {
             assaultRifle, sniperRifle
-        }[str.split(" ")[0].toLowerCase() + str.split(" ")[1][0].toUpperCase() + str.split(" ")[1].toLowerCase().substring(1)];
+        }[str.split(" ")[0].toLowerCase() + (str.split(" ")[1] ? str.split(" ")[1][0].toUpperCase() + str.split(" ")[1].toLowerCase().substring(1) : "")];
     }
 }
