@@ -23,9 +23,26 @@ module.exports = class {
             zoom: 1.6,
             recoil: 0.003
         };
+    
+        const sniperRifle = {
+            swapTime: 300,
+            aimSpeed: 120,
+            speedMultiplier: 0.95,
+            ammo: 3,
+            reloadTime: 1500,
+            damage: {
+                dropoff: 30,
+                damage: 100
+            },
+            range: 1000
+            rateOfFire: 900,
+            spread: 260,
+            zoom: 2.7,
+            recoil: 0.009
+        };
         
         return {
-            assaultRifle
+            assaultRifle, sniperRifle
         }[str.split(" ")[0].toLowerCase() + str.split(" ")[1][0].toUpperCase() + str.split(" ")[1].toLowerCase().substring(1)];
     }
 }
