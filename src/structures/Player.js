@@ -1,3 +1,5 @@
+const Class = require("./Class.js");
+
 module.exports = class {
     constructor (data) {
         const stats = JSON.stringify(data.player_stats);
@@ -11,7 +13,7 @@ module.exports = class {
             score: data.player_score,
             displayName: (data.player_clan ? data.player_name + " [" + data.player_clan + "]" : data.player_name)
             id: data.player_id,
-            lastPlayedClass: classes[stats.c],
+            lastPlayedClass: new Class(classes[stats.c]),
             stats: {
                 timePlayed: {
                     mins: Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60,
