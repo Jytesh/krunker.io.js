@@ -51,7 +51,7 @@ module.exports = class {
         
         const obj = {
             triggerman, hunter, runngun, spraynpray
-        }[name.toLowerCase()];
+        }[name.split(" ").join("").toLowerCase()];
         
         obj.forEach((k, v) => {
             this[k] = v;
