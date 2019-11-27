@@ -41,7 +41,7 @@ module.exports = class {
         
         const assaultrifle = {
             name: "Assault Rifle",
-            class: "Triggerman",
+            class: new Class("Triggerman"),
             swapTime: 300,
             aimSpeed: 130,
             speedMultiplier: 0.95,
@@ -72,7 +72,7 @@ module.exports = class {
     
         const sniperrifle = {
             name: "Sniper Rifle",
-            class: "Hunter",
+            class: new Class("Hunter"),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 0.95,
@@ -103,7 +103,7 @@ module.exports = class {
 
         const submachinegun = {
             name: "Submachine Gun",
-            class: "Run N Gun",
+            class: new Class("Run N Gun"),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -134,7 +134,7 @@ module.exports = class {
 
         const lightmachinegun = {
             name: "Light Machine Gun",
-            class: "Spray N Pray",
+            class: new Class("Spray N Pray"),
             swapTime: 700,
             aimSpeed: 200,
             speedMultiplier: 0.79,
