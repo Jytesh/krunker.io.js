@@ -57,7 +57,9 @@ module.exports = class {
         };
 
         obj.forEach((k, v) => {
-            this[k] = v
+            this[k] = v;
         });
+
+        return obj;
     }
 }
