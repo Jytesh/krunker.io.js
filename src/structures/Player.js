@@ -1,12 +1,19 @@
 const Class = require("./Class.js");
 
+// from my BetterJS
+Object.prototype.forEach = function (callback) {
+    Object.keys(this).forEach((key, index) => {
+        callback(key, this[key], index, this);
+    });
+}
+
 module.exports = class {
     constructor (data) {
         const stats = JSON.stringify(data.player_stats);
         
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
         
-        return {
+        const obj = {
             username: data.player_name,
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
             levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
@@ -48,5 +55,9 @@ module.exports = class {
                 followers: data.player_followed || 0,
             }
         };
+
+        obj.forEach((k, v) => {
+            this[k] = v
+        });
     }
 }
