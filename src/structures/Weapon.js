@@ -33,7 +33,10 @@ module.exports = class {
             recoil: 0.006,
             automatic: false,
             baseScore: 75,
-            sight: null
+            sight: null,
+            toString () {
+                return "Pistol";
+            }
         };
         
         const assaultrifle = {
@@ -61,7 +64,10 @@ module.exports = class {
             recoil: 0.003,
             automatic: true,
             baseScore: 50,
-            sight: "Red Dot"
+            sight: "Red Dot",
+            toString () {
+                return "Assault Rifle";
+            }
         };
     
         const sniperrifle = {
@@ -89,7 +95,10 @@ module.exports = class {
             recoil: 0.009,
             automatic: false,
             baseScore: 50,
-            sight: "Scope"
+            sight: "Scope",
+            toString () {
+                return "Sniper Rifle";
+            }
         };
 
         const submachinegun = {
@@ -117,7 +126,10 @@ module.exports = class {
             recoil: 0.0034,
             automatic: true,
             baseScore: 50,
-            sight: "Red Dot"
+            sight: "Red Dot",
+            toString () {
+                return "Submachine Gun";
+            }
         };
 
         const lightmachinegun = {
@@ -145,7 +157,10 @@ module.exports = class {
             recoil: 0.0032,
             automatic: true,
             baseScore: 50,
-            sight: "Red Dot"
+            sight: "Red Dot",
+            toString () {
+                return "Light Machine Gun";
+            }
         };
         
         const obj = {
