@@ -165,7 +165,7 @@ module.exports = class {
         
         const obj = {
             assaultrifle, sniperrifle, submachinegun, lightmachinegun
-        }[str.split(" ").join("").toLowerCase()];
+        }[name.split(" ").join("").toLowerCase()];
 
         obj.forEach((k, v) => {
             this[k] = v;
