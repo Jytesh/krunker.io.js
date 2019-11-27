@@ -74,7 +74,13 @@ module.exports = class {
             reloadTime: 1500,
             damage: {
                 dropoff: 30,
-                damage: 100
+                damage: 100,
+                toNumber () {
+                    return 100;
+                }
+                toString () {
+                    return "100";
+                }
             },
             range: 1000
             rateOfFire: 900,
@@ -101,7 +107,7 @@ module.exports = class {
                     return 18;
                 }
                 toString(){
-                    return 12;
+                    return "18";
                 }
             },
             range: 700,
@@ -126,10 +132,10 @@ module.exports = class {
                 damage: 20,
                 dropoff: 10,
                 toNumber(){
-                    return 18;
+                    return 20;
                 }
                 toString(){
-                    return 12;
+                    return "20";
                 }
             },
             range: 700,
