@@ -23,15 +23,22 @@ module.exports = class {
             weapon: new Weapon("Sniper Rifle")
         };
         
-        const runNgun = {
+        const runngun = {
             health: 100,
             name: "Run N Gun",
             secondary: false,
             weapon: new Weapon("Submachine Gun")
         };
         
+        const spraynpray = {
+            health: 170,
+            name: "Spray N Pray",
+            secondary: true,
+            weapon: new Weapon("Light Machine Gun")
+        };
+        
         const obj = {
-            triggerman, hunter, runNgun
+            triggerman, hunter, runngun, spraynpray
         }[name.toLowerCase()];
         
         obj.forEach((k, v) => {
