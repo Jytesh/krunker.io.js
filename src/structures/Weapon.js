@@ -1,7 +1,35 @@
 module.exports = class {
     constructor (name = "Assault Rifle") {
-        const assaultRifle = {
+        const pistol = {
+            name: "Pistol",
+            class: null,
+            swapTime: 350,
+            aimSpeed: 120,
+            speedMultiplier: 1.05,
+            ammo: 10,
+            reloadTime: 700,
+            damage: {
+                damage: 20,
+                dropoff: 10,
+                toNumber(){
+                    return 20;
+                }
+                toString(){
+                    return "20";
+                }
+            },
+            range: 700,
+            rateOfFire: 150,
+            zoom: 1.4,
+            recoil: 0.006,
+            automatic: false,
+            baseScore: 75,
+            sight: null
+        };
+        
+        const assaultrifle = {
             name: "Assault Rifle",
+            class: "Triggerman",
             swapTime: 300,
             aimSpeed: 130,
             speedMultiplier: 0.95,
@@ -21,11 +49,15 @@ module.exports = class {
             rateOfFire: 110,
             spread: 100,
             zoom: 1.6,
-            recoil: 0.003
+            recoil: 0.003,
+            automatic: true,
+            baseScore: 50,
+            sight: "Red Dot"
         };
     
-        const sniperRifle = {
+        const sniperrifle = {
             name: "Sniper Rifle",
+            class: "Hunter",
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 0.95,
@@ -39,11 +71,15 @@ module.exports = class {
             rateOfFire: 900,
             spread: 260,
             zoom: 2.7,
-            recoil: 0.009
+            recoil: 0.009,
+            automatic: false,
+            baseScore: 50,
+            sight: "Scope"
         };
 
-        const submachineGun = {
+        const submachinegun = {
             name: "Submachine Gun",
+            class: "Run N Gun",
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -63,11 +99,42 @@ module.exports = class {
             rateOfFire: 70,
             spread: 70,
             zoom: 1.65,
-            recoil: 0.0034
+            recoil: 0.0034,
+            automatic: true,
+            baseScore: 50,
+            sight: "Red Dot"
+        };
+
+        const lightmachinegun = {
+            name: "Light Machine Gun",
+            class: "Spray N Pray",
+            swapTime: 700,
+            aimSpeed: 200,
+            speedMultiplier: 0.79,
+            ammo: 60,
+            reloadTime: 3500,
+            damage: {
+                damage: 20,
+                dropoff: 10,
+                toNumber(){
+                    return 18;
+                }
+                toString(){
+                    return 12;
+                }
+            },
+            range: 700,
+            rateOfFire: 120,
+            spread: 300,
+            zoom: 1.3,
+            recoil: 0.0032,
+            automatic: true,
+            baseScore: 50,
+            sight: "Red Dot"
         };
         
-        return {
-            assaultRifle, sniperRifle
-        }[str.split(" ")[0].toLowerCase() + (str.split(" ")[1] ? str.split(" ")[1][0].toUpperCase() + str.split(" ")[1].toLowerCase().substring(1) : "")];
+        const wpn = {
+            assaultrifle, sniperrifle, submachinegun, lightmachinegun
+        }[str.split(" ").join("").toLowerCase()];
     }
 }
