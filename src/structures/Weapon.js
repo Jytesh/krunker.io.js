@@ -1,3 +1,12 @@
+const Class = require("./Class.js");
+
+// from my BetterJS
+Object.prototype.forEach = function (callback) {
+    Object.keys(this).forEach((key, index) => {
+        callback(key, this[key], index, this);
+    });
+}
+
 module.exports = class {
     constructor (name = "Assault Rifle") {
         const pistol = {
@@ -133,8 +142,14 @@ module.exports = class {
             sight: "Red Dot"
         };
         
-        const wpn = {
+        const obj = {
             assaultrifle, sniperrifle, submachinegun, lightmachinegun
         }[str.split(" ").join("").toLowerCase()];
+
+        obj.forEach((k, v) => {
+            this[k] = v;
+        });
+
+        return obj;
     }
 }
