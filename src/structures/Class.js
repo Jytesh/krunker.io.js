@@ -13,28 +13,40 @@ module.exports = class {
             health: 100,
             name: "Triggerman",
             secondary: true,
-            weapon: new Weapon("Assault Rifle")
+            weapon: new Weapon("Assault Rifle"),
+            toString(){
+                return "Triggerman";
+            }
         };
         
         const hunter = {
             health: 60,
             name: "Hunter",
             secondary: true,
-            weapon: new Weapon("Sniper Rifle")
+            weapon: new Weapon("Sniper Rifle"),
+            toString(){
+                return "Hunter";
+            }
         };
         
         const runngun = {
             health: 100,
             name: "Run N Gun",
             secondary: false,
-            weapon: new Weapon("Submachine Gun")
+            weapon: new Weapon("Submachine Gun"),
+            toString(){
+                return "Run N Gun";
+            }
         };
         
         const spraynpray = {
             health: 170,
             name: "Spray N Pray",
             secondary: true,
-            weapon: new Weapon("Light Machine Gun")
+            weapon: new Weapon("Light Machine Gun"),
+            toString(){
+                return "Spray N Pray";
+            }
         };
         
         const obj = {
