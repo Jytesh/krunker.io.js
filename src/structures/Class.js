@@ -1,5 +1,12 @@
 const Weapon = require("./Weapon.js");
 
+// from my BetterJS
+Object.prototype.forEach = function (callback) {
+    Object.keys(this).forEach((key, index) => {
+        callback(key, this[key], index, this);
+    });
+}
+
 module.exports = class {
     constructor (name = "Triggerman") {
         const triggerman = {
@@ -23,8 +30,14 @@ module.exports = class {
             weapon: new Weapon("Submachine Gun")
         };
         
-        return {
+        const obj = {
             triggerman, hunter, runNgun
-        }[name.toLowerCase()];        
+        }[name.toLowerCase()];
+        
+        obj.forEach((k, v) => {
+            this[k] = v;
+        });
+        
+        return obj;
     }
 }
