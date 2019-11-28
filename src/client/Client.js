@@ -87,6 +87,11 @@ module.exports = class Client {
     }
     
     // using get methods are not recommended because only cached (fetched) users are avaliable
+    /*
+     * Gets a user by name or ID from the client's cache. Using this is not recommended, because cache builds up over time.
+     * @param {string|number} nameOrID the name or ID of the desired player
+     * @returns {?Player}
+     */
     getUser (nameOrID) {
         const cachedIDs = this._cache.keyArray().map(d => d.id);
         const cachedNames = this._cache.keyArray().map(d => d.username);
