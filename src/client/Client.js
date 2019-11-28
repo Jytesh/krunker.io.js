@@ -108,6 +108,11 @@ module.exports = class Client {
         return u;
     }
     
+    /**
+     * Gets info about a game.
+     * @param {string} id The ID of the game - the part in the game's URL after ?game=
+     * @returns {Game}
+     */
     fetchGame (id) {
         if (!regex.match(id)) throw new Error("Invalid ID");
         
