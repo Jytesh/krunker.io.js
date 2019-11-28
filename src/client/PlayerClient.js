@@ -50,6 +50,10 @@ module.exports = class PlayerClient extends EventEmitter {
             
             if (oldPlayer === this._player) return;
             
+            this._player.forEach((k, v) => {
+                this[k] = v;
+            });
+            
             const diff = getDifference(oldPlayer, this._player);
             
             if (diff.level) this.emit("levelUp", diff.level.new);
