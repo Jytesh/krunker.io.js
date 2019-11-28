@@ -55,7 +55,12 @@ module.exports = class PlayerClient extends EventEmitter {
             if (diff.level) this.emit("levelUp", diff.level.new);
             if (diff.lastPlayedClass) this.emit("classSwitch", diff.lastPlayedClass.old, diff.lastPlayedClass.new);
             if (diff.stats) {
-            
+                const stats = diff.stats;
+                
+                /* TODO: fix this for non-hitscans */ if (stats.shots) this.emit("shoot", stats.hits ? true : false);
+                if (stats.deaths) this.emit("die", undefined);
+                if (stats.wins) this.emit("win", this._player.lastPlayedClass);
+                if (stats.losses) this.emit("lose", this._player.lastPlayedClass);
             }
         }, 1000);
     }
