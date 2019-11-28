@@ -61,8 +61,9 @@ module.exports = class PlayerClient extends EventEmitter {
             if (diff.stats) {
                 const stats = diff.stats;
                 
-                /* TODO: fix this for non-hitscans */ if (stats.shots) this.emit("shoot", stats.hits ? true : false);
-                if (stats.deaths) this.emit("die", undefined);
+                /* TODO: fix this for non-hitscans */ if (stats.shots) this.emit("shoot", stats.kills ? true : false, stats.hits ? true : false);
+                if (stats.kills) this.emit("kill", this._player.lastPlayedClass);
+                if (stats.deaths) this.emit("die", this._player.lastPlayedClass);
                 if (stats.wins) this.emit("win", this._player.lastPlayedClass);
                 if (stats.losses) this.emit("lose", this._player.lastPlayedClass);
             }
