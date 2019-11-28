@@ -1,9 +1,10 @@
 const ws = require("ws"); // socket for fetching players
-const req = require("request"); // fetching games & leaderboards
+const req = require("request"); // fetching games
 const { encode, decode } = require("msgpack-lite"); // encoding and decoding for the socket
 const { Collection } = require("discord.js"); // credit to discord.js for Collections, a better version of JS Maps (discord.js.org)
 
 const Player = require("../structures/Player.js"); // more organized than the recieved data
+const Game = require("../structures/Game.js");
 const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 
 // from my BetterJS
@@ -105,5 +106,20 @@ module.exports = class Client {
         
         this._updateCache();
         return u;
+    }
+    
+    fetchGame (id) {
+        if (!regex.match(id)) throw new Error("Invalid ID");
+        
+        return new Promise((res, rej) => {
+            req("https://matchmaker.krunker.io/game-info?game=" + id, (err, _, body) => {
+                if (err) return rej(new KrunkerAPIError("Game not found"));
+                
+                body = JSON.parse(body);
+                if (!body.region) return rej(new KrunkerAPIError("Game not found"));
+                
+                res(new Game(body));
+            });
+        });
     }
 }
