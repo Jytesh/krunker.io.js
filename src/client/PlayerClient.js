@@ -23,17 +23,17 @@ const getDifference = (obj1, obj2) => {
     return differences;
 };
 
-/*
+/**
  * A Client for a single player, including a lot of events.
  * @extends {EventEmitter}
  */
 module.exports = class PlayerClient extends EventEmitter {
-    /*
+    /**
      * @param {string|Player} usernameOrPlayer the desired player's username or Player object
      */
     async constructor (usernameOrPlayer = "1s3k3b") {
         super();
-        /*
+        /**
          * The client's player.
          * @private
          * @type {Player}
