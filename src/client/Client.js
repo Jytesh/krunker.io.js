@@ -13,7 +13,13 @@ Object.prototype.forEach = function (callback) {
     });
 }
 
-module.exports = class {
+/**
+ * The Client class which lets you interact with the Krunker API.
+ */
+module.exports = class Client {
+    /**
+     * @param {String} [username] Your username, if you'd like your data to be accessible from the Client object.
+     */
     async constructor (username) {
         this._cache = new Collection();
         this._updateCache = async () => {
@@ -36,19 +42,26 @@ module.exports = class {
             userData.forEach((k, v) => this[k] = v);
         }
     }
-    connectToSocket () {
+    _connectToSocket () {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", {
             handshakeTimeout: 10000
         });
     }
-    disconnectFromSocket () {
+    _disconnectFromSocket () {
         if (this.ws && this.ws.readyState === 1) this.ws.close();
     }
     
+    /**
+     * A method for getting a player's data.
+     * @param {String} username the username of the desired player.
+     * @returns {Promise<Player>}
+     * @example
+     * client.fetchPlayer("1s3k3b").then(p => console.log(`1s3k3b's K/D is ${p.kdr}`))
+     */
     fetchPlayer (username) {
         if (!username) throw new RangeError("No username given.");
         
-        this.connectToSocket();
+        this._connectToSocket();
         
         return new Promise((res, rej) => {
             this.ws.onopen = () => this.ws.send(encode(["r", ["profile", username, "000000", null]]).buffer);
@@ -59,7 +72,7 @@ module.exports = class {
             
             this.socket.onmessage = buffer => {
                 const userData = decode(new Uint8Array(buffer.data))[1][2];
-                this.disconnectFromSocket();
+                this._disconnectFromSocket();
                 
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
                 
