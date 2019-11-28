@@ -9,7 +9,6 @@
         "test": "node ./test/index.js"
     },
     "files": [
-        "lib",
         "src"
     ],
     "repository": {
@@ -17,9 +16,11 @@
       "url": "git+https://github.com/1s3k3b/krunker.js.git"
     },
     "keywords": [
-        "krunker.io",
         "krunker",
-        "krunker api"
+        "krunker api",
+        "fps",
+        "shooter",
+        "krunker.io"
     ],
     "bugs": {
         "url": "https://github.com/1s3k3b/krunker.js/issues"
