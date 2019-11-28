@@ -18,7 +18,7 @@ module.exports = class {
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
             levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
             score: data.player_score,
-            displayName: (data.player_clan ? data.player_name + " [" + data.player_clan + "]" : data.player_name)
+            displayName: (data.player_clan ? data.player_name + " [" + data.player_clan + "]" : data.player_name),
             id: data.player_id,
             lastPlayedClass: new Class(classes[stats.c]),
             stats: {
