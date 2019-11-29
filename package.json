@@ -1,12 +1,12 @@
 {
     "name": "krunker.js",
     "author": "1s3k3b",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "homepage": "https://1s3k3b.github.io/krunkerjs/index.html",
     "scripts": {
-        "test": "node ./test/index.js"
+        "fetchUser": "node ./test/fetchUser.client.js"
     },
     "files": [
         "src"
