@@ -1,4 +1,5 @@
-const Class = require("./Class.js");
+const Class = require("./Class.js"); 
+console.log(Class);
 
 // from my BetterJS
 Object.prototype.forEach = function (callback) {
