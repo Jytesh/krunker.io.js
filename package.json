@@ -6,7 +6,7 @@
     "main": "./src/index.js",
     "homepage": "https://1s3k3b.github.io/krunkerjs/index.html",
     "scripts": {
-        "node fetchUser": "node ./test/fetchUser.js"
+        "node fetchPlayer": "node ./test/fetchPlayer.js"
     },
     "files": [
         "src"
