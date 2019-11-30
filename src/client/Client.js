@@ -7,8 +7,9 @@ const { Collection } = require("discord.js"); // credit to discord.js for Collec
 const Player = require("../structures/Player.js");
 const Game = require("../structures/Game.js");
 
-// API errors
+// errors
 const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
+const ArgumentError = require("../errors/ArgumentError.js");
 
 // from my BetterJS
 Object.prototype.forEach = function (callback) {
@@ -63,7 +64,7 @@ module.exports = class Client {
      * client.fetchPlayer("1s3k3b").then(p => console.log(`1s3k3b's K/D is ${p.kdr}`))
      */
     fetchPlayer (username) {
-        if (!username) throw new RangeError("No username given.");
+        if (!username) throw new ArgumentError("No username given.");
         
         this._connectToSocket();
         
@@ -97,6 +98,8 @@ module.exports = class Client {
      * @returns {?Player}
      */
     getUser (nameOrID) {
+        if (!nameOrID) throw new ArgumentError("No name or ID given.");
+     
         const cachedIDs = this._cache.keyArray().map(d => d.id);
         const cachedNames = this._cache.keyArray().map(d => d.username);
         
@@ -117,9 +120,9 @@ module.exports = class Client {
      * @returns {Game}
      */
     fetchGame (id) {
-        if (!id) throw new Error("No ID given");
+        if (!id) throw new ArgumentError("No ID given");
         id = id.match(/[A-Z]{2,}:[abcdefghijklmnopqrstuvwxyz0123456789]+/g);
-        if (!id) return new Error("Invalid ID given");
+        if (!id) return new ArgumentError("Invalid ID given");
         
         return new Promise((res, rej) => {
             req("https://matchmaker.krunker.io/game-info?game=" + id, (err, _, body) => {
