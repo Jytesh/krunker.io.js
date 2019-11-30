@@ -88,7 +88,7 @@ module.exports = class {
                     return "100";
                 }
             },
-            range: 1000
+            range: 1000,
             rateOfFire: 900,
             spread: 260,
             zoom: 2.7,
