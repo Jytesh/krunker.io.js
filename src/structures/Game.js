@@ -14,7 +14,7 @@ module.exports = class Game {
                 max: data.maxClients,
                 toString () {
                     return this.players + "/" + this.max;
-                }
+                },
                 toNumber () {
                     return this.players;
                 }
