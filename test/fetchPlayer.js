@@ -6,52 +6,53 @@ const client = new Krunker.Client();
 /*
 output in console:
 
-Player {
-    username: "1s3k3b",
-    level: 20,
-    levelProgress: 44060,
-    score: 488505,
-    displayName: "1s3k3b [Vixe]",
-    id: "no",
-    lastPlayedClass: Class {
-        name: "Run N Gun",
-        health: 100,
-        secondary: false,
-        weapon: Weapon {
-            name: "Submachine Gun",
-            class: Class {
-                ...Run N Gun
-            },
-            swapTime: 300,
-            aimSpeed: 120,
-            speedMultiplier: 1.04,
-            ammo: 24,
-            reloadTime: 1000,
-            damage: {
-                damage: 18,
-                dropoff: 12,
-                toNumber: fn 18
-                toString: fn "18"
-            },
-            range: 700,
-            rateOfFire: 70,
-            spread: 70,
-            zoom: 1.65,
-            recoil: 0.0034,
-            automatic: true,
-            baseScore: 50,
-            sight: "Red Dot",
-            toString: fn "Submachine Gun"
-        },
-        toString: fn "Run N Gun"
+{
+  username: '1s3k3b',
+  level: 21,
+  levelProgress: 10,
+  score: 494860,
+  displayName: '1s3k3b [Vixe]',
+  id: 6167027,
+  lastPlayedClass: {
+    health: 100,
+    name: 'Triggerman',
+    secondary: true,
+    weapon: {
+      name: 'Assault Rifle',
+      class: 'Triggerman',
+      swapTime: 300,
+      aimSpeed: 130,
+      speedMultiplier: 0.95,
+      ammo: 30,
+      reloadTime: 1200,
+      damage: [Object],
+      range: 700,
+      rateOfFire: 110,
+      spread: 100,
+      zoom: 1.6,
+      recoil: 0.003,
+      automatic: true,
+      baseScore: 50,
+      sight: 'Red Dot',
+      toString: [Function: toString]
     },
-    stats: {
-        timePlayed: {
-            mins: 69,
-            hours: 69,
-            days: 69,
-            toString: fn "69h 69m"
-        }
-    }
+    toString: [Function: toString]
+  },
+  stats: {
+    timePlayed: { mins: 20, hours: 19, days: 0, toString: [Function: toString] },
+    shots: 54804,
+    hits: 14595,
+    accuracy: 3.75,
+    nukes: 0,
+    kills: 4365,
+    deaths: 2545,
+    kdr: '1.72',
+    gamesPlayed: 314,
+    wins: 170,
+    losses: 144,
+    wlr: '1.18',
+    kpg: '0.07'
+  },
+  social: { clan: 'Vixe', following: 0, followers: 0 }
 }
 */
