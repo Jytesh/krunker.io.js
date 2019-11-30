@@ -22,10 +22,7 @@ Object.prototype.forEach = function (callback) {
  * The Client class which lets you interact with the Krunker API.
  */
 module.exports = class Client {
-    /**
-     * @param {String} [username] Your username, if you'd like your data to be accessible from the Client object.
-     */
-    constructor (username) {
+    constructor () {
         this._cache = new Collection();
         this._updateCache = async () => {
             const usernames = this._cache.keyArray().map(d => d.username);
@@ -38,14 +35,6 @@ module.exports = class Client {
                 }, u);
             }
         };
-        
-        if (username) {
-        
-            let userData; // not using async-await because <Promise>.catch is easier than try-catch
-            this.fetchPlayer(username).then(u => userData = u).catch(() => {});
-        
-            userData.forEach((k, v) => this[k] = v);
-        }
     }
     _connectToSocket () {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", {
