@@ -7,7 +7,7 @@ Object.prototype.forEach = function (callback) {
     });
 }
 
-module.exports = class {
+module.exports = class Class {
     constructor (name = "Triggerman") {
         const triggerman = {
             health: 100,
