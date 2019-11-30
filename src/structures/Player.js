@@ -36,7 +36,7 @@ module.exports = class {
                 hits: stats.h,
                 accuracy: stats.s / stats.h,
                 
-                nukes: stats.n,
+                nukes: stats.n || 0,
                 
                 kills: data.player_kills,
                 deaths: data.player_deaths,
