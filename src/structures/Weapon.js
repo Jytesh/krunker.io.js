@@ -22,7 +22,7 @@ module.exports = class {
                 dropoff: 10,
                 toNumber(){
                     return 20;
-                }
+                },
                 toString(){
                     return "20";
                 }
@@ -52,7 +52,7 @@ module.exports = class {
                 damage: 23,
                 toNumber(){
                     return 23;
-                }
+                },
                 toString(){
                     return "23";
                 }
@@ -83,7 +83,7 @@ module.exports = class {
                 damage: 100,
                 toNumber () {
                     return 100;
-                }
+                },
                 toString () {
                     return "100";
                 }
@@ -114,7 +114,7 @@ module.exports = class {
                 dropoff: 12,
                 toNumber(){
                     return 18;
-                }
+                },
                 toString(){
                     return "18";
                 }
@@ -145,7 +145,7 @@ module.exports = class {
                 dropoff: 10,
                 toNumber(){
                     return 20;
-                }
+                },
                 toString(){
                     return "20";
                 }
