@@ -7,7 +7,7 @@ Object.prototype.forEach = function (callback) {
     });
 }
 
-module.exports = class {
+module.exports = class Weapon {
     constructor (name = "Assault Rifle") {
         const pistol = {
             name: "Pistol",
