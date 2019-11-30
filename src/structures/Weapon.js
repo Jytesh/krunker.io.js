@@ -1,6 +1,3 @@
-const Class = require("./Class.js");
-console.log(require("./Class.js"))
-
 // from my BetterJS
 Object.prototype.forEach = function (callback) {
     Object.keys(this).forEach((key, index) => {
@@ -42,7 +39,7 @@ module.exports = class Weapon {
         
         const assaultrifle = {
             name: "Assault Rifle",
-            class: new Class("Triggerman"),
+            class: "Triggerman",
             swapTime: 300,
             aimSpeed: 130,
             speedMultiplier: 0.95,
@@ -73,7 +70,7 @@ module.exports = class Weapon {
     
         const sniperrifle = {
             name: "Sniper Rifle",
-            class: new Class("Hunter"),
+            class: "Hunter",
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 0.95,
@@ -104,7 +101,7 @@ module.exports = class Weapon {
 
         const submachinegun = {
             name: "Submachine Gun",
-            class: new Class("Run N Gun"),
+            class: "Run N Gun",
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -135,7 +132,7 @@ module.exports = class Weapon {
 
         const lightmachinegun = {
             name: "Light Machine Gun",
-            class: new Class("Spray N Pray"),
+            class: "Spray N Pray",
             swapTime: 700,
             aimSpeed: 200,
             speedMultiplier: 0.79,
