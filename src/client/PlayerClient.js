@@ -44,7 +44,7 @@ module.exports = class PlayerClient extends EventEmitter {
         setInterval(async () => {
             const oldPlayer = this._player;
             
-            this._player = await (new Client(username).fetchPlayer(username);
+            this._player = await (new Client(username)).fetchPlayer(username);
             
             if (oldPlayer === this._player) return;
             
