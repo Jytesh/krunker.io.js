@@ -25,7 +25,7 @@ module.exports = class Client {
     /**
      * @param {String} [username] Your username, if you'd like your data to be accessible from the Client object.
      */
-    async constructor (username) {
+    constructor (username) {
         this._cache = new Collection();
         this._updateCache = async () => {
             const usernames = this._cache.keyArray().map(d => d.username);
