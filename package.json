@@ -6,14 +6,15 @@
     "main": "./src/index.js",
     "homepage": "https://1s3k3b.github.io/krunkerjs/index.html",
     "scripts": {
-        "fetchPlayer": "node ./test/fetchPlayer.js"
+        "fetchPlayer": "node ./test/fetchPlayer.js",
+        "playerClient": "node ./test/playerClient.js"
     },
     "files": [
         "src"
     ],
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/1s3k3b/krunker.js.git"
+        "type": "git",
+        "url": "git+https://github.com/1s3k3b/krunker.js.git"
     },
     "keywords": [
         "krunker",
