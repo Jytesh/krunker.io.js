@@ -75,7 +75,7 @@ module.exports = class Client {
                 rej(err);
             };
             
-            this.socket.onmessage = buffer => {
+            this.ws.onmessage = buffer => {
                 const userData = decode(new Uint8Array(buffer.data))[1][2];
                 this._disconnectFromSocket();
                 
