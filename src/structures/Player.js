@@ -34,7 +34,7 @@ module.exports = class {
             
                 shots: stats.s,
                 hits: stats.h,
-                accuracy: stats.s / stats.h,
+                accuracy: (stats.s / stats.h).toFixed(2),
                 
                 nukes: stats.n || 0,
                 
