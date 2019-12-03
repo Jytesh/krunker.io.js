@@ -116,7 +116,7 @@ module.exports = class Client {
         return new Promise((res, rej) => {
             req("https://matchmaker.krunker.io/game-info?game=" + id, (err, _, body) => {
                 body = JSON.parse(body);
-                if (!body.region) return rej(new KrunkerAPIError("Game not found"));
+                if (!body[0]) return rej(new KrunkerAPIError("Game not found"));
                 
                 res(new Game(body));
             });
