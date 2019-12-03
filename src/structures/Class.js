@@ -113,7 +113,20 @@ module.exports = class Class {
             health: 100,
             name: "Bowman",
             secondary: true,
-            weapon: new Weapon("Crossbow")
+            weapon: new Weapon("Crossbow"),
+            toString(){
+                return "Bowman";
+            }
+        };
+        
+        const commando = {
+            health: 100,
+            name: "Commando",
+            secondary: true,
+            weapon: new Weapon("Famas"),
+            toString(){
+                return "Commando";
+            }
         };
         
         const obj = {
