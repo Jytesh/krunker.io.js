@@ -110,7 +110,7 @@ module.exports = class Client {
      */
     fetchGame (id) {
         if (!id) throw new ArgumentError("No ID given");
-        id = id.match(/[A-Z]{2,}:[abcdefghijklmnopqrstuvwxyz0123456789]+/g);
+        id = id.match(/[A-Z]{2,}:[a-z0-9]+/g);
         if (!id) return new ArgumentError("Invalid ID given");
         
         return new Promise((res, rej) => {
