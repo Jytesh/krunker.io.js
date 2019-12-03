@@ -69,6 +69,37 @@ module.exports = class Weapon {
             }
         };
         
+        const alienblaster = {
+            name: "Alien Blaster",
+            class: null,
+            swapTime: 200,
+            aimSpeed: 120,
+            speedMultiplier: 1,
+            ammo: 4,
+            reloadTime: 1500,
+            damage: {
+                damage: 50,
+                dropoff: 10,
+                toNumber(){
+                    return 50;
+                },
+                toString(){
+                    return "50";
+                }
+            },
+            range: 700,
+            rateOfFire: 150,
+            spread: 150,
+            zoom: 1.4,
+            recoil: 0.007,
+            automatic: false,
+            baseScore: 50,
+            sight: null,
+            toString () {
+                return "Alien Blaster";
+            }
+        };
+        
         const assaultrifle = {
             name: "Assault Rifle",
             class: "Triggerman",
