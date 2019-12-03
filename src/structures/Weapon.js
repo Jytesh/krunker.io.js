@@ -27,6 +27,7 @@ module.exports = class Weapon {
             },
             range: 700,
             rateOfFire: 150,
+            spread: 90,
             zoom: 1.4,
             recoil: 0.006,
             automatic: false,
@@ -34,6 +35,37 @@ module.exports = class Weapon {
             sight: null,
             toString () {
                 return "Pistol";
+            }
+        };
+        
+        const deserteagle = {
+            name: "Desert Eagle",
+            class: null,
+            swapTime: 200,
+            aimSpeed: 120,
+            speedMultiplier: 1,
+            ammo: 6,
+            reloadTime: 1000,
+            damage: {
+                damage: 50,
+                dropoff: 10,
+                toNumber(){
+                    return 50;
+                },
+                toString(){
+                    return "50";
+                }
+            },
+            range: 700,
+            rateOfFire: 400,
+            spread: 150,
+            zoom: 1.4,
+            recoil: 0.01,
+            automatic: false,
+            baseScore: 50,
+            sight: null,
+            toString () {
+                return "Desert Eagle";
             }
         };
         
@@ -188,12 +220,16 @@ module.exports = class Weapon {
             baseScore: 50,
             sight: "none",
             toString () {
-                return "Shtogun";
+                return "Shotgun";
             }  
         };
         
+        const revolver = {
+            
+        };
+        
         const obj = {
-            assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun
+            pistol, deserteagle, alienblaster, assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun, revolver
         }[name.split(" ").join("").toLowerCase()];
 
         obj.forEach((k, v) => {
