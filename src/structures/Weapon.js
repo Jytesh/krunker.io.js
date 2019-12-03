@@ -161,8 +161,39 @@ module.exports = class Weapon {
             }
         };
         
+        const shotgun = {
+            name: "Light Machine Gun",
+            class: "Spray N Pray",
+            swapTime: 300,
+            aimSpeed: 120,
+            speedMultiplier: 1,
+            ammo: 2,
+            reloadTime: 1100,
+            damage: {
+                damage: 50,
+                dropoff: 50,
+                toNumber(){
+                    return 50;
+                },
+                toString(){
+                    return "50";
+                }
+            },
+            range: 210,
+            rateOfFire: 400,
+            spread: 120,
+            zoom: 1.25,
+            recoil: 0.0016,
+            automatic: false,
+            baseScore: 50,
+            sight: "none",
+            toString () {
+                return "Shtogun";
+            }  
+        };
+        
         const obj = {
-            assaultrifle, sniperrifle, submachinegun, lightmachinegun
+            assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun
         }[name.split(" ").join("").toLowerCase()];
 
         obj.forEach((k, v) => {
