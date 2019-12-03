@@ -225,8 +225,8 @@ module.exports = class Weapon {
         };
         
         const shotgun = {
-            name: "Light Machine Gun",
-            class: "Spray N Pray",
+            name: "Shotgun",
+            class: "Vince",
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -256,7 +256,34 @@ module.exports = class Weapon {
         };
         
         const revolver = {
-            
+            name: "Revolver",
+            class: "Detective",
+            swapTime: 200,
+            aimSpeed: 120,
+            speedMultiplier: 1.04,
+            ammo: 6,
+            reloadTime: 900,
+            damage: {
+                damage: 66,
+                dropoff: 10,
+                toNumber(){
+                    return 50;
+                },
+                toString(){
+                    return "50";
+                }
+            },
+            range: 700,
+            rateOfFire: 390,
+            spread: 100,
+            zoom: 1.25,
+            recoil: 0.0013,
+            automatic: false,
+            baseScore: 50,
+            sight: "none",
+            toString () {
+                return "Revolver";
+            }  
         };
         
         const obj = {
