@@ -9,9 +9,10 @@ Object.prototype.forEach = function (callback) {
 module.exports = class Game {
     constructor (data) {
         const obj = {
+            code: data[0],
             players: {
-                players: data.clientCount,
-                max: data.maxClients,
+                players: data[2],
+                max: data[3],
                 toString () {
                     return this.players + "/" + this.max;
                 },
@@ -19,14 +20,12 @@ module.exports = class Game {
                     return this.players;
                 }
             },
-            gameMode: data.i.split("_")[0],
-            map: data.i.split("_")[1],
-            custom: data.cs
+            gameMode: data[4].i.split("_")[0],
+            map: data[4].i.split("_")[1],
+            custom: data[4].cs
         };
         
-        obj.forEach((k, v) => {
-            this[k] = v;
-        });
+        obj.forEach((k, v) => this[k] = v);
         
         return obj;
     }
