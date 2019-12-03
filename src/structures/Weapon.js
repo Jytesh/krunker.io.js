@@ -100,6 +100,15 @@ module.exports = class Weapon {
             }
         };
         
+        const combatknife = {
+            name: "Combat Knife",
+            class: "Runner",
+            baseScore: 150,
+            toString () {
+                return "Combat Knife";
+            }
+        };
+        
         const assaultrifle = {
             name: "Assault Rifle",
             class: "Triggerman",
