@@ -276,10 +276,10 @@ module.exports = class Weapon {
                 damage: 66,
                 dropoff: 10,
                 toNumber(){
-                    return 50;
+                    return 66;
                 },
                 toString(){
-                    return "50";
+                    return "66";
                 }
             },
             range: 700,
@@ -292,6 +292,37 @@ module.exports = class Weapon {
             sight: "none",
             toString () {
                 return "Revolver";
+            }  
+        };
+        
+        const semiauto = {
+            name: "Semi Auto",
+            class: "Marksman",
+            swapTime: 300,
+            aimSpeed: 120,
+            speedMultiplier: 1,
+            ammo: 8,
+            reloadTime: 1500,
+            damage: {
+                damage: 34,
+                dropoff: 0,
+                toNumber(){
+                    return 34;
+                },
+                toString(){
+                    return "34";
+                }
+            },
+            range: 1000,
+            rateOfFire: 120,
+            spread: 250,
+            zoom: 2.1,
+            recoil: 0.01,
+            automatic: false,
+            baseScore: 50,
+            sight: "Red Dot",
+            toString () {
+                return "Semi Auto";
             }  
         };
         
