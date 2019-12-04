@@ -419,8 +419,39 @@ module.exports = class Weapon {
             }  
         };
         
+        const famas = {
+            name: "FAMAS",
+            class: "Detective",
+            swapTime: 300,
+            aimSpeed: 130,
+            speedMultiplier: 0.95,
+            ammo: 30,
+            reloadTime: 1200,
+            damage: {
+                damage: 28,
+                dropoff: 5,
+                toNumber(){
+                    return 28;
+                },
+                toString(){
+                    return "28";
+                }
+            },
+            range: 700,
+            rateOfFire: 280,
+            spread: 90,
+            zoom: 1.5,
+            recoil: 0.0032,
+            automatic: false,
+            baseScore: 50,
+            sight: "none",
+            toString () {
+                return "FAMAS";
+            }  
+        };
+        
         const obj = {
-            pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher
+            pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, burst: famas
         }[name.split(" ").join("").toLowerCase()];
 
         obj.forEach((k, v) => {
