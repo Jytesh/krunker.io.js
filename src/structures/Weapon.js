@@ -326,6 +326,37 @@ module.exports = class Weapon {
             }  
         };
         
+        const rocketlauncher = {
+            name: "Rocket Launcher",
+            class: "Rocketeer",
+            swapTime: 600,
+            aimSpeed: 200,
+            speedMultiplier: 1.9,
+            ammo: 2,
+            reloadTime: 1600,
+            damage: {
+                damage: 127,
+                dropoff: 60,
+                toNumber(){
+                    return 127;
+                },
+                toString(){
+                    return "127";
+                }
+            },
+            range: Infinity,
+            rateOfFire: 1,
+            spread: 120,
+            zoom: 1.5,
+            recoil: 0.008,
+            automatic: false,
+            baseScore: 50,
+            sight: "none",
+            toString () {
+                return "Rocket Launcher";
+            }  
+        };
+        
         const obj = {
             pistol, deserteagle, alienblaster, assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun, revolver
         }[name.split(" ").join("").toLowerCase()];
