@@ -56,5 +56,13 @@ module.exports = {
                 if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Weapon(n)[stat].toNumber()));
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
         }
+    },
+    nukeChance(kills = 0, deaths = 0) {
+        if (kills < 25) return 0;
+        if (deaths >= kills) return 0;
+        if (!deaths) return 2;
+        if (kills / deaths >= 25 - deaths) return 2;
+        if (kills - deaths >= 25 + deaths) return 1;
+        return 0;
     }
 };
