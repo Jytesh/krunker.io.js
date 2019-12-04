@@ -357,8 +357,39 @@ module.exports = class Weapon {
             }  
         };
         
+        const akimbouzi = {
+            name: "Akimbo Uzi",
+            class: "Agent",
+            swapTime: 300,
+            aimSpeed: 120,
+            speedMultiplier: 1.04,
+            ammo: 6,
+            reloadTime: 900,
+            damage: {
+                damage: 18 * 2,
+                dropoff: 12,
+                toNumber(){
+                    return 18 * 2;
+                },
+                toString(){
+                    return "18 * 2";
+                }
+            },
+            range: 300,
+            rateOfFire: 400,
+            spread: 40,
+            zoom: null,
+            recoil: 0.0034,
+            automatic: true,
+            baseScore: 50,
+            sight: null,
+            toString () {
+                return "Akimbo Uzi";
+            }  
+        };
+        
         const obj = {
-            pistol, deserteagle, alienblaster, assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun, revolver
+            pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher
         }[name.split(" ").join("").toLowerCase()];
 
         obj.forEach((k, v) => {
