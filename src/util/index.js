@@ -1,3 +1,4 @@
+const resolver = require("../client/resolver.js");
 const Class = require("../structures/Class.js");
 const Weapon = require("../structures/Weapon.js");
 
@@ -43,7 +44,7 @@ module.exports = {
             case "class":
                 const exampleStat = new Class("Triggerman")[stat];
                 if (!exampleStat) break;
-                arr = arr ? resolveClassNameArray(arr) : classes;
+                arr = arr ? resolver.classNameArray(arr) : classes;
                 if (typeof exampleStat === "number") return avg(...arr.map(n => new Class(n)[stat]));
                 if (typeof exampleStat.toNumber === "function") return mostOccurs(arr.map(n => new Class(n)[stat].toNumber()));
                 return mostOccurs(arr.map(n => new Class(n)[stat]));
