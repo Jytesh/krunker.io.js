@@ -1,6 +1,9 @@
 const Class = require("../structures/Class.js");
 const Weapon = require("../structures/Weapon.js");
 
+const classArr = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
+const weaponArr = classes.map(n => new Class(n).weapon.name);
+
 module.exports = {
     classNameArray(arr) {
         arr = Array.from(new Set(arr));
