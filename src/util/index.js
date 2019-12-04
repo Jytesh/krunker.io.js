@@ -33,6 +33,14 @@ const mostOccurs = arr => {
 
 const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
 const weapons = classes.map(n => new Class(n).weapon.name);
+const spins = {
+    starter: {
+        cost: 50
+    }, 
+    elite: {
+
+    }
+};
 
 module.exports = {
     classes,
@@ -56,6 +64,12 @@ module.exports = {
                 if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Weapon(n)[stat].toNumber()));
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
         }
+    },
+    spinChance(spin, rarity, kr) {
+        spin = spins[spin.toLowerCase().replace("spin", "").trim()];
+        rarity = rarity.toLowerCase().trim();
+        if (!spin) return 0;
+        return kr / spin.cost * spin[rarity];
     },
     nukeChance(kills = 0, deaths = 0) {
         if (kills < 25) return 0;
