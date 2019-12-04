@@ -42,12 +42,19 @@ module.exports = {
         structure = structure.trim().toLowerCase();
         switch (structure) {
             case "class":
-                const exampleStat = new Class("Triggerman")[stat];
+                var exampleStat = new Class("Triggerman")[stat];
                 if (!exampleStat) break;
                 arr = arr ? resolver.classNameArray(arr) : classes;
                 if (typeof exampleStat === "number") return avg(...arr.map(n => new Class(n)[stat]));
-                if (typeof exampleStat.toNumber === "function") return mostOccurs(arr.map(n => new Class(n)[stat].toNumber()));
-                return mostOccurs(arr.map(n => new Class(n)[stat]));
+                if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Class(n)[stat].toNumber()));
+                return mostOccurs(arr.map(n => new Class(n)[stat])).element;
+            case "weapon":
+                var exampleStat = new Weapon("Assault Rifle")[stat];
+                if (!exampleStat) break;
+                arr = arr ? resolver.weaponNameArray(arr) : weapons;
+                if (typeof exampleStat === "number") return avg(...arr.map(n => new Weapon(n)[stat]));
+                if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Weapon(n)[stat].toNumber()));
+                return mostOccurs(arr.map(n => new Class(n)[stat])).element;
         }
     }
 };
