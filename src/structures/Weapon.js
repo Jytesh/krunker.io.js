@@ -388,6 +388,37 @@ module.exports = class Weapon {
             }  
         };
         
+        const crossbow = {
+            name: "Crossbow",
+            class: "Bowman",
+            swapTime: 200,
+            aimSpeed: 120,
+            speedMultiplier: 1,
+            ammo: 1,
+            reloadTime: 1000,
+            damage: {
+                damage: 200,
+                dropoff: 0,
+                toNumber(){
+                    return 200;
+                },
+                toString(){
+                    return "200";
+                }
+            },
+            range: 300,
+            rateOfFire: 150,
+            spread: 700,
+            zoom: 1.4,
+            recoil: 0.007,
+            automatic: false,
+            baseScore: 50,
+            sight: "Red Dot",
+            toString () {
+                return "Crossbow";
+            }  
+        };
+        
         const obj = {
             pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher
         }[name.split(" ").join("").toLowerCase()];
