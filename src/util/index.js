@@ -63,6 +63,7 @@ module.exports = {
                 if (typeof exampleStat === "number") return avg(...arr.map(n => new Weapon(n)[stat]));
                 if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Weapon(n)[stat].toNumber()));
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
+            default: return void console.error("Invalid structure " + structure);
         }
     },
     spinChance(spin, rarity, kr) {
@@ -77,6 +78,6 @@ module.exports = {
         if (!deaths) return 2;
         if (kills / deaths >= 25 - deaths) return 2;
         if (kills - deaths >= 25 + deaths) return 1;
-        return 0;
+        return 1;
     }
 };
