@@ -35,10 +35,49 @@ const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "
 const weapons = classes.map(n => new Class(n).weapon.name);
 const spins = {
     starter: {
-        cost: 50
+        cost: 50,
+        uncommon: 75,
+        rare: 22,
+        epic: 3,
+        legendary: 0,
+        relic: 0,
+        contraband: 0
     }, 
     elite: {
-
+        cost: 100,
+        uncommon: 50,
+        rare: 30,
+        epic: 15,
+        legendary: 5,
+        relic: 0,
+        contraband: 0
+    },
+    heroic: {
+        cost: 500,
+        uncommon: 0,
+        rare: 48,
+        epic: 35,
+        legendary: 14,
+        relic: 2.5,
+        contraband: 0.5
+    },
+    hunter: {
+        cost: 600,
+        uncommon: 43,
+        rare: 33,
+        epic: 17,
+        legendary: 6,
+        relic: 1,
+        contraband: 0
+    },
+    attire: {
+        cost: 750,
+        uncommon: 43,
+        rare: 33,
+        epic: 16,
+        legendary: 6,
+        relic: 2,
+        contraband: 0
     }
 };
 
