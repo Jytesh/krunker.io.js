@@ -112,11 +112,11 @@ module.exports = {
         return kr / spin.cost * spin[rarity];
     },
     nukeChance(kills = 0, deaths = 0) {
-        if (kills - deaths < 25) return 0;
+        if (kills < 25) return 0;
         if (deaths >= kills) return 0;
         if (!deaths) return 2;
         if (kills / deaths >= 25 - deaths) return 2;
-        if (kills - deaths >= 25 + deaths) return 1;
+        if (kills - deaths >= 25 - deaths) return 1;
         return 1;
     }
 };
