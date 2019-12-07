@@ -80,24 +80,17 @@ module.exports = class Client {
         });
     }
     
-    // using get methods are not recommended because only cached (fetched) users are avaliable
     /*
      * Gets a user by name or ID from the client's cache. Using this is not recommended, because cache builds up over time.
      * @param {string|number} nameOrID the name or ID of the desired player
-     * @returns {?Player}
+     * @returns {Player|Promise<Player>}
      */
-    getUser (nameOrID) {
+    getPlayer (nameOrID) {
         if (!nameOrID) throw new ArgumentError("No name or ID given.");
-     
-        const cachedIDs = this._cache.keyArray().map(d => d.id);
-        const cachedNames = this._cache.keyArray().map(d => d.username);
+
+        const u = this._cache.find(obj => [obj.id, obj.username].includes(nameOrID));
         
-        let u = cachedIDs.find(id => nameOrID === id);
-        if (!u) u = cachedNames.find(n => n === nameOrID);
-        
-        if (!u) return new Error("Requested user not cached - use fetchPlayer instead");
-        
-        u = this._cache.get(u);
+        if (!u) return this.fetchPlayer(nameOrID);
         
         this._updateCache();
         return u;
