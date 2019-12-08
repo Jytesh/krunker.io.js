@@ -23,3 +23,16 @@ console.log(util.classes, "\n");
 
 console.log("An array of all weapons' names in the game:");
 console.log(util.weapons, "\n");
+/*
+[
+  'Assault Rifle',
+  'Sniper Rifle',
+  'Submachine Gun',
+  'Light Machine Gun',
+  'Shotgun',
+  'Revolver',
+  'Semi Auto',
+  'Rocket Launcher',
+  'FAMAS'
+] 
+*/
