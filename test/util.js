@@ -10,6 +10,16 @@ console.log(util.spinChance("heroic", "contraband", 20000), "\n");
 
 console.log("An array of all classes' names in the game:");
 console.log(util.classes, "\n");
+/*
+[
+  'Triggerman', 'Hunter',
+  'Run N Gun',  'Spray N Pray',
+  'Vince',      'Detective',
+  'Marksman',   'Rocketeer',
+  'Agent',      'Runner',
+  'Bowman',     'Commando'
+] 
+*/
 
 console.log("An array of all weapons' names in the game:");
 console.log(util.weapons, "\n");
