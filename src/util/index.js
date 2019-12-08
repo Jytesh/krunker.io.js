@@ -86,7 +86,7 @@ module.exports = {
     spins,
     resolver,
     gameIDregExp: /[A-Z]{2,}:[a-z0-9]]+/g,
-    averageStat(structure, stat, arr) {
+    averageStat(structure, stat, arr, decimalDigits = 2) {
         if (!structure) return;
         structure = structure.trim().toLowerCase();
         switch (structure) {
@@ -94,15 +94,15 @@ module.exports = {
                 var exampleStat = new Class("Triggerman")[stat];
                 if (!exampleStat) break;
                 arr = arr ? resolver.classNameArray(arr) : classes;
-                if (typeof exampleStat === "number") return avg(...arr.map(n => new Class(n)[stat]));
-                if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Class(n)[stat].toNumber()));
+                if (typeof exampleStat === "number") return avg(...arr.map(n => new Class(n)[stat])).toFixed(decimalDigits);
+                if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Class(n)[stat].toNumber())).toFixed(decimalDigits);
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
             case "weapon":
                 var exampleStat = new Weapon("Assault Rifle")[stat];
                 if (!exampleStat) break;
                 arr = arr ? resolver.weaponNameArray(arr) : weapons;
-                if (exampleStat.toNumber && typeof exampleStat.toNumber() === "number") return avg(...arr.map(n => new Weapon(n)[stat].toNumber()));
-                if (typeof exampleStat === "number") return avg(...arr.map(n => new Weapon(n)[stat]));
+                if (exampleStat.toNumber && typeof exampleStat.toNumber() === "number") return avg(...arr.map(n => new Weapon(n)[stat].toNumber())).toFixed(decimalDigits);
+                if (typeof exampleStat === "number") return avg(...arr.map(n => new Weapon(n)[stat])).toFixed(decimalDigits);
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
             default: return void console.error("Invalid structure " + structure);
         }
