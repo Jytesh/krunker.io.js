@@ -83,6 +83,7 @@ const spins = {
 
 module.exports = {
     classes,
+    weapons,
     spins,
     resolver,
     gameIDregExp: /[A-Z]{2,}:[a-z0-9]]+/g,
