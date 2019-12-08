@@ -2,7 +2,6 @@
 
 # Installation
 npm: `npm i krunker.io.js`
-yarn: soon
 
 # Usage
 ```js
