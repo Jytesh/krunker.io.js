@@ -453,6 +453,8 @@ module.exports = class Weapon {
         const obj = {
             pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, burst: famas
         }[name.split(" ").join("").toLowerCase()];
+        
+        if (!obj) return void 0;
 
         obj.forEach((k, v) => {
             this[k] = v;
