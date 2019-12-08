@@ -8,7 +8,9 @@
     "scripts": {
         "fetchPlayer": "node ./test/fetchPlayer.js",
         "fetchGame": "node ./test/fetchGame.js",
-        "util": "node ./test/util.js"
+        "util": "node ./test/util.js",
+        "class": "node ./test/class.js",
+        "weapon": "node ./test/weapon.js"
     },
     "files": [
         "src"
