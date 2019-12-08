@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
-    "homepage": "https://1s3k3b.github.io/krunkerjs/index.html",
+    "homepage": "https://github.com/1s3k3b/krunker.js#README",
     "scripts": {
         "fetchPlayer": "node ./test/fetchPlayer.js",
         "fetchGame": "node ./test/fetchGame.js",
