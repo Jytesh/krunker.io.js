@@ -83,6 +83,8 @@ const spins = {
 
 module.exports = {
     classes,
+    spins,
+    resolver,
     gameIDregExp: /[A-Z]{2,}:[a-z0-9]]+/g,
     averageStat(structure, stat, arr) {
         if (!structure) return;
