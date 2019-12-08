@@ -1,5 +1,4 @@
 <div align="center">
-    <br/>
     <p>
         <a href="https://nodei.co/npm/@1s3k3b/krunker.js/"><img src="https://nodei.co/npm/@1s3k3b/krunker.js.png?downloads=true&stars=true"></a>
     </p>
