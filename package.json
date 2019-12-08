@@ -7,7 +7,8 @@
     "homepage": "https://1s3k3b.github.io/krunkerjs/index.html",
     "scripts": {
         "fetchPlayer": "node ./test/fetchPlayer.js",
-        "fetchGame": "node ./test/fetchGame.js"
+        "fetchGame": "node ./test/fetchGame.js",
+        "util": "node ./test/util.js"
     },
     "files": [
         "src"
