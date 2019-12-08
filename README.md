@@ -1,17 +1,17 @@
 <div align="center">
     <br/>
     <p>
-        <a href="https://nodei.co/npm/krunker.js/"><img src="https://nodei.co/npm/krunker.js.png?downloads=true&stars=true"></a>
+        <a href="https://nodei.co/npm/@1s3k3b/krunker.js/"><img src="https://nodei.co/npm/@1s3k3b/krunker.js.png?downloads=true&stars=true"></a>
     </p>
 </div>
 
 # Installation
-npm: `npm i krunker.js`
+npm: `npm i @1s3k3b/krunker.js`
 yarn: soon
 
 # Usage
 ```js
-const { Client } = require("krunker.js");
+const { Client } = require("@1s3k3b/krunker.js");
 const client = new Client();
 
 // getting info about a player
