@@ -101,7 +101,8 @@ module.exports = {
                 var exampleStat = new Weapon("Assault Rifle")[stat];
                 if (!exampleStat) break;
                 arr = arr ? resolver.weaponNameArray(arr) : weapons;
-                if (typeof Number(exampleStat) === "number") return avg(...arr.map(n => Number(new Weapon(n)[stat])));
+                if (exampleStat.toNumber && typeof exampleStat.toNumber() === "number") return avg(...arr.map(n => new Weapon(n)[stat].toNumber()));
+                if (typeof exampleStat === "number") return avg(...arr.map(n => new Weapon(n)[stat]));
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
             default: return void console.error("Invalid structure " + structure);
         }
