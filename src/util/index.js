@@ -111,7 +111,8 @@ module.exports = {
         spin = spins[spin.toLowerCase().replace("spin", "").trim()];
         rarity = rarity.toLowerCase().trim();
         if (!spin) return 0;
-        return kr / spin.cost * spin[rarity];
+        if (kr < spin.cost) return 0;
+        return (kr / spin.cost * spin[rarity]).toFixed(2);
     },
     nukeChance(kills = 0, deaths = 0) {
         if (kills < 25) return 0;
