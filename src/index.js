@@ -3,5 +3,5 @@ module.exports = {
     Class: require("./structures/Class.js"),
     Weapon: require("./structures/Weapon.js"),
     Collection: require("./util/Collection.js"),
-    util: require("./util/index.js"),
+    util: require("./util/index.js")
 };
