@@ -133,6 +133,8 @@ module.exports = class Class {
             triggerman, hunter, runngun, spraynpray, vince, detective, marksman, rocketeer, agent, runner, bowman, commando
         }[name.split(" ").join("").toLowerCase()];
         
+        if (!obj) return void 0;
+        
         obj.forEach((k, v) => {
             this[k] = v;
         });
