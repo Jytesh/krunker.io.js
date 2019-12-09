@@ -35,8 +35,5 @@
         "ws": "^7.2.0",
         "events": "^3.0.0",
         "discord.js": "^11.5.1"
-    },
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/"
     }
 }
