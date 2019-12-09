@@ -1,7 +1,7 @@
 {
     "name": "krunker.io.js",
     "author": "1s3k3b",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "homepage": "https://github.com/1s3k3b/krunker.js#installation",
