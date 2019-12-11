@@ -23,12 +23,16 @@ module.exports = class {
             lastPlayedClass: new Class(classes[stats.c]),
             stats: {
                 timePlayed: {
-                    mins: Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60,
-                    hours: Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24,
+                    ms: data.player_timeplayed,
+                    mins: Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60,
+                    hours: Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24,
                     days: Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24),
             
                     toString(){
-                        return Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m"
+                        return Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + "d " + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m"
+                    },
+                    toNumber(){
+                        return data.player_timeplayed;
                     }
                 },
             
