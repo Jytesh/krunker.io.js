@@ -33,6 +33,7 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 75,
             sight: null,
+            devNumber: 3,
             toString () {
                 return "Pistol";
             }
@@ -64,6 +65,7 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: null,
+            devNumber: 11,
             toString () {
                 return "Desert Eagle";
             }
@@ -95,6 +97,7 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: null,
+            devNumber: 12,
             toString () {
                 return "Alien Blaster";
             }
@@ -135,6 +138,10 @@ module.exports = class Weapon {
             automatic: true,
             baseScore: 50,
             sight: "Red Dot",
+            devNumber: 2,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Assault Rifle";
             }
@@ -166,6 +173,10 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: "Scope",
+            devNumber: 1,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Sniper Rifle";
             }
@@ -197,6 +208,10 @@ module.exports = class Weapon {
             automatic: true,
             baseScore: 50,
             sight: "Red Dot",
+            devNumber: 4,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Submachine Gun";
             }
@@ -228,6 +243,10 @@ module.exports = class Weapon {
             automatic: true,
             baseScore: 50,
             sight: "Red Dot",
+            devNumber: 5,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Light Machine Gun";
             }
@@ -259,6 +278,10 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: "none",
+            devNumber: 6,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Shotgun";
             }  
@@ -290,6 +313,10 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: "none",
+            devNumber: 7,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Revolver";
             }  
@@ -321,6 +348,10 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: "Red Dot",
+            devNumber: 8,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Semi Auto";
             }  
@@ -352,6 +383,10 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: "none",
+            devNumber: 9,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Rocket Launcher";
             }  
@@ -383,6 +418,10 @@ module.exports = class Weapon {
             automatic: true,
             baseScore: 50,
             sight: null,
+            devNumber: 10,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Akimbo Uzi";
             }  
@@ -414,6 +453,10 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: "Red Dot",
+            devNumber: 14,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "Crossbow";
             }  
@@ -445,6 +488,10 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: "none",
+            devNumber: 13,
+            getSkin(n = Math.floor(Math.random() * 100)) {
+                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+            },
             toString () {
                 return "FAMAS";
             }  
