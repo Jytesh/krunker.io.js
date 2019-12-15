@@ -1,4 +1,4 @@
-<div align="center"><a href="https://nodei.co/npm/krunker.io.js/"><img src="https://nodei.co/npm/krunker.io.js.png?downloads=true&stars=true"></a></div>
+<div align="center"><a href="https://nodei.co/npm/krunker.io.js/"><img src="https://nodei.co/npm/krunker.io.js.png?downloads=true&stars=true"></a><a href="https://1s3k3b.github.io/krunkerjs/docs/index.html">Documentation</a></div>
 
 # Installation
 npm: `npm i krunker.io.js`
