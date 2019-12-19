@@ -18,7 +18,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 20,
                 dropoff: 10,
-                toNumber(){
+                valueOf(){
                     return 20;
                 },
                 toString(){
@@ -50,7 +50,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 50,
                 dropoff: 10,
-                toNumber(){
+                valueOf(){
                     return 50;
                 },
                 toString(){
@@ -82,7 +82,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 50,
                 dropoff: 10,
-                toNumber(){
+                valueOf(){
                     return 50;
                 },
                 toString(){
@@ -123,7 +123,7 @@ module.exports = class Weapon {
             damage: {
                 dropoff: 5,
                 damage: 23,
-                toNumber(){
+                valueOf(){
                     return 23;
                 },
                 toString(){
@@ -158,7 +158,7 @@ module.exports = class Weapon {
             damage: {
                 dropoff: 30,
                 damage: 100,
-                toNumber () {
+                valueOf() {
                     return 100;
                 },
                 toString () {
@@ -193,7 +193,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 18,
                 dropoff: 12,
-                toNumber(){
+                valueOf(){
                     return 18;
                 },
                 toString(){
@@ -228,7 +228,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 20,
                 dropoff: 10,
-                toNumber(){
+                valueOf(){
                     return 20;
                 },
                 toString(){
@@ -263,7 +263,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 50,
                 dropoff: 50,
-                toNumber(){
+                valueOf(){
                     return 50;
                 },
                 toString(){
@@ -298,7 +298,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 66,
                 dropoff: 10,
-                toNumber(){
+                valueOf(){
                     return 66;
                 },
                 toString(){
@@ -333,7 +333,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 34,
                 dropoff: 0,
-                toNumber(){
+                valueOf(){
                     return 34;
                 },
                 toString(){
@@ -368,7 +368,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 127,
                 dropoff: 60,
-                toNumber(){
+                valueOf(){
                     return 127;
                 },
                 toString(){
@@ -403,7 +403,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 18 * 2,
                 dropoff: 12,
-                toNumber(){
+                valueOf(){
                     return 18 * 2;
                 },
                 toString(){
@@ -438,7 +438,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 200,
                 dropoff: 0,
-                toNumber(){
+                valueOf(){
                     return 200;
                 },
                 toString(){
@@ -473,7 +473,7 @@ module.exports = class Weapon {
             damage: {
                 damage: 28,
                 dropoff: 5,
-                toNumber(){
+                valueOf(){
                     return 28;
                 },
                 toString(){
