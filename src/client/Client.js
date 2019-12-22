@@ -19,9 +19,9 @@ Object.prototype.forEach = function (callback) {
 }
 
 /**
- * The Client class which lets you interact with the Krunker API.
+ * The API class which lets you interact with the Krunker API.
  */
-module.exports = class Client {
+module.exports = class API {
     constructor () {
         this._cache = new Collection();
         this._updateCache = async () => {
