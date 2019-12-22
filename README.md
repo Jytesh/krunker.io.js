@@ -1,4 +1,9 @@
-<div align="center"><a href="https://nodei.co/npm/krunker.io.js/"><img src="https://nodei.co/npm/krunker.io.js.png?downloads=true&stars=true"></a><p><a href="https://1s3k3b.github.io/krunkerjs/docs/index.html">Documentation (WIP)</a></p></div>
+<div align="center"><a href="https://nodei.co/npm/krunker.io.js/"><img src="https://nodei.co/npm/krunker.io.js.png?downloads=true&stars=true"></a></div>
+<div align="center"><p><a href="https://www.npmjs.com/package/krunker.io.js"><img src="https://img.shields.io/npm/v/krunker.io.js.svg?maxAge=3600" alt="Version"></a><a href="https://www.npmjs.com/package/krunker.js"><img src="https://img.shields.io/npm/dt/krunker.js.svg?maxAge=3600" alt="Downloads"></a>
+	</p>
+  	<p><a href="https://nodei.co/npm/krunker.js/"><img src="https://nodei.co/npm/krunker.js.png?downloads=true&stars=true"></a></p>
+    <p><a href="https://1s3k3b.github.io/krunkerjs/docs/index.html">Documentation (WIP)</a></p>
+</div>
 
 # Installation
 npm: `npm i krunker.io.js`
