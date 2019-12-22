@@ -55,11 +55,9 @@ module.exports = class Client {
      * client.fetchPlayer("1s3k3b").then(p => console.log(`1s3k3b's K/D is ${p.kdr}`))
      */
     fetchPlayer (username) {
-        if (!username) throw new ArgumentError("No username given.");
-        
         this._connectToSocket();
-        
         return new Promise((res, rej) => {
+            if (!username) return rej(new ArgumentError("No username given."));
             this.ws.onopen = () => this.ws.send(encode(["r", ["profile", username, "000000", null]]).buffer);
             this.ws.onerror = err => {
                 this.ws.terminate();
@@ -104,12 +102,11 @@ module.exports = class Client {
      * @returns {Game}
      */
     fetchGame (id) {
-        if (!id) throw new ArgumentError("No ID given");
-        id = id.match(/[A-Z]{2,3}:[a-z0-9]+/);
-        if (!id) return new ArgumentError("Invalid ID given");
-        id = id[0];
-        
         return new Promise((res, rej) => {
+            if (!id) return rej(new ArgumentError("No ID given"));
+            id = id.match(/[A-Z]{2,3}:[a-z0-9]+/);
+            if (!id) return rej(new ArgumentError("Invalid ID given"));
+            id = id[0];
             req("https://matchmaker.krunker.io/game-info?game=" + id, (err, _, body) => {
                 body = JSON.parse(body);
                 if (!body[0]) return rej(new KrunkerAPIError("Game not found"));
