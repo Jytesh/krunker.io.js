@@ -1,5 +1,5 @@
 module.exports = {
-    API: require("./client/API.js"),
+    Client: require("./client/Client.js"),
     Class: require("./structures/Class.js"),
     Weapon: require("./structures/Weapon.js"),
     Game: require("./structures/Game.js"),
