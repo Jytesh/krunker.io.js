@@ -105,6 +105,7 @@ module.exports = class API {
         if (!id) throw new ArgumentError("No ID given");
         id = id.match(/[A-Z]{2,3}:[a-z0-9]+/);
         if (!id) return new ArgumentError("Invalid ID given");
+        id = id[0];
         
         return new Promise((res, rej) => {
             req("https://matchmaker.krunker.io/game-info?game=" + id, (err, _, body) => {
