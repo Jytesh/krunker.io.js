@@ -103,7 +103,7 @@ module.exports = class API {
      */
     fetchGame (id) {
         if (!id) throw new ArgumentError("No ID given");
-        id = id.match(/[A-Z]{2,}:[a-z0-9]+/g);
+        id = id.match(/[A-Z]{2,3}:[a-z0-9]+/);
         if (!id) return new ArgumentError("Invalid ID given");
         
         return new Promise((res, rej) => {
