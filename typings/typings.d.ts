@@ -5,6 +5,13 @@ declare module "krunker.io.js" {
         toString(): string;
         valueOf(): number;
     }
+    declare interface players {
+        players: number;
+        max: number;
+        toString(): string;
+        valueOf(): number;
+    }
+
     declare class Weapon {
         name: string;
         toString(): string;
@@ -32,6 +39,13 @@ declare module "krunker.io.js" {
         secondary: boolean;
         weapon: Weapon;
         toString(): string;
+    }
+    declare class Game {
+        id: string;
+        players: players;
+        gameMode: string;
+        map: string;
+        custom: boolean;
     }
     declare class Client {
         private _connectToSocket(): void;
