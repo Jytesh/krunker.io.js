@@ -13,10 +13,10 @@ module.exports = class Game {
             players: {
                 players: data[2],
                 max: data[3],
-                toString () {
+                toString() {
                     return this.players + "/" + this.max;
                 },
-                toNumber () {
+                valueOf() {
                     return this.players;
                 }
             },
