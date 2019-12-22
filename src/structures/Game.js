@@ -9,7 +9,7 @@ Object.prototype.forEach = function (callback) {
 module.exports = class Game {
     constructor (data) {
         const obj = {
-            code: data[0],
+            id: data[0],
             players: {
                 players: data[2],
                 max: data[3],
