@@ -1,11 +1,13 @@
 const ws = require("ws"); // socket for fetching players
 const req = require("request"); // fetching games
+const fetch = require("node-fetch"); // fetching txt file (changelog)
 const { encode, decode } = require("msgpack-lite"); // encoding and decoding for the socket
 const { Collection } = require("discord.js"); // credit to discord.js for Collections, a better version of JS Maps (discord.js.org)
 
  // more organized than the recieved data
 const Player = require("../structures/Player.js");
 const Game = require("../structures/Game.js");
+const Changelog = require("../structures/Changelog.js");
 
 // errors
 const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
@@ -115,5 +117,8 @@ module.exports = class Client {
                 res(new Game(body));
             });
         });
+    }
+    fetchChangelog() {
+        return new Promise(async r => r(new Changelog((await fetch("https://krunker.io/docs/versions.txt")).text())));
     }
 }
