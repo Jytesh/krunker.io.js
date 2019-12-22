@@ -1,4 +1,9 @@
 declare module "krunker.io.js" {
+    declare interface Weapon {
+        name: string;
+        toString(): string;
+        class: string?;
+    }
     declare interface Class {
         health: number;
         name: string;
