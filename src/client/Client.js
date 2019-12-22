@@ -119,6 +119,6 @@ module.exports = class Client {
         });
     }
     fetchChangelog() {
-        return new Promise(async r => r(new Changelog((await fetch("https://krunker.io/docs/versions.txt")).text())));
+        return new Promise(async r => r(new Changelog(await (await fetch("https://krunker.io/docs/versions.txt")).text())));
     }
 }
