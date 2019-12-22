@@ -5,7 +5,7 @@ declare module "krunker.io.js" {
         toString(): string;
         valueOf(): number;
     }
-    declare interface Weapon {
+    declare class Weapon {
         name: string;
         toString(): string;
         class: string?;
@@ -17,15 +17,23 @@ declare module "krunker.io.js" {
         damage: weaponDmg;
         range: number;
         rateOfFire: number;
+        spread: number?;
+        zoom: number?;
+        recoil: number?;
+        automatic: boolean;
+        baseScore: number;
+        sight: string?;
+        devNumber: number;
+        getSkin(n: number)?: string;
     }
-    declare interface Class {
+    declare class Class {
         health: number;
         name: string;
         secondary: boolean;
         weapon: Weapon;
         toString(): string;
     }
-    declare interface Client {
+    declare class Client {
         private _connectToSocket(): void;
         private _disconnectFromSocket(): void;
         public fetchPlayer(username: string): Promise<Player>;
