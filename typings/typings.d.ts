@@ -50,10 +50,12 @@ declare module "krunker.io.js" {
     declare class Client {
         private _connectToSocket(): void;
         private _disconnectFromSocket(): void;
-        public fetchPlayer(username: string): Promise<Player>;
-        public fetchGame(id: string): Promise<Game>;
+        public fetchPlayer(username: string): Promise<Player?>;
+        public fetchGame(id: string): Promise<Game?>;
         public fetchChangelog(): Promise<Changelog>;
-        public getPlayer(nameOrID: string): Player|Promise<Player>;
+        public getPlayer(nameOrID: string): Player?|Promise<Player?>;
+        public getWeapon(name?: string): Weapon?;
+        public getClass(name?: string): Class?;
     }
 
     export default Client;
