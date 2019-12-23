@@ -9,6 +9,9 @@ const Player = require("../structures/Player.js");
 const Game = require("../structures/Game.js");
 const Changelog = require("../structures/Changelog.js");
 
+const Weapon = require("../structures/Weapon.js");
+const Class = require("../structures/Class.js");
+
 // errors
 const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 const ArgumentError = require("../errors/ArgumentError.js");
@@ -117,5 +120,11 @@ module.exports = class Client {
     }
     fetchChangelog() {
         return new Promise(async r => r(new Changelog(await (await fetch("https://krunker.io/docs/versions.txt")).text())));
+    }
+    getClass(name) {
+        return new Class(name);
+    }
+    getWeapon(name) {
+        return new Weapon(name);
     }
 }
