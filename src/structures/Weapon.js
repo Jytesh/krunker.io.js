@@ -107,6 +107,12 @@ module.exports = class Weapon {
             name: "Combat Knife",
             class: "Runner",
             baseScore: 150,
+            damage: {
+                damage: 50,
+                dropoff: 0,
+                toString: () => "50",
+                valueOf: () => 50
+            },
             toString () {
                 return "Combat Knife";
             }
