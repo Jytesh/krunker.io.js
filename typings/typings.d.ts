@@ -1,61 +1,103 @@
 declare module "krunker.io.js" {
-    declare interface weaponDmg {
-        damage: number;
-        dropoff: number;
-        toString(): string;
-        valueOf(): number;
+    class Player {
+        username: string;
+        level: number;
+        levelProgress: number;
+        score: number;
+        displayName: string;
+        id: string;
+        lastPlayedClass?: Class;
+        stats: {
+            shots: number;
+            hits: number;
+            accuracy: number;
+            nukes: number;
+            kills: number;
+            deaths: number;
+            kdr: number;
+            gamesPlayed: number;
+            wins: number;
+            losses: number;
+            wlr: number;
+            kpg: number;
+            timePlayed: {
+                ms: number;
+                mins: number;
+                hours: number;
+                days: number;
+                toString(): string;
+                valueOf(): number;
+            }
+        };
+        social: {
+            clan: string | null;
+            followers: number;
+            following: number;
+        };
     }
-    declare interface players {
-        players: number;
-        max: number;
-        toString(): string;
-        valueOf(): number;
+    class Version {
+        version: string;
+        changes: Array<string>;
     }
-
-    declare class Weapon {
+    class Changelog {
+        versions: Array<Version>;
+        latestVersion: Version;
+        currentVersion: string;
+    }
+    class Weapon {
         name: string;
         toString(): string;
-        class: string?;
+        class: string;
         swapTime: number;
-        aimSpeed: number;
+        aimSpeed?: number;
         speedMultiplier: number;
-        ammo: number?;
-        reloadTime: number?;
-        damage: weaponDmg;
+        ammo?: number;
+        reloadTime?: number;
+        damage: {
+            damage: number;
+            dropoff: number;
+            toString(): string;
+            valueOf(): number;
+        };
         range: number;
         rateOfFire: number;
-        spread: number?;
-        zoom: number?;
-        recoil: number?;
+        spread?: number;
+        zoom?: number;
+        recoil?: number;
         automatic: boolean;
         baseScore: number;
-        sight: string?;
-        devNumber: number;
-        getSkin(n: number)?: string;
+        sight: string;
+        devNumber?: number;
+        getSkin?(n: number): string;
     }
-    declare class Class {
+    class Class {
         health: number;
         name: string;
         secondary: boolean;
         weapon: Weapon;
         toString(): string;
     }
-    declare class Game {
+    class Game {
         id: string;
-        players: players;
+        players: {
+            players: number;
+            max: number;
+            toString(): string;
+            valueOf(): number;
+        };
         gameMode: string;
         map: string;
         custom: boolean;
     }
-    declare class Client {
+    class Client {
         private _connectToSocket(): void;
         private _disconnectFromSocket(): void;
-        public fetchPlayer(username: string): Promise<Player?>;
-        public fetchGame(id: string): Promise<Game?>;
+        public fetchPlayer(username: string): Promise<Player>;
+        public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
-        public getPlayer(nameOrID: string): Player?|Promise<Player?>;
-        public getWeapon(name?: string): Weapon?;
-        public getClass(name?: string): Class?;
+        public getPlayer(nameOrID: string): Player|Promise<Player>;
+        public getWeapon(name?: string): Weapon;
+        public getClass(name?: string): Class;
     }
 
     export default Client;
