@@ -31,7 +31,7 @@ module.exports = class {
                     toString(){
                         return Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + "d " + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m"
                     },
-                    toNumber(){
+                    valueOf(){
                         return data.player_timeplayed;
                     }
                 },
