@@ -35,14 +35,13 @@ declare module "krunker.io.js" {
             following: number;
         };
     }
-    class Version {
+    interface Version {
         version: string;
         changes: Array<string>;
     }
     class Changelog {
         versions: Array<Version>;
         latestVersion: Version;
-        currentVersion: string;
     }
     class Weapon {
         name: string;
