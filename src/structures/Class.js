@@ -141,4 +141,9 @@ module.exports = class Class {
     }
 }
 
-const Weapon = require("./Weapon.js");
+class Weapon extends require("./Weapon.js") {
+    constructor(x) {
+        super(x);
+        this.class = undefined;
+    }
+}
