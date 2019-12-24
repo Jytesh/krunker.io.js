@@ -517,4 +517,9 @@ module.exports = class Weapon {
     }
 }
 
-const Class = require("./Class.js");
+class Class extends require("./Class.js") {
+    constructor(x) {
+        super(x);
+        this.weapon = undefined;
+    }
+}
