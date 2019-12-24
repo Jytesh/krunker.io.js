@@ -4,7 +4,7 @@
     "version": "1.0.4",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
-    "typings": "./typings/typings.d.ts"
+    "typings": "./typings/typings.d.ts",
     "homepage": "https://1s3k3b.github.io/krunkerjs/index.html",
     "scripts": {
         "fetchPlayer": "node ./test/fetchPlayer.js",
