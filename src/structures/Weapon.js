@@ -517,9 +517,126 @@ module.exports = class Weapon {
     }
 }
 
-class Class extends require("./Class.js") {
-    constructor(x) {
-        super(x);
-        this.weapon = undefined;
+class Class {
+    constructor (name = "Triggerman") {
+        const triggerman = {
+            health: 100,
+            name: "Triggerman",
+            secondary: true,
+            toString(){
+                return "Triggerman";
+            }
+        };
+        
+        const hunter = {
+            health: 60,
+            name: "Hunter",
+            secondary: true,
+            toString(){
+                return "Hunter";
+            }
+        };
+        
+        const runngun = {
+            health: 100,
+            name: "Run N Gun",
+            secondary: false,
+            toString(){
+                return "Run N Gun";
+            }
+        };
+        
+        const spraynpray = {
+            health: 170,
+            name: "Spray N Pray",
+            secondary: true,
+            toString(){
+                return "Spray N Pray";
+            }
+        };
+        
+        const vince = {
+            health: 100,
+            name: "Vince",
+            secondary: true,
+            toString(){
+                return "Vince";
+            }
+        };
+        
+        const detective = {
+            health: 100,
+            name: "Detective",
+            secondary: false,
+            toString(){
+                return "Detective";
+            }
+        };
+        
+        const marksman = {
+            health: 90,
+            name: "Marksman",
+            secondary: true,
+            toString(){
+                return "Marksman";
+            }
+        };
+        
+        const rocketeer = {
+            health: 130,
+            name: "Rocketeer",
+            secondary: true,
+            toString(){
+                return "Rocketeer";
+            }
+        };
+    
+        const agent = {
+            health: 100,
+            name: "Agent",
+            secondary: false,
+            toString(){
+                return "Agent";
+            }
+        };
+        
+        const runner = {
+            health: 100,
+            name: "Runner",
+            secondary: false,
+            toString(){
+                return "Runner";
+            }
+        };
+        
+        const bowman = {
+            health: 100,
+            name: "Bowman",
+            secondary: true,
+            toString(){
+                return "Bowman";
+            }
+        };
+        
+        const commando = {
+            health: 100,
+            name: "Commando",
+            secondary: true,
+            toString(){
+                return "Commando";
+            }
+        };
+        
+        const obj = {
+            triggerman, hunter, runngun, spraynpray, vince, detective, marksman, rocketeer, agent, runner, bowman, commando
+        }[name.split(" ").join("").toLowerCase()];
+        
+        if (!obj) return void 0;
+        
+        obj.forEach((k, v) => {
+            this[k] = v;
+        });
+        
+        return obj;
     }
 }
