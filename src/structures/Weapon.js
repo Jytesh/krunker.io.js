@@ -105,7 +105,7 @@ module.exports = class Weapon {
         
         const combatknife = {
             name: "Combat Knife",
-            class: "Runner",
+            class: new Class("Runner"),
             baseScore: 150,
             damage: {
                 damage: 50,
@@ -120,7 +120,7 @@ module.exports = class Weapon {
         
         const assaultrifle = {
             name: "Assault Rifle",
-            class: "Triggerman",
+            class: new Class("Triggerman"),
             swapTime: 300,
             aimSpeed: 130,
             speedMultiplier: 0.95,
@@ -155,7 +155,7 @@ module.exports = class Weapon {
     
         const sniperrifle = {
             name: "Sniper Rifle",
-            class: "Hunter",
+            class: new Class("Hunter"),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 0.95,
@@ -190,7 +190,7 @@ module.exports = class Weapon {
 
         const submachinegun = {
             name: "Submachine Gun",
-            class: "Run N Gun",
+            class: new Class("Run N Gun"),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -225,7 +225,7 @@ module.exports = class Weapon {
 
         const lightmachinegun = {
             name: "Light Machine Gun",
-            class: "Spray N Pray",
+            class: new Class("Spray N Pray"),
             swapTime: 700,
             aimSpeed: 200,
             speedMultiplier: 0.79,
@@ -260,7 +260,7 @@ module.exports = class Weapon {
         
         const shotgun = {
             name: "Shotgun",
-            class: "Vince",
+            class: new Class("Vince"),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -295,7 +295,7 @@ module.exports = class Weapon {
         
         const revolver = {
             name: "Revolver",
-            class: "Detective",
+            class: new Class("Detective"),
             swapTime: 200,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -330,7 +330,7 @@ module.exports = class Weapon {
         
         const semiauto = {
             name: "Semi Auto",
-            class: "Marksman",
+            class: new Class("Marksman"),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -365,7 +365,7 @@ module.exports = class Weapon {
         
         const rocketlauncher = {
             name: "Rocket Launcher",
-            class: "Rocketeer",
+            class: new Class("Rocketeer"),
             swapTime: 600,
             aimSpeed: 200,
             speedMultiplier: 1.9,
@@ -400,7 +400,7 @@ module.exports = class Weapon {
         
         const akimbouzi = {
             name: "Akimbo Uzi",
-            class: "Agent",
+            class: new Class("Agent"),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -435,7 +435,7 @@ module.exports = class Weapon {
         
         const crossbow = {
             name: "Crossbow",
-            class: "Bowman",
+            class: new Class("Bowman"),
             swapTime: 200,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -470,7 +470,7 @@ module.exports = class Weapon {
         
         const famas = {
             name: "FAMAS",
-            class: "Detective",
+            class: new Class("Detective"),
             swapTime: 300,
             aimSpeed: 130,
             speedMultiplier: 0.95,
@@ -516,3 +516,5 @@ module.exports = class Weapon {
         return obj;
     }
 }
+
+const Class = require("./Class.js");
