@@ -1,5 +1,3 @@
-const Weapon = require("./Weapon.js");
-
 // from my BetterJS
 Object.prototype.forEach = function (callback) {
     Object.keys(this).forEach((key, index) => {
@@ -142,3 +140,5 @@ module.exports = class Class {
         return obj;
     }
 }
+
+const Weapon = require("./Weapon.js");
