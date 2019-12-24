@@ -4,7 +4,7 @@ module.exports = class Changelog {
         
         let arr = [];
         text.split("\n").filter(x => x).forEach(x => {
-            if (x.startsWith("=")) return arr.push({
+            if (/^ ?=/g.test(x)) return arr.push({
                 version: x.match(/([0-9].?){3}/g) ? x.match(/([0-9].?){3}/g)[0] : "",
                 changes: [] 
             });
