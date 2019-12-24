@@ -46,7 +46,7 @@ declare module "krunker.io.js" {
     class Weapon {
         name: string;
         toString(): string;
-        class: string;
+        class: Class;
         swapTime: number;
         aimSpeed?: number;
         speedMultiplier: number;
