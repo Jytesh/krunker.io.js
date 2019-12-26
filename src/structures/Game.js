@@ -5,7 +5,6 @@ Object.prototype.forEach = function (callback) {
     });
 }
 
-
 module.exports = class Game {
     constructor (data) {
         const obj = {
