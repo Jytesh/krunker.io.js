@@ -1,5 +1,6 @@
 declare module "krunker.io.js" {
     class Player {
+        constructor(data: string);
         username: string;
         level: number;
         levelProgress: number;
@@ -40,10 +41,12 @@ declare module "krunker.io.js" {
         changes: Array<string>;
     }
     class Changelog {
+        constructor(text: string);
         versions: Array<Version>;
         latestVersion: Version;
     }
     class Weapon {
+        constructor(name: string);
         name: string;
         toString(): string;
         class: Class;
@@ -70,6 +73,7 @@ declare module "krunker.io.js" {
         getSkin?(n: number): string;
     }
     class Class {
+        constructor(name: string);
         health: number;
         name: string;
         secondary: boolean;
@@ -77,6 +81,7 @@ declare module "krunker.io.js" {
         toString(): string;
     }
     class Game {
+        constructor(data: Array<any>);
         id: string;
         players: {
             players: number;
@@ -89,6 +94,7 @@ declare module "krunker.io.js" {
         custom: boolean;
     }
     class Client {
+        constructor();
         private _connectToSocket(): void;
         private _disconnectFromSocket(): void;
         public fetchPlayer(username: string): Promise<Player>;
