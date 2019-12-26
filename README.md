@@ -3,6 +3,12 @@
 # Installation
 npm: `npm i krunker.io.js`
 
+# About
+krunker.io.js is an API wrapper for [krunker.io](https://krunker.io/) which allows you to fetch player and game data, and get stats about weapons and classes.
+- Supports TypeScript
+- Object-oriented
+- Has weapon and class stats
+
 # Usage
 ```js
 const krunker = require("krunker.io.js");
