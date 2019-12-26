@@ -36,14 +36,16 @@ declare module "krunker.io.js" {
             following: number;
         };
     }
-    interface Version {
-        version: string;
-        changes: Array<string>;
-    }
     export class Changelog {
         constructor(text: string);
-        versions: Array<Version>;
-        latestVersion: Version;
+        versions: Array<{
+            version: string;
+            changes: Array<string>;
+        }>;
+        latestVersion: {
+            version: string;
+            changes: Array<string>;
+        };
     }
     export class Weapon {
         constructor(name: string);
