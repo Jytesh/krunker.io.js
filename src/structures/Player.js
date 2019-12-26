@@ -60,9 +60,7 @@ module.exports = class {
             }
         };
 
-        obj.forEach((k, v) => {
-            this[k] = v;
-        });
+        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false }));
 
         return obj;
     }
