@@ -100,4 +100,8 @@ declare module "krunker.io.js" {
     }
 
     export default Client;
+    export default Class;
+    export default Game;
+    export default Weapon;
+    export default Changelog;
 }
