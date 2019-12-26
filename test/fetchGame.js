@@ -1,4 +1,4 @@
 const Krunker = require("../src/index.js");
 const client = new Krunker.Client();
 
-(async () => console.log(await client.fetchGame("FRA:0ntcb")))();
+client.fetchGame("FRA:0ntcb").then(console.log); // outdated ID
