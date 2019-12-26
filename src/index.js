@@ -3,5 +3,6 @@ module.exports = {
     Class: require("./structures/Class.js"),
     Weapon: require("./structures/Weapon.js"),
     Game: require("./structures/Game.js"),
+    Changelog: require("./structures/Changelog.js"),
     util: require("./util/index.js")
 };
