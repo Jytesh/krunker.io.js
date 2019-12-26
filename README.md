@@ -20,3 +20,4 @@ client.fetchPlayer("1s3k3b").then(console.log);
 // calculating chances for getting a contraband from heroic spins with 20k KR
 console.log(krunker.util.spinChance("heroic", "contraband", 20000));
 ```
+[More examples](https://github.com/1s3k3b/krunker.io.js/tree/master/test)
