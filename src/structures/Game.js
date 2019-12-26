@@ -24,7 +24,7 @@ module.exports = class Game {
             custom: data[4].cs
         };
         
-        obj.forEach((k, v) => this[k] = v);
+        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false }));
         
         return obj;
     }
