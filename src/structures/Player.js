@@ -38,20 +38,20 @@ module.exports = class {
             
                 shots: stats.s,
                 hits: stats.h,
-                accuracy: (stats.s / stats.h).toFixed(2),
+                accuracy: Number((stats.s / stats.h).toFixed(2)),
                 
                 nukes: stats.n || 0,
                 
                 kills: data.player_kills,
                 deaths: data.player_deaths,
-                kdr: (data.player_kills / data.player_deaths).toFixed(2),
+                kdr: Number((data.player_kills / data.player_deaths).toFixed(2)),
                 
                 gamesPlayed: data.player_games_played,
                 wins: data.player_wins,
                 losses: data.player_games_played - data.player_wins,
-                wlr: (data.player_wins / (data.player_games_played - data.player_wins)).toFixed(2),
+                wlr: Number((data.player_wins / (data.player_games_played - data.player_wins)).toFixed(2)),
             
-                kpg: (data.player_games_played / data.player_kills).toFixed(2)
+                kpg: Number((data.player_games_played / data.player_kills).toFixed(2))
             },
             social: {
                 clan: data.player_clan ? data.player_clan : null,
