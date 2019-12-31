@@ -9,6 +9,7 @@ Object.prototype.forEach = function (callback) {
 
 module.exports = class {
     constructor (data) {
+        this.raw = data;
         const stats = JSON.parse(data.player_stats);
         
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
