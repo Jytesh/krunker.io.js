@@ -7,8 +7,8 @@ Object.prototype.forEach = function (callback) {
     });
 }
 
-module.exports = class {
-    constructor (data) {
+module.exports = class Player {
+    constructor(data) {
         this.raw = data;
         const stats = JSON.parse(data.player_stats);
         
