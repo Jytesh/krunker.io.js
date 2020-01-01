@@ -12,8 +12,7 @@
         "util": "node ./test/util.js",
         "class": "node ./test/class.js",
         "weapon": "node ./test/weapon.js",
-        "fetchChangelog": "node ./test/fetchChangelog.js",
-        "fetchClan": "node ./test/fetchClan.js"
+        "fetchChangelog": "node ./test/fetchChangelog.js"
     },
     "files": [
         "src"
