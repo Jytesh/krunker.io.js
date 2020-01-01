@@ -16,30 +16,26 @@ const Class = require("../structures/Class.js");
 const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 const ArgumentError = require("../errors/ArgumentError.js");
 
-// from my BetterJS
 Object.prototype.forEach = function (callback) {
     Object.keys(this).forEach((key, index) => {
         callback(key, this[key], index, this);
     });
 }
 
-/**
- * The API class which lets you interact with the Krunker API.
- */
 module.exports = class Client {
     constructor () {
         this._cache = new Collection();
-        this._updateCache = async () => {
-            const usernames = this._cache.keyArray().map(d => d.username);
+        Object.defineProperty(this, "_updateCache", {
+            value: async () => {
+                const usernames = this._cache.keyArray().map(d => d.username);
             
-            for (const un in usernames) {
-                const u = await this.fetchPlayer(un);
-                this._cache.set({
-                    id: u.id,
-                    username: u.username
-                }, u);
-            }
-        };
+                for(const un of usernames) {
+                    const u = await this.fetchPlayer(un);
+                    this._cache.set(u.username + "_" + u.id, u);
+                }
+            },
+            writable: false
+        });
     }
     _connectToSocket () {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", {
@@ -49,15 +45,7 @@ module.exports = class Client {
     _disconnectFromSocket () {
         if (this.ws && this.ws.readyState === 1) this.ws.close();
     }
-    
-    /**
-     * A method for getting a player's data.
-     * @param {String} username the username of the desired player.
-     * @returns {Promise<Player>}
-     * @example
-     * client.fetchPlayer("1s3k3b").then(p => console.log(`1s3k3b's K/D is ${p.kdr}`))
-     */
-    fetchPlayer (username) {
+    fetchPlayer(username) {
         this._connectToSocket();
         return new Promise((res, rej) => {
             if (!username) return rej(new ArgumentError("No username given."));
@@ -70,41 +58,39 @@ module.exports = class Client {
             this.ws.onmessage = buffer => {
                 const userData = decode(new Uint8Array(buffer.data))[1][2];
                 this._disconnectFromSocket();
-                
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
-                
                 const p = new Player(userData);
-                this._cache.set({
-                    id: p.id,
-                    username: p.username
-                }, p);
+                this._cache.set(p.username + "_" + p.id, p);
                 res(p);
             };
         });
     }
-    
-    /*
-     * Gets a user by name or ID from the client's cache. Using this is not recommended, because cache builds up over time.
-     * @param {string|number} nameOrID the name or ID of the desired player
-     * @returns {Player|Promise<Player>}
-     */
-    getPlayer (nameOrID) {
+    fetchClan(name) {
+        this._connectToSocket();
+        return new Promise((res, rej) => {
+            if (!name) return rej(new ArgumentError("No clan name given."));
+            this.ws.onopen = () => this.ws.send(encode(["r", ["clan", name, "000000", null]]).buffer);
+            this.ws.onerror = err => {
+                this.ws.terminate();
+                rej(err);
+            };
+            
+            this.ws.onmessage = buffer => {
+                const clanData = decode(new Uint8Array(buffer.data))[1][2];
+                this._disconnectFromSocket();
+                if (!clanData) return rej(new KrunkerAPIError("Clan not found"));
+                res(p);
+            };
+        });
+    }
+    getPlayer(nameOrID) {
         if (!nameOrID) throw new ArgumentError("No name or ID given.");
-
         const u = this._cache.find(obj => [obj.id, obj.username].includes(nameOrID));
-        
         if (!u) return this.fetchPlayer(nameOrID);
-        
         this._updateCache();
         return u;
     }
-    
-    /**
-     * Gets info about a game.
-     * @param {string} id The ID of the game - the part in the game's URL after ?game=
-     * @returns {Game}
-     */
-    fetchGame (id) {
+    fetchGame(id) {
         return new Promise((res, rej) => {
             if (!id) return rej(new ArgumentError("No ID given"));
             id = id.match(/[A-Z]{2,3}:[a-z0-9]+/);
