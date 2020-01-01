@@ -9,7 +9,6 @@ Object.prototype.forEach = function (callback) {
 
 module.exports = class Player {
     constructor(data) {
-        this.raw = data;
         const stats = JSON.parse(data.player_stats);
         
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
@@ -62,6 +61,7 @@ module.exports = class Player {
         };
 
         obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false }));
+        Object.defineProperty(this, "raw", { value: data, enumerable: false, writable: false });
 
         return obj;
     }
