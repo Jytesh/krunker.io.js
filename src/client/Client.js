@@ -76,6 +76,7 @@ module.exports = class Client {
             };
             
             this.ws.onmessage = buffer => {
+                console.log(buffer);
                 const clanData = decode(new Uint8Array(buffer.data))[1][2];
                 this._disconnectFromSocket();
                 if (!clanData) return rej(new KrunkerAPIError("Clan not found"));
