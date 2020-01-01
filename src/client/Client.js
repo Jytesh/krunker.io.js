@@ -65,25 +65,6 @@ module.exports = class Client {
             };
         });
     }
-    fetchClan(name) {
-        this._connectToSocket();
-        return new Promise((res, rej) => {
-            if (!name) return rej(new ArgumentError("No clan name given."));
-            this.ws.onopen = () => this.ws.send(encode(["r", ["clan", name, "000000", null]]).buffer);
-            this.ws.onerror = err => {
-                this.ws.terminate();
-                rej(err);
-            };
-            
-            this.ws.onmessage = buffer => {
-                console.log(buffer);
-                const clanData = decode(new Uint8Array(buffer.data))[1][2];
-                this._disconnectFromSocket();
-                if (!clanData) return rej(new KrunkerAPIError("Clan not found"));
-                res(p);
-            };
-        });
-    }
     getPlayer(nameOrID) {
         if (!nameOrID) throw new ArgumentError("No name or ID given.");
         const u = this._cache.find(obj => [obj.id, obj.username].includes(nameOrID));
