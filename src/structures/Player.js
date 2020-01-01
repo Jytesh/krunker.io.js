@@ -60,7 +60,7 @@ module.exports = class Player {
             }
         };
 
-        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false }));
+        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
         Object.defineProperty(this, "raw", { value: data, enumerable: false, writable: false });
 
         return this;
