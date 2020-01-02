@@ -14,7 +14,8 @@ module.exports = class Class {
             weapon: new Weapon("Assault Rifle"),
             toString(){
                 return "Triggerman";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/1/15/Trigger.PNG/revision/latest/scale-to-width-down/310?cb=20191021162058"
         };
         
         const hunter = {
@@ -24,7 +25,8 @@ module.exports = class Class {
             weapon: new Weapon("Sniper Rifle"),
             toString(){
                 return "Hunter";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/1/1f/Hunter.PNG/revision/latest/scale-to-width-down/310?cb=20191021161821"
         };
         
         const runngun = {
@@ -34,7 +36,8 @@ module.exports = class Class {
             weapon: new Weapon("Submachine Gun"),
             toString(){
                 return "Run N Gun";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/c/c8/Run_n_gun.PNG/revision/latest/scale-to-width-down/310?cb=20191021161851"
         };
         
         const spraynpray = {
@@ -44,7 +47,8 @@ module.exports = class Class {
             weapon: new Weapon("Light Machine Gun"),
             toString(){
                 return "Spray N Pray";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/c/c7/Capture.PNG/revision/latest/scale-to-width-down/310?cb=20191021162149"
         };
         
         const vince = {
@@ -54,7 +58,8 @@ module.exports = class Class {
             weapon: new Weapon("Shotgun"),
             toString(){
                 return "Vince";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/d/d3/Vinc.PNG/revision/latest/scale-to-width-down/310?cb=20191021162119"
         };
         
         const detective = {
@@ -64,7 +69,8 @@ module.exports = class Class {
             weapon: new Weapon("Revolver"),
             toString(){
                 return "Detective";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/a/a6/Screenshot_2018-10-13_at_7.14.06_PM.png/revision/latest/scale-to-width-down/310?cb=20191021161955"
         };
         
         const marksman = {
@@ -74,7 +80,8 @@ module.exports = class Class {
             weapon: new Weapon("Semi Auto"),
             toString(){
                 return "Marksman";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/0/08/MARKS.PNG/revision/latest/scale-to-width-down/310?cb=20191021162026"
         };
         
         const rocketeer = {
@@ -84,7 +91,8 @@ module.exports = class Class {
             weapon: new Weapon("Rocket Launcher"),
             toString(){
                 return "Rocketeer";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/b/b1/RLAUNCH.PNG/revision/latest/scale-to-width-down/310?cb=20191021162212"
         };
     
         const agent = {
@@ -94,7 +102,8 @@ module.exports = class Class {
             weapon: new Weapon("Akimbo Uzi"),
             toString(){
                 return "Agent";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/8/84/Agent-select-screen.png/revision/latest/scale-to-width-down/310?cb=20191021161719"
         };
         
         const runner = {
@@ -104,7 +113,8 @@ module.exports = class Class {
             weapon: new Weapon("Combat Knife"),
             toString(){
                 return "Runner";
-            }
+            },
+            _avatar: ""
         };
         
         const bowman = {
@@ -114,7 +124,8 @@ module.exports = class Class {
             weapon: new Weapon("Crossbow"),
             toString(){
                 return "Bowman";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/3/30/Bowman.png/revision/latest/scale-to-width-down/310?cb=20191021161923"
         };
         
         const commando = {
@@ -124,7 +135,8 @@ module.exports = class Class {
             weapon: new Weapon("Famas"),
             toString(){
                 return "Commando";
-            }
+            },
+            _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/5/50/Commando.png/revision/latest/scale-to-width-down/310?cb=20191021160148"
         };
         
         const obj = {
