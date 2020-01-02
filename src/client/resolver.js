@@ -3,6 +3,18 @@ const Weapon = require("../structures/Weapon.js");
 
 const classArr = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
 const weaponArr = classArr.map(n => new Class(n).weapon.name);
+const servers = {
+    "fra": "Frankfurt",
+    "sv": "Silicon Valley",
+    "ny": "New York",
+    "mia": "Miami",
+    "fl": "Miami",
+    "la": "Los Angeles",
+    "js": "New Jersey",
+    "tx": "Texas",
+    "syd": "Sydney",
+    "tok": "Tokyo"
+};
 
 module.exports = {
     classNameArray(arr) {
@@ -21,5 +33,5 @@ module.exports = {
         if (arr.some(v => v instanceof Class && new Class(v.weapon.name))) return arr.filter(v => v instanceof Class && new Class(v.weapon.name)).map(w => w.weapon.name);
         return classArr;
     },
-    resolveServer: str => servers[str]
+    resolveServer: str => servers[str.toLowerCase().trim()] || ""
 };
