@@ -86,7 +86,7 @@ module.exports = {
     weapons,
     spins,
     resolver,
-    gameIDregExp: /[A-Z]{2,}:[a-z0-9]]+/g,
+    gameIDregExp: /[A-Z]{2,3}:[a-z0-9]{5}/,
     averageStat(structure, stat, arr, decimalDigits = 2) {
         if (!structure) return;
         structure = structure.trim().toLowerCase();
