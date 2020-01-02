@@ -75,7 +75,7 @@ module.exports = class Client {
     fetchGame(id) {
         return new Promise((res, rej) => {
             if (!id) return rej(new ArgumentError("No ID given"));
-            id = id.match(/[A-Z]{2,3}:[a-z0-9]+/);
+            id = id.match(/[A-Z]{2,3}:[a-z0-9]{5}/);
             if (!id) return rej(new ArgumentError("Invalid ID given"));
             id = id[0];
             req("https://matchmaker.krunker.io/game-info?game=" + id, (err, _, body) => {
