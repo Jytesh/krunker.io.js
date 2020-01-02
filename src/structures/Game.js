@@ -1,4 +1,5 @@
-// from my BetterJS
+const resolver = require("../client/resolver.js");
+
 Object.prototype.forEach = function (callback) {
     Object.keys(this).forEach((key, index) => {
         callback(key, this[key], index, this);
