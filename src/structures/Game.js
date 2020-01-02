@@ -6,7 +6,7 @@ Object.prototype.forEach = function (callback) {
 }
 
 module.exports = class Game {
-    constructor (data) {
+    constructor(data) {
         const obj = {
             id: data[0],
             players: {
@@ -24,7 +24,7 @@ module.exports = class Game {
             custom: data[4].cs
         };
         
-        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false }));
+        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
         
         return obj;
     }
