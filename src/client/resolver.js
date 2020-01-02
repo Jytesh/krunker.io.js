@@ -20,5 +20,6 @@ module.exports = {
         if (arr.some(v => Boolean(new Class(v)))) return arr.filter(v => Boolean(new Class(v))).map(c => c.weapon.name);
         if (arr.some(v => v instanceof Class && new Class(v.weapon.name))) return arr.filter(v => v instanceof Class && new Class(v.weapon.name)).map(w => w.weapon.name);
         return classArr;
-    }
+    },
+    resolveServer: str => servers[str]
 };
