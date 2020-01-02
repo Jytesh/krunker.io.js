@@ -21,7 +21,8 @@ module.exports = class Game {
             },
             gameMode: data[4].i.split("_")[0],
             map: data[4].i.split("_")[1],
-            custom: data[4].cs
+            custom: data[4].cs,
+            server: resolver.resolveServer(data[0].split(":")[0]) 
         };
         
         obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
