@@ -13,6 +13,6 @@ module.exports = class Changelog {
         arr = arr.filter(x => x.version);
         
         this.versions = arr;
-        this.latestVersion = arr[0];
+        this.latestVersion = arr[arr.length - 1];
     }
 }
