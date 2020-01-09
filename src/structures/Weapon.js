@@ -632,7 +632,7 @@ class Class {
         }[name.split(" ").join("").toLowerCase()];
         
         if (!obj) return void 0;
-        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false }));
+        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
         
         return obj;
     }
