@@ -2,6 +2,11 @@ const resolver = require("../client/resolver.js");
 const Class = require("../structures/Class.js");
 const Weapon = require("../structures/Weapon.js");
 
+const round = (n, r) => {
+    while (n % r !== 0) n--;
+    return n;
+};
+
 const avg = (...nums) => nums.reduce((acc, val) => acc + val) / nums.length;
 const mostOccurs = arr => {
     const map = new Map();
@@ -113,6 +118,7 @@ module.exports = {
         rarity = rarity.toLowerCase().trim();
         if (!spin) return 0;
         if (kr < spin.cost) return 0;
+        kr = round(kr, spin.cost);
         return (kr / spin.cost * spin[rarity]).toFixed(2);
     },
     nukeChance(kills = 0, deaths = 0) {
