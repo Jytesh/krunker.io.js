@@ -50,6 +50,6 @@ console.log(util.stringifySettings(
     {
         seperator: ": ", // default: ": "
         lineBreaks: 1, // default: 1
-        includeSettings: false // default: true
+        includeControls: false // default: true
     }
 ));
