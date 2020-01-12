@@ -37,7 +37,7 @@ const mostOccurs = arr => {
 };
 
 const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
-const weapons = classes.map(n => new Class(n).weapon.name);
+const weapons = classes.map(n => new Class(n).weapon.name).filter(x => x);
 const spins = {
     starter: {
         cost: 50,
