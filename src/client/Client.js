@@ -1,18 +1,14 @@
-const ws = require("ws"); // socket for fetching players
-const req = require("request"); // fetching games
-const fetch = require("node-fetch"); // fetching txt file (changelog)
-const { encode, decode } = require("msgpack-lite"); // encoding and decoding for the socket
-const { Collection } = require("discord.js"); // credit to discord.js for Collections, a better version of JS Maps (discord.js.org)
+const ws = require("ws");
+const fetch = require("node-fetch");
+const { encode, decode } = require("msgpack-lite");
+const { Collection } = require("discord.js");
 
- // more organized than the recieved data
 const Player = require("../structures/Player.js");
 const Game = require("../structures/Game.js");
 const Changelog = require("../structures/Changelog.js");
-
 const Weapon = require("../structures/Weapon.js");
 const Class = require("../structures/Class.js");
 
-// errors
 const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 const ArgumentError = require("../errors/ArgumentError.js");
 
@@ -23,7 +19,7 @@ Object.prototype.forEach = function (callback) {
 }
 
 module.exports = class Client {
-    constructor () {
+    constructor() {
         this._cache = new Collection();
         Object.defineProperty(this, "_updateCache", {
             value: async () => {
@@ -37,12 +33,12 @@ module.exports = class Client {
             writable: false
         });
     }
-    _connectToSocket () {
+    _connectToSocket() {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", {
             handshakeTimeout: 10000
         });
     }
-    _disconnectFromSocket () {
+    _disconnectFromSocket() {
         if (this.ws && this.ws.readyState === 1) this.ws.close();
     }
     fetchPlayer(username) {
@@ -66,24 +62,20 @@ module.exports = class Client {
         });
     }
     getPlayer(nameOrID) {
-        if (!nameOrID) throw new ArgumentError("No name or ID given.");
+        if (!nameOrID) throw new ArgumentError("No name or ID given");
         const u = this._cache.find(obj => [obj.id, obj.username].includes(nameOrID));
         if (!u) return this.fetchPlayer(nameOrID);
         this._updateCache();
         return u;
     }
     fetchGame(id) {
-        return new Promise((res, rej) => {
+        return new Promise(async (res, rej) => {
             if (!id) return rej(new ArgumentError("No ID given"));
-            id = id.match(/[A-Z]{2,3}:[a-z0-9]{5}/);
+            [ id ] = `${id}`.match(/[A-Z]{2,3}:[a-z0-9]{5}/) || [];
             if (!id) return rej(new ArgumentError("Invalid ID given"));
-            id = id[0];
-            req("https://matchmaker.krunker.io/game-info?game=" + id, (err, _, body) => {
-                body = JSON.parse(body);
-                if (!body[0]) return rej(new KrunkerAPIError("Game not found"));
-                
-                res(new Game(body));
-            });
+            const r = await fetch("https://matchmaker.krunker.io/game-info?game=" + id);
+            if (!r.ok) rej(new KrunkerAPIError("Invalid ID given"));
+            res(new Game(await r.json()));
         });
     }
     fetchChangelog() {
