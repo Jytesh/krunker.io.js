@@ -12,37 +12,12 @@ const Class = require("../structures/Class.js");
 const KrunkerAPIError = require("../errors/KrunkerAPIError.js");
 const ArgumentError = require("../errors/ArgumentError.js");
 
-Object.prototype.forEach = function (callback) {
-    Object.keys(this).forEach((key, index) => {
-        callback(key, this[key], index, this);
-    });
-}
-
 module.exports = class Client {
     constructor() {
-        this._cache = new Collection();
-        Object.defineProperty(this, "_updateCache", {
-            value: async () => {
-                const usernames = this._cache.keyArray().map(d => d.username);
-            
-                for(const un of usernames) {
-                    const u = await this.fetchPlayer(un);
-                    this._cache.set(u.username + "_" + u.id, u);
-                }
-            },
-            writable: false
-        });
+        this.users = new Collection();
     }
-    _connectToSocket() {
-        this.ws = new ws("wss://krunker_social.krunker.io/ws", {
-            handshakeTimeout: 10000
-        });
-    }
-    _disconnectFromSocket() {
-        if (this.ws && this.ws.readyState === 1) this.ws.close();
-    }
-    fetchPlayer(username) {
-        this._connectToSocket();
+    fetchPlayer(username, { cache = true, raw = false } = {}) {
+        this._connectWS();
         return new Promise((res, rej) => {
             if (!username) return rej(new ArgumentError("No username given."));
             this.ws.onopen = () => this.ws.send(encode(["r", ["profile", username, "000000", null]]).buffer);
@@ -53,20 +28,20 @@ module.exports = class Client {
             
             this.ws.onmessage = buffer => {
                 const userData = decode(new Uint8Array(buffer.data))[1][2];
-                this._disconnectFromSocket();
+                this._disconnectWS();
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
                 const p = new Player(userData);
-                this._cache.set(p.username + "_" + p.id, p);
-                res(p);
+                if (cache) this.users.set(p.username + "_" + p.id, p);
+                res(raw ? userData : p);
             };
         });
     }
-    getPlayer(nameOrID) {
+    getPlayer(nameOrID, { updateCache = true, raw = false } = {}) {
         if (!nameOrID) throw new ArgumentError("No name or ID given");
-        const u = this._cache.find(obj => [obj.id, obj.username].includes(nameOrID));
-        if (!u) return this.fetchPlayer(nameOrID);
-        this._updateCache();
-        return u;
+        const u = [ ...this.users.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
+        if (!u) return this.fetchPlayer(nameOrID, { cache: updateCache, raw });
+        if (updateCache) this._updateCache();
+        return raw ? u.raw : u;
     }
     fetchGame(id) {
         return new Promise(async (res, rej) => {
@@ -86,5 +61,18 @@ module.exports = class Client {
     }
     getWeapon(name) {
         return new Weapon(name);
+    }
+    
+    _connectWS() {
+        this.ws = new ws("wss://krunker_social.krunker.io/ws", { handshakeTimeout: 10000 });
+    }
+    _disconnectWS() {
+        if (this.ws && this.ws.readyState === 1) this.ws.close();
+    }
+    async _updateCache() {
+        for (const un of [ ...this.users.keys() ].map(d => d.username)) {
+            const u = await this.fetchPlayer(un);
+            this.users.set(u.username + "_" + u.id, u);
+        }
     }
 }
