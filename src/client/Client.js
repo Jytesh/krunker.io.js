@@ -14,7 +14,6 @@ const ArgumentError = require("../errors/ArgumentError.js");
 module.exports = class Client {
     constructor() {
         this.players = new Map();
-        this.clans = new Map();
     }
     fetchPlayer(username, { cache = true, raw = false } = {}) {
         this._connectWS();
@@ -70,7 +69,7 @@ module.exports = class Client {
         if (this.ws && this.ws.readyState === 1) this.ws.close();
     }
     async _updateCache() {
-        for (const un of [ ...this.users.keys() ].map(d => d.username)) {
+        for (const un of [ ...this.players.keys() ].map(d => d.username)) {
             const u = await this.fetchPlayer(un);
             this.players.set(u.username + "_" + u.id, u);
         }
