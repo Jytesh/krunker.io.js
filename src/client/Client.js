@@ -1,7 +1,6 @@
 const ws = require("ws");
 const fetch = require("node-fetch");
 const { encode, decode } = require("msgpack-lite");
-const { Collection } = require("discord.js");
 
 const Player = require("../structures/Player.js");
 const Game = require("../structures/Game.js");
@@ -14,7 +13,8 @@ const ArgumentError = require("../errors/ArgumentError.js");
 
 module.exports = class Client {
     constructor() {
-        this.users = new Collection();
+        this.players = new Map();
+        this.clans = new Map();
     }
     fetchPlayer(username, { cache = true, raw = false } = {}) {
         this._connectWS();
@@ -31,14 +31,14 @@ module.exports = class Client {
                 this._disconnectWS();
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
                 const p = new Player(userData);
-                if (cache) this.users.set(p.username + "_" + p.id, p);
+                if (cache) this.players.set(p.username + "_" + p.id, p);
                 res(raw ? userData : p);
             };
         });
     }
     getPlayer(nameOrID, { updateCache = true, raw = false } = {}) {
         if (!nameOrID) throw new ArgumentError("No name or ID given");
-        const u = [ ...this.users.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
+        const u = [ ...this.players.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
         if (!u) return this.fetchPlayer(nameOrID, { cache: updateCache, raw });
         if (updateCache) this._updateCache();
         return raw ? u.raw : u;
@@ -72,7 +72,7 @@ module.exports = class Client {
     async _updateCache() {
         for (const un of [ ...this.users.keys() ].map(d => d.username)) {
             const u = await this.fetchPlayer(un);
-            this.users.set(u.username + "_" + u.id, u);
+            this.players.set(u.username + "_" + u.id, u);
         }
     }
 }
