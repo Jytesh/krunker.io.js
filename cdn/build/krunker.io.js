@@ -11,7 +11,7 @@ var kij = {
       let a = await fetch(`${kij.data.url}version`);
       return await a.json();
     } catch (r) {
-      return console.error("Enable to get data"), kij.data.err;
+      return console.error(kij.data.err), kij.data.err;
     }
   },
   fetchPlayer: async r => {
@@ -19,7 +19,7 @@ var kij = {
       let a = await fetch(`${kij.data.url}user/?name=${r}`);
       return await a.json();
     } catch (r) {
-      return console.error("Enable to get data"), kij.data.err;
+      return console.error(kij.data.err), kij.data.err;
     }
   },
   fetchLeaderboard: async r => {
