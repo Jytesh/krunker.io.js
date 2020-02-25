@@ -1,9 +1,6 @@
 const Class = require("./Class.js");
 
 module.exports = class Player {
-    constructor(client, data) {
-        this.setup(client, data);
-    }
     async setup(client, data) {
         const stats = JSON.parse(data.player_stats);
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
