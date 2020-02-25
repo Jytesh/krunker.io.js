@@ -38,7 +38,7 @@ client.fetchItemsPrev("lore").then(d => console.log(d))
 ```js
 client.fetchItemsByName("lore").then(d => console.log(d)) 
 ```
-### getting api version
+### getting api/cdn version
 ```js
 client.version().then(d => console.log(d)) // it will return the version
 ```
