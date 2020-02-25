@@ -10,6 +10,7 @@ module.exports = class Player {
         return {
             username: data.player_name,
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
+            levelImage: `https://krunker.io/img/levels/${Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score)))}.png`,
             levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
             score: data.player_score,
             displayName: (data.player_clan ? data.player_name + " [" + data.player_clan.name + "]" : data.player_name),
@@ -22,12 +23,8 @@ module.exports = class Player {
                     hours: Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24,
                     days: Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24),
             
-                    toString(){
-                        return Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + "d " + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m"
-                    },
-                    valueOf(){
-                        return data.player_timeplayed;
-                    }
+                    toString: () => Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + "d " + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m",
+                    valueOf: () => data.player_timeplayed
                 },
             
                 shots: stats.s,
