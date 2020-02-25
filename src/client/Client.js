@@ -31,7 +31,7 @@ module.exports = class Client {
                 const userData = decode(new Uint8Array(buffer.data))[1][2];
                 this._disconnectWS();
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
-                const p = await (new Player(userData).setup());
+                const p = await (new Player().setup(this, userData));
                 if (cache) this.players.set(p.username + "_" + p.id, p);
                 res(raw ? userData : p);
             };
@@ -42,7 +42,7 @@ module.exports = class Client {
             if (!name) return rej(new ArgumentError("No clan name given"));
             const r = await fetch("https://krunker.social/api?clan=" + name);
             if (!r.ok) return rej(new KrunkerAPIError("Clan not found"));
-            const c = await (new Clan(await r.json()).update());
+            const c = new Clan(await r.json());
             if (cache) this.clans.set(c.name + "_" + c.id);
             res(raw ? await r.json() : c);
         });
