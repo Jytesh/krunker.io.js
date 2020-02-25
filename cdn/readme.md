@@ -28,6 +28,7 @@ client.class("hunter").then(d => console.log(d))
 ```js
 client.fetchItems().then(d => console.log(d)) 
 ```
+### getting api version
 ```js
 client.version().then(d => console.log(d)) // it will return the version
 ```
