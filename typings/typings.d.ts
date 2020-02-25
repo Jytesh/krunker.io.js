@@ -1,8 +1,8 @@
 declare module "krunker.io.js" {
-    export class Player {
-        constructor(data: string);
+    export interface Player {
         username: string;
         level: number;
+        levelImage: string;
         levelProgress: number;
         score: number;
         displayName: string;
@@ -31,7 +31,7 @@ declare module "krunker.io.js" {
             }
         };
         social: {
-            clan: string | null;
+            clan: Clan | null;
             followers: number;
             following: number;
         };
@@ -40,11 +40,11 @@ declare module "krunker.io.js" {
         constructor(text: string);
         versions: Array<{
             version: string;
-            changes: Array<string>;
+            changes: string[];
         }>;
         latestVersion: {
             version: string;
-            changes: Array<string>;
+            changes: string[];
         };
     }
     export class Weapon {
@@ -95,14 +95,38 @@ declare module "krunker.io.js" {
         map: string;
         custom: boolean;
     }
+    export class Clan {
+        id: number;
+        name: string;
+        score: number;
+        leader: Player;
+        members: Player[];
+    }
     export class Client {
         constructor();
-        private _connectToSocket(): void;
-        private _disconnectFromSocket(): void;
-        public fetchPlayer(username: string): Promise<Player>;
+        public players: Map<string, Player>;
+        public clans: Map<string, Clan>;
+        private _connectWS(): void;
+        private _disconnectWS(): void;
+        private _updateCache(): void;
+        public fetchPlayer(username: string, options: {
+            cache: boolean,
+            raw: boolean
+        }): Promise<Player>;
         public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
-        public getPlayer(nameOrID: string): Player|Promise<Player>;
+        public fetchClan(name: string, options: {
+            cache: boolean,
+            raw: boolean
+        }): Promise<Clan>;
+        public getPlayer(nameOrID: string, options: {
+            updateCache: boolean,
+            raw: boolean
+        }): Player|Promise<Player>;
+        public getGame(nameOrID: string, options: {
+            updateCache: boolean,
+            raw: boolean
+        }): Clan|Promise<Clan>;
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
     }
