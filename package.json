@@ -1,7 +1,7 @@
 {
     "name": "krunker.io.js",
     "author": "1s3k3b",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "typings": "./typings/typings.d.ts",
@@ -35,7 +35,7 @@
     "dependencies": {
         "msgpack-lite": "^0.1.26",
         "ws": "^7.2.0",
-        "events": "^3.0.0"
+        "events": "^3.0.0",
         "node-fetch": "^2.6.0"
     }
 }
