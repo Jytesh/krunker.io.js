@@ -1,11 +1,5 @@
 const fetch = require("node-fetch");
 
-Object.prototype.forEach = function(callback) {
-    Object.keys(this).forEach((key, index) => {
-        callback(key, this[key], index, this);
-    });
-}
-
 module.exports = class Clan {
     constructor(client, data) {
         this.setup(client, data);
@@ -15,9 +9,10 @@ module.exports = class Clan {
             id: data.id,
             name: data.name,
             score: data.score,
-            members: []
+            members: [],
+            leader: await client.fetchPlayer(obj.leader)
         };
-        obj.leader = await client.fetchPlayer(obj.leader);
         for (const { username } of obj.members) obj.members.push(await client.fetchPlayer(username));
+        return obj;
     }
 }
