@@ -1,24 +1,18 @@
 const Class = require("./Class.js");
 
-// from my BetterJS
-Object.prototype.forEach = function (callback) {
-    Object.keys(this).forEach((key, index) => {
-        callback(key, this[key], index, this);
-    });
-}
-
 module.exports = class Player {
-    constructor(data) {
+    constructor(client, data) {
+        this.setup(client, data);
+    }
+    async setup(client, data) {
         const stats = JSON.parse(data.player_stats);
-        
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
-        
-        const obj = {
+        return {
             username: data.player_name,
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
             levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
             score: data.player_score,
-            displayName: (data.player_clan ? data.player_name + " [" + data.player_clan + "]" : data.player_name),
+            displayName: (data.player_clan ? data.player_name + " [" + data.player_clan.name + "]" : data.player_name),
             id: data.player_id,
             lastPlayedClass: new Class(classes[stats.c]),
             stats: {
@@ -54,15 +48,10 @@ module.exports = class Player {
                 kpg: Number((data.player_games_played / data.player_kills).toFixed(2))
             },
             social: {
-                clan: data.player_clan ? data.player_clan : null,
+                clan: data.player_clan ? await client.fetchClan(data.player_clan) : null,
                 following: data.player_following || 0,
                 followers: data.player_followed || 0,
             }
         };
-
-        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
-        Object.defineProperty(this, "raw", { value: data, enumerable: false, writable: false });
-
-        return this;
     }
 }
