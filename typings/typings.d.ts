@@ -99,8 +99,8 @@ declare module "krunker.io.js" {
         id: number;
         name: string;
         score: number;
-        leader: Player;
-        members: Player[];
+        leader: string;
+        members: string[];
     }
     export class Client {
         constructor();
