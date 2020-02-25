@@ -1,69 +1,71 @@
 
-var kij = {
-  data: {
+class kij  {
+   constructor() {
+  this.data =  {
     current_version: "0.0.1",
     url: "https://9t46t.sse.codesandbox.io/",
     repo: "https://github.com/1s3k3b/krunker.io.js",
     err: { error: "Enable to get data" }
-  },
-  version: async r => {
+  }
+   }
+   async version(r)  {
     try {
-      let a = await fetch(`${kij.data.url}version`);
+      let a = await fetch(`${this.data.url}version`);
       return await a.json();
     } catch (r) {
-      return console.error(kij.data.err), kij.data.err;
+      return console.error(this.data.err), kij.data.err;
     }
-  },
-  fetchPlayer: async r => {
+  }
+  async fetchPlayer(r) {
     try {
-      let a = await fetch(`${kij.data.url}user/?name=${r}`);
+      let a = await fetch(`${this.data.url}user/?name=${r}`);
       return await a.json();
     } catch (r) {
-      return console.error(kij.data.err), kij.data.err;
+      return console.error(this.data.err), this.data.err;
     }
-  },
-  fetchLeaderboard: async r => {
+  }
+  async fetchLeaderboard(r) {
     try {
-      let a = await fetch(`${kij.data.url}leaderboard/?orderBy=${r}`);
+      let a = await fetch(`${this.data.url}leaderboard/?orderBy=${r}`);
       return await a.json();
     } catch (r) {
-      return console.error(kij.data.err), kij.data.err;
+      return console.error(this.data.err), this.data.err;
     }
-  },
-  fetchItems: async r => {
+  }
+  async fetchItems(r) {
     try {
-      let a = await fetch(`${kij.data.url}items`);
+      let a = await fetch(`${this.data.url}items`);
       return await a.json();
     } catch (r) {
-      return console.error(kij.data.err), kij.data.err;
+      return console.error(this.data.err), this.data.err;
     }
-  },
-  class: async r => {
+  }
+  async class(r) {
     try {
-      let a = await fetch(`${kij.data.url}class/?name=${r}`);
+      let a = await fetch(`${this.data.url}class/?name=${r}`);
       return await a.json();
     } catch (r) {
-      return console.error(kij.data.err), kij.data.err;
+      return console.error(this.data.err), this.data.err;
     }
-  },
-  weapon: async r => {
+  }
+  async weapon(r) {
     try {
-      let a = await fetch(`${kij.data.url}weapons/?name=${r}`);
+      let a = await fetch(`${this.data.url}weapons/?name=${r}`);
       return await a.json();
     } catch (r) {
-      return console.error(kij.data.err), kij.data.err;
+      return console.error(this.data.err), this.data.err;
     }
   }
 };
-kij.version().then(r => {
-  r.version == kij.data.current_version
-    ? console.log("kij is up to date")
+new kij().version().then(r => {
+  r.version == this.data.current_version
+    ? console.log("kij is up to date on BETA")
     : console.warn("kij is OUT of date. Check the repo for the latest version");
 });
-
-//kij.fetchLeaderboard("funds").then(d => console.log(d))
-//kij.fetchPlayer("hoodgail").then(d => console.log(d))
-//kij.weapon("Sniper Rifle").then(d => console.log(d))
-//kij.class("hunter").then(d => console.log(d))
-//kij.fetchItems().then(d => console.log(d))
-//kij.version().then(d => console.log(d))
+var client = new kij()
+//client.fetchLeaderboard("funds").then(d => console.log(d))
+//client.fetchPlayer("hoodgail").then(d => console.log(d))
+//client.weapon("Sniper Rifle").then(d => console.log(d))
+//client.class("hunter").then(d => console.log(d))
+//client.fetchItems().then(d => console.log(d))
+//client.version().then(d => console.log(d))
