@@ -1,5 +1,7 @@
 **cdn**
 
+# **BETA**
+
 ### Instalation
 ```html
 <script src="**/build/krunker.io.js?build=BETA"></script>
