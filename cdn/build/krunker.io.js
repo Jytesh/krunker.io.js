@@ -1,9 +1,8 @@
-
 class kij  {
    constructor() {
-  this.data =  {
+  this.data = {
     current_version: "0.0.1",
-    url: "https://9t46t.sse.codesandbox.io/",
+    url: "https://sp5gv.sse.codesandbox.io/",
     repo: "https://github.com/1s3k3b/krunker.io.js",
     err: { error: "Enable to get data" }
   }
@@ -56,16 +55,29 @@ class kij  {
       return console.error(this.data.err), this.data.err;
     }
   }
+  async fetchItemsByName(r) {
+    try {
+      let a = await fetch(`${this.data.url}items/obj/?name=${r}`);
+ 
+    const t = await a.json();
+return t
+ 
+     } catch (r) {
+      return console.error(this.data.err), this.data.err;
+    }
+   }
+   async fetchItemsPrev(r){ 
+      try {
+      let a = await fetch(`${this.data.url}items/prev/?name=${r}`);
+      return await a.json();
+     } catch (r) {
+      return console.error(this.data.err), this.data.err;
+    }
+    
+       }
 };
 new kij().version().then(r => {
-  r.version == this.data.current_version
+  r.version == new kij().data.current_version
     ? console.log("kij is up to date on BETA")
     : console.warn("kij is OUT of date. Check the repo for the latest version");
 });
-var client = new kij()
-//client.fetchLeaderboard("funds").then(d => console.log(d))
-//client.fetchPlayer("hoodgail").then(d => console.log(d))
-//client.weapon("Sniper Rifle").then(d => console.log(d))
-//client.class("hunter").then(d => console.log(d))
-//client.fetchItems().then(d => console.log(d))
-//client.version().then(d => console.log(d))
