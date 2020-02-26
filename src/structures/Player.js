@@ -4,13 +4,14 @@ module.exports = class Player {
     async setup(client, data) {
         const stats = JSON.parse(data.player_stats);
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
+        const _playerClan = data.player_clan ? await client.fetchClan(data.player_clan) : null;
         return {
             username: data.player_name,
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
             levelImage: `https://krunker.io/img/levels/${Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score)))}.png`,
             levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
             score: data.player_score,
-            displayName: (data.player_clan ? data.player_name + " [" + data.player_clan.name + "]" : data.player_name),
+            displayName: (data.player_clan ? data.player_name + " [" + _playerClan.name + "]" : data.player_name),
             id: data.player_id,
             lastPlayedClass: new Class(classes[stats.c]),
             stats: {
@@ -42,7 +43,7 @@ module.exports = class Player {
                 kpg: Number((data.player_games_played / data.player_kills).toFixed(2))
             },
             social: {
-                clan: data.player_clan ? await client.fetchClan(data.player_clan) : null,
+                clan: _playerClan,
                 following: data.player_following || 0,
                 followers: data.player_followed || 0,
             }
