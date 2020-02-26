@@ -18,6 +18,10 @@ client.fetchLeaderboard("funds").then(d => console.log(d)) // it will order by f
 ```js
 client.fetchPlayer("hoodgail").then(d => console.log(d))
 ```
+### getting clans
+```js
+client.fetchClan("T").then(d => console.log(d))
+```
 ### getting weapon
 ```js
 client.weapon("Sniper Rifle").then(d => console.log(d))
