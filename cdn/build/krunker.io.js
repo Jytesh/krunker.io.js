@@ -1,3 +1,4 @@
+
 class kij  {
    constructor() {
   this.data = {
@@ -34,6 +35,14 @@ class kij  {
   async fetchItems(r) {
     try {
       let a = await fetch(`${this.data.url}items`);
+      return await a.json();
+    } catch (r) {
+      return console.error(this.data.err), this.data.err;
+    }
+  }
+  async fetchClan(r) {
+    try {
+      let a = await fetch(`${this.data.url}clan/?name=${r}`);
       return await a.json();
     } catch (r) {
       return console.error(this.data.err), this.data.err;
@@ -78,6 +87,6 @@ return t
 };
 new kij().version().then(r => {
   r.version == new kij().data.current_version
-    ? console.log("kij is up to date on BETA")
+    ? console.log("kij is up to date  BETA")
     : console.warn("kij is OUT of date. Check the repo for the latest version");
 });
