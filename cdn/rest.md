@@ -1,4 +1,7 @@
 # RestFul api
+### URL
+| https://krunker-api.glich.me |
+ ------------------------------
 
 ## Rest url
 ```js
