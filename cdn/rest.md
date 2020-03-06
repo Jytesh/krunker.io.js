@@ -1,6 +1,6 @@
 # RestFul api
 ### URL
-| https://krunker-api.glich.me |
+| https://krunker-api.glitch.me |
  ------------------------------
 
 ## Rest url
