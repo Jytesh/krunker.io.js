@@ -8,18 +8,26 @@ var url = "https://krunker-api.glich.me"
 
 ### getting users stats
 ```
+url + "/user/?name=hoodgail"
 ```
 
 ### getting clan stats
 ```
+url + "/clan/?name=T"
 ```
 
 ### getting leaderboard
 > params
- -
- -
- -
+ - kills
+ - funds
+ - elo
+ - elo2
+ - elo4
+ - Wins
+ - time
+ - clans
 ```
+url + "/leaderboard/?orderBy=kills"
 ```
 
 ### getting spin chance
