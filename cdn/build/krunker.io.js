@@ -1,8 +1,8 @@
 class kij {
     constructor() {
         this.data = {
-            current_version: "0.0.1",
-            url: "https://sp5gv.sse.codesandbox.io/",
+            current_version: "0.0.2",
+            url: "https://krunker-api.glitch.me/",
             repo: "https://github.com/1s3k3b/krunker.io.js",
             err: { error: "Enable to get data" }
         }
