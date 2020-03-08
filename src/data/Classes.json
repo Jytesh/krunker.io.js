@@ -1,0 +1,12 @@
+[{"health":100,"name":"Triggerman","secondary":true,"weapon":{"name":"Assault Rifle","id":2},"id":0,"avatar":"https://assets.krunker.io/textures/classes/icon_0.png?build=xnPDG"},
+{"health":60,"name":"Hunter","secondary":true,"weapon":{"name":"Sniper Rifle","id":1},"id":1,"avatar":"https://assets.krunker.io/textures/classes/icon_1.png?build=xnPDG"},
+{"health":100,"name":"Run N Gun","secondary":false,"weapon":{"name":"Submachine Gun","id":4},"id":2,"avatar":"https://assets.krunker.io/textures/classes/icon_2.png?build=xnPDG"},
+{"health":170,"name":"Spray N Pray","secondary":true,"weapon":{"name":"Light Machine Gun","id":5},"id":3,"avatar":"https://assets.krunker.io/textures/classes/icon_3.png?build=xnPDG"},
+{"health":100,"name":"Vince","secondary":true,"weapon":{"name":"Shotgun","id":6},"id":4,"avatar":"https://assets.krunker.io/textures/classes/icon_4.png?build=xnPDG"},
+{"health":100,"name":"Detective","secondary":false,"weapon":{"name":"Revolver","id":7},"id":5,"avatar":"https://assets.krunker.io/textures/classes/icon_5.png?build=xnPDG"},
+{"health":90,"name":"Marksman","secondary":true,"weapon":{"name":"Semi Auto","id":8},"id":6,"avatar":"https://assets.krunker.io/textures/classes/icon_6.png?build=xnPDG"},
+{"health":130,"name":"Rocketeer","secondary":true,"weapon":{"name":"Rocket Launcher","id":9},"id":7,"avatar":"https://assets.krunker.io/textures/classes/icon_7.png?build=xnPDG"},
+{"health":100,"name":"Agent","secondary":false,"weapon":{"name":"Akimbo Uzis","id":10},"id":8,"avatar":"https://assets.krunker.io/textures/classes/icon_8.png?build=xnPDG"},
+{"health":100,"name":"Runner","secondary":false,"weapon":{},"id":9,"avatar":"https://assets.krunker.io/textures/classes/icon_9.png?build=xnPDG"},
+{"health":100,"name":"Bowman","secondary":true,"weapon":{"name": "Crossbow","id":17},"id":10,"avatar":"https://assets.krunker.io/textures/classes/icon_10.png?build=xnPDG"},
+{"health":100,"name":"Commando","secondary":true,"weapon":{"name":"FAMAS","id":15},"id":11,"avatar":"https://assets.krunker.io/textures/classes/icon_11.png?build=xnPDG"}]
