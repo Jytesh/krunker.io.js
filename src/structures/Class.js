@@ -1,7 +1,8 @@
-const Weapon = require("./Weapon")
 
 class Class{
-    constructor(arg){
+    constructor(arg,InputWeapon){
+        
+        const Weapon = require("./Weapon.js")
         let id = arg
     if(typeof id === "string"){
         if(isInt(id)) id = parseInt(Number(id))
@@ -19,8 +20,13 @@ class Class{
         let Class = Class_Collection.get(id)
         
         if(Class.name){
-            Class.weapon = new Weapon(Class.weapon.id)
+            if(InputWeapon){
+                Class.weapon = InputWeapon
+            }else{
+            Class.weapon = new Weapon(Class.weapon.id,Class)}
             return Class
+        }else{
+            return void 0
         }
 
         }
@@ -29,6 +35,9 @@ class Class{
         console.log("ERROR")
         return void 0
     }
+    }
+    toString(){
+        return this.name
     }
 }
 function isInt(value) {

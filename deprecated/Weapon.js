@@ -398,7 +398,7 @@ module.exports = class Weapon {
             }  
         };
         
-        const akimbouzis = {
+        const akimbouzi = {
             name: "Akimbo Uzi",
             class: new Class("Agent"),
             swapTime: 300,
@@ -504,7 +504,7 @@ module.exports = class Weapon {
         };
         
         const obj = {
-            pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, machinegun, lmg: machinegun, shotgun, revolver, semiauto, rocketlauncher,akimbouzis,akimbouzi : akimbouzis, famas, burst: famas
+            pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, machinegun, lmg: machinegun, shotgun, revolver, semiauto, rocketlauncher,akimbouzi, famas, burst: famas
             , crossbow
         }[name.split(" ").join("").toLowerCase()];
         if (!obj) return void 0;

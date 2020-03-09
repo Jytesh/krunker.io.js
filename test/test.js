@@ -1,4 +1,4 @@
-Class = require("../src/structures/Class")
+Weapon = require("../src/structures/Weapon")
 
-K_Class = new Class("b")
+K_Class = new Weapon(1)
 console.log(K_Class)
