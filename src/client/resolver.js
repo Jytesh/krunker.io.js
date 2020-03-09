@@ -2,7 +2,11 @@ const Class = require("../Class.js/index.js");
 const Weapon = require("../Weapon.js/index.js");
 
 const classArr = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
-const weaponArr = classArr.map(n => new Class(n).weapon.name);
+const weaponArr = []
+for(let i = 1;i<18;i++){
+    W[i] = new Weapon(i)
+    weaponArr.push(W[i].name)
+}
 const servers = {
     "fra": "Frankfurt",
     "sv": "Silicon Valley",

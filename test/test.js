@@ -1,4 +1,4 @@
-Weapon = require("../src/structures/Weapon")
+Skin = require("../src/structures/Skin")
 
-K_Class = new Weapon(1)
+K_Class = new Skin("W_1_1")
 console.log(K_Class)

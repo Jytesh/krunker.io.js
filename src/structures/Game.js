@@ -30,4 +30,5 @@ module.exports = class Game {
         
         return obj;
     }
+    
 }
