@@ -33,4 +33,8 @@ const Skins = require("../data/Skins.json")
 });
 return Skins_collection
 }
+
+let Skins = Skins()
+
 module.exports = Skin
+module.exports = {Skins}

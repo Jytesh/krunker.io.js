@@ -1,0 +1,29 @@
+{
+  "name": "krunkerio.js",
+  "version": "1.0.0",
+  "description": "A basic module for Krunker.io API.Is built upon krunker.io.js.Has skins and additional Class functionality.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jytesh/krunkerio.js.git"
+  },
+  "keywords": [
+    "krunker",
+    "api",
+    "discord.js",
+    "jytesh",
+    "jitesh"
+  ],
+  "author": "Jytesh#3241",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jytesh/krunkerio.js/issues"
+  },
+  "homepage": "https://github.com/Jytesh/krunkerio.js#readme"
+}
