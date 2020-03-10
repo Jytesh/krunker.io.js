@@ -41,7 +41,11 @@ module.exports = class Client {
         return new Promise(async (res, rej) => {
             if (!name) return rej(new ArgumentError("No clan name given"));
             const r = await fetch("https://krunker.social/api?clan=" + name);
+<<<<<<< HEAD
             if (!r.ok) return rej(new KrunkerAPIError("Clan not found"));
+=======
+            if (!r.ok || (await r.json()).error) return rej(new KrunkerAPIError("Clan not found"));
+>>>>>>> 465fe978334c37cc057f0a76220f660bd7a66c5b
             const c = new Clan(await r.json());
             if (cache) this.clans.set(c.name + "_" + c.id);
             res(raw ? await r.json() : c);
