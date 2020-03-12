@@ -40,12 +40,14 @@ module.exports = class Player {
                 losses: data.player_games_played - data.player_wins,
                 wlr: Number((data.player_wins / (data.player_games_played - data.player_wins)).toFixed(2)),
             
-                kpg: Number((data.player_games_played / data.player_kills).toFixed(2))
+                kpg: Number((data.player_kills / data.player_games_played).toFixed(2))
             },
             social: {
                 clan: _playerClan,
                 following: data.player_following || 0,
                 followers: data.player_followed || 0,
+                funds: data.player_funds || 0,
+                verified: !!data.player_featured
             }
         };
     }
