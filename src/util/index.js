@@ -171,5 +171,6 @@ module.exports = {
         const transformed = mapToObj(new Map(keys));
         const outp = Object.keys(transformed).map(k => k + seperator + resolveVal(transformed[k], seperator, lineBreaks)).join("\n".repeat(lineBreaks));
         return outp;
-    }
+    },
+    skins: require("../data/skins.json")
 };
