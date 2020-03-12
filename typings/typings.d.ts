@@ -1,4 +1,15 @@
 declare module "krunker.io.js" {
+    export interface Skin {
+        name: string;
+        id: number;
+        tex: number;
+        key: string;
+        seas: number;
+        rarity: number;
+        weapon: number;
+        creator?: string;
+        glow?: boolean;
+    }
     export interface Player {
         username: string;
         level: number;
