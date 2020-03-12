@@ -1,10 +1,3 @@
-// from my BetterJS
-Object.prototype.forEach = function (callback) {
-    Object.keys(this).forEach((key, index) => {
-        callback(key, this[key], index, this);
-    });
-}
-
 module.exports = class Class {
     constructor (name = "Triggerman") {
         const triggerman = {
@@ -12,9 +5,6 @@ module.exports = class Class {
             name: "Triggerman",
             secondary: true,
             weapon: new Weapon("Assault Rifle"),
-            toString(){
-                return "Triggerman";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/1/15/Trigger.PNG/revision/latest/scale-to-width-down/310?cb=20191021162058"
         };
         
@@ -23,9 +13,6 @@ module.exports = class Class {
             name: "Hunter",
             secondary: true,
             weapon: new Weapon("Sniper Rifle"),
-            toString(){
-                return "Hunter";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/1/1f/Hunter.PNG/revision/latest/scale-to-width-down/310?cb=20191021161821"
         };
         
@@ -34,9 +21,6 @@ module.exports = class Class {
             name: "Run N Gun",
             secondary: false,
             weapon: new Weapon("Submachine Gun"),
-            toString(){
-                return "Run N Gun";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/c/c8/Run_n_gun.PNG/revision/latest/scale-to-width-down/310?cb=20191021161851"
         };
         
@@ -45,9 +29,6 @@ module.exports = class Class {
             name: "Spray N Pray",
             secondary: true,
             weapon: new Weapon("Light Machine Gun"),
-            toString(){
-                return "Spray N Pray";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/c/c7/Capture.PNG/revision/latest/scale-to-width-down/310?cb=20191021162149"
         };
         
@@ -56,9 +37,6 @@ module.exports = class Class {
             name: "Vince",
             secondary: true,
             weapon: new Weapon("Shotgun"),
-            toString(){
-                return "Vince";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/d/d3/Vinc.PNG/revision/latest/scale-to-width-down/310?cb=20191021162119"
         };
         
@@ -67,9 +45,6 @@ module.exports = class Class {
             name: "Detective",
             secondary: false,
             weapon: new Weapon("Revolver"),
-            toString(){
-                return "Detective";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/a/a6/Screenshot_2018-10-13_at_7.14.06_PM.png/revision/latest/scale-to-width-down/310?cb=20191021161955"
         };
         
@@ -78,9 +53,6 @@ module.exports = class Class {
             name: "Marksman",
             secondary: true,
             weapon: new Weapon("Semi Auto"),
-            toString(){
-                return "Marksman";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/0/08/MARKS.PNG/revision/latest/scale-to-width-down/310?cb=20191021162026"
         };
         
@@ -89,9 +61,6 @@ module.exports = class Class {
             name: "Rocketeer",
             secondary: true,
             weapon: new Weapon("Rocket Launcher"),
-            toString(){
-                return "Rocketeer";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/b/b1/RLAUNCH.PNG/revision/latest/scale-to-width-down/310?cb=20191021162212"
         };
     
@@ -100,9 +69,6 @@ module.exports = class Class {
             name: "Agent",
             secondary: false,
             weapon: new Weapon("Akimbo Uzi"),
-            toString(){
-                return "Agent";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/8/84/Agent-select-screen.png/revision/latest/scale-to-width-down/310?cb=20191021161719"
         };
         
@@ -111,9 +77,6 @@ module.exports = class Class {
             name: "Runner",
             secondary: false,
             weapon: new Weapon("Combat Knife"),
-            toString(){
-                return "Runner";
-            },
             _avatar: ""
         };
         
@@ -122,9 +85,6 @@ module.exports = class Class {
             name: "Bowman",
             secondary: true,
             weapon: new Weapon("Crossbow"),
-            toString(){
-                return "Bowman";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/3/30/Bowman.png/revision/latest/scale-to-width-down/310?cb=20191021161923"
         };
         
@@ -133,9 +93,6 @@ module.exports = class Class {
             name: "Commando",
             secondary: true,
             weapon: new Weapon("Famas"),
-            toString(){
-                return "Commando";
-            },
             _avatar: "https://vignette.wikia.nocookie.net/krunkerio/images/5/50/Commando.png/revision/latest/scale-to-width-down/310?cb=20191021160148"
         };
         
@@ -143,18 +100,16 @@ module.exports = class Class {
             triggerman, hunter, runngun, spraynpray, vince, detective, marksman, rocketeer, agent, runner, bowman, commando
         }[name.split(" ").join("").toLowerCase()];
         
-        if (!obj) return void 0;
-        
-        obj.forEach((k, v) => {
-            this[k] = v;
-        });
+        if (!obj) return;
+        obj.toString = () => obj.name;
+        for (const [ k, v ] in Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
         
         return obj;
     }
 }
 
 class Weapon {
-    constructor (name = "Assault Rifle") {
+    constructor(name = "Assault Rifle") {
         const pistol = {
             name: "Pistol",
             swapTime: 350,
@@ -640,9 +595,10 @@ class Weapon {
             pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, burst: famas
         }[name.split(" ").join("").toLowerCase()];
         
-        if (!obj) return void 0;
-
-        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
+        if (!obj) return;
+        obj.toString = () => obj.name;
+        obj.skins = require("../data/skins.json").filter(s => s.weapon === obj.devNumber);
+        for (const [ k, v ] in Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
 
         return obj;
     }
