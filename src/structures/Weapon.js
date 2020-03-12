@@ -1,12 +1,5 @@
-// from my BetterJS
-Object.prototype.forEach = function (callback) {
-    Object.keys(this).forEach((key, index) => {
-        callback(key, this[key], index, this);
-    });
-}
-
 module.exports = class Weapon {
-    constructor (name = "Assault Rifle") {
+    constructor(name = "Assault Rifle") {
         const pistol = {
             name: "Pistol",
             class: null,
@@ -33,10 +26,7 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 75,
             sight: null,
-            devNumber: 3,
-            toString () {
-                return "Pistol";
-            }
+            devNumber: 3
         };
         
         const deserteagle = {
@@ -65,10 +55,7 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: null,
-            devNumber: 11,
-            toString () {
-                return "Desert Eagle";
-            }
+            devNumber: 11
         };
         
         const alienblaster = {
@@ -97,10 +84,7 @@ module.exports = class Weapon {
             automatic: false,
             baseScore: 50,
             sight: null,
-            devNumber: 12,
-            toString () {
-                return "Alien Blaster";
-            }
+            devNumber: 12
         };
         
         const combatknife = {
@@ -112,9 +96,6 @@ module.exports = class Weapon {
                 dropoff: 0,
                 toString: () => "50",
                 valueOf: () => 50
-            },
-            toString () {
-                return "Combat Knife";
             }
         };
         
@@ -147,9 +128,6 @@ module.exports = class Weapon {
             devNumber: 2,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Assault Rifle";
             }
         };
     
@@ -182,9 +160,6 @@ module.exports = class Weapon {
             devNumber: 1,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Sniper Rifle";
             }
         };
 
@@ -217,9 +192,6 @@ module.exports = class Weapon {
             devNumber: 4,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Submachine Gun";
             }
         };
 
@@ -252,9 +224,6 @@ module.exports = class Weapon {
             devNumber: 5,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Light Machine Gun";
             }
         };
         
@@ -287,10 +256,7 @@ module.exports = class Weapon {
             devNumber: 6,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Shotgun";
-            }  
+            }
         };
         
         const revolver = {
@@ -322,10 +288,7 @@ module.exports = class Weapon {
             devNumber: 7,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Revolver";
-            }  
+            }
         };
         
         const semiauto = {
@@ -357,10 +320,7 @@ module.exports = class Weapon {
             devNumber: 8,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Semi Auto";
-            }  
+            }
         };
         
         const rocketlauncher = {
@@ -392,10 +352,7 @@ module.exports = class Weapon {
             devNumber: 9,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Rocket Launcher";
-            }  
+            }
         };
         
         const akimbouzi = {
@@ -427,10 +384,7 @@ module.exports = class Weapon {
             devNumber: 10,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Akimbo Uzi";
-            }  
+            }
         };
         
         const crossbow = {
@@ -462,10 +416,7 @@ module.exports = class Weapon {
             devNumber: 14,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "Crossbow";
-            }  
+            }
         };
         
         const famas = {
@@ -497,9 +448,6 @@ module.exports = class Weapon {
             devNumber: 13,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
-            },
-            toString () {
-                return "FAMAS";
             }  
         };
         
@@ -507,11 +455,10 @@ module.exports = class Weapon {
             pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, burst: famas
         }[name.split(" ").join("").toLowerCase()];
         
-        if (!obj) return void 0;
-
-        obj.forEach((k, v) => {
-            this[k] = v;
-        });
+        if (!obj) return;
+        obj.toString = () => obj.name;
+        obj.skins = require("../data/skins.json").filter(s => s.weapon === obj.devNumber);
+        for (const [ k, v ] in Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
 
         return obj;
     }
@@ -522,117 +469,82 @@ class Class {
         const triggerman = {
             health: 100,
             name: "Triggerman",
-            secondary: true,
-            toString(){
-                return "Triggerman";
-            }
+            secondary: true
         };
         
         const hunter = {
             health: 60,
             name: "Hunter",
-            secondary: true,
-            toString(){
-                return "Hunter";
-            }
+            secondary: true
         };
         
         const runngun = {
             health: 100,
             name: "Run N Gun",
-            secondary: false,
-            toString(){
-                return "Run N Gun";
-            }
+            secondary: false
         };
         
         const spraynpray = {
             health: 170,
             name: "Spray N Pray",
-            secondary: true,
-            toString(){
-                return "Spray N Pray";
-            }
+            secondary: true
         };
         
         const vince = {
             health: 100,
             name: "Vince",
-            secondary: true,
-            toString(){
-                return "Vince";
-            }
+            secondary: true
         };
         
         const detective = {
             health: 100,
             name: "Detective",
-            secondary: false,
-            toString(){
-                return "Detective";
-            }
+            secondary: false
         };
         
         const marksman = {
             health: 90,
             name: "Marksman",
-            secondary: true,
-            toString(){
-                return "Marksman";
-            }
+            secondary: true
         };
         
         const rocketeer = {
             health: 130,
             name: "Rocketeer",
-            secondary: true,
-            toString(){
-                return "Rocketeer";
-            }
+            secondary: true
         };
     
         const agent = {
             health: 100,
             name: "Agent",
-            secondary: false,
-            toString(){
-                return "Agent";
-            }
+            secondary: false
         };
         
         const runner = {
             health: 100,
             name: "Runner",
-            secondary: false,
-            toString(){
-                return "Runner";
-            }
+            secondary: false
         };
         
         const bowman = {
             health: 100,
             name: "Bowman",
-            secondary: true,
-            toString(){
-                return "Bowman";
-            }
+            secondary: true
         };
         
         const commando = {
             health: 100,
             name: "Commando",
-            secondary: true,
-            toString(){
-                return "Commando";
-            }
+            secondary: true
         };
         
         const obj = {
             triggerman, hunter, runngun, spraynpray, vince, detective, marksman, rocketeer, agent, runner, bowman, commando
-        }[name.split(" ").join("").toLowerCase()];
+        }[name.replace(/\s/g, "").toLowerCase()];
         
-        if (!obj) return void 0;
-        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
+        if (!obj) return;
+        obj.toString = () => obj.name;
+        for (const [ k, v ] in Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
         
         return obj;
     }
