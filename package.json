@@ -1,11 +1,11 @@
 {
     "name": "krunker.io.js",
     "author": "1s3k3b",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "types": "./typings/typings.d.ts",
-    "homepage": "https://1s3k3b.github.io/krunkerjs/index.html",
+    "homepage": "https://1s3k3b.github.io/krunkerjs",
     "scripts": {
         "fetchPlayer": "node ./test/fetchPlayer.js",
         "fetchGame": "node ./test/fetchGame.js",
@@ -13,7 +13,8 @@
         "class": "node ./test/class.js",
         "weapon": "node ./test/weapon.js",
         "fetchChangelog": "node ./test/fetchChangelog.js",
-        "fetchClan": "node ./test/fetchClan.js"
+        "fetchClan": "node ./test/fetchClan.js",
+        "skins": "node ./test/skins.js"
     },
     "files": [
         "src"
@@ -34,7 +35,7 @@
     },
     "dependencies": {
         "msgpack-lite": "^0.1.26",
-        "ws": "^7.2.0",
-        "node-fetch": "^2.6.0"
+        "node-fetch": "^2.6.0",
+        "ws": "^7.2.3"
     }
 }

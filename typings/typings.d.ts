@@ -1,7 +1,7 @@
 declare module "krunker.io.js" {
-    export interface Skin {
+    export interface ISkin {
         name: string;
-        id: number;
+        id: number | string;
         tex: number;
         key: string;
         seas: number;
@@ -9,6 +9,21 @@ declare module "krunker.io.js" {
         weapon: number;
         creator?: string;
         glow?: boolean;
+    }
+    export class Skin {
+        constructor(wResolvable: Class | Weapon | string, data: ISkin);
+        public fetchAuthor(client: Client): Promise<Player>;
+        public weapon: Weapon;
+        public name: string;
+        public id: number | string;
+        public tex: number;
+        public key: string;
+        public season: number;
+        private rarityI: number;
+        public rarity: string;
+        public authorUsername: string;
+        public glow: boolean;
+        public url: string;
     }
     export interface Player {
         username: string;

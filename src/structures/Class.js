@@ -1,3 +1,5 @@
+const Skin = require("./Skin.js");
+
 module.exports = class Class {
     constructor (name = "Triggerman") {
         const triggerman = {
@@ -102,7 +104,7 @@ module.exports = class Class {
         
         if (!obj) return;
         obj.toString = () => obj.name;
-        for (const [ k, v ] in Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
+        for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
         
         return obj;
     }
@@ -593,12 +595,14 @@ class Weapon {
         
         const obj = {
             pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, burst: famas
-        }[name.split(" ").join("").toLowerCase()];
+        }[name.split(" ").join("").toLowerCase()]
+        || [ pistol, deserteagle, alienblaster, assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas ]
+             .find(e => e.devNumber == name);
         
         if (!obj) return;
         obj.toString = () => obj.name;
-        obj.skins = require("../data/skins.json").filter(s => s.weapon === obj.devNumber);
-        for (const [ k, v ] in Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
+        obj.skins = require("../data/skins.json").filter(s => s.weapon === obj.devNumber).map(s => new Skin(obj, s));
+        for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
 
         return obj;
     }

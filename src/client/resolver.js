@@ -31,7 +31,14 @@ module.exports = {
         if (arr.some(v => v instanceof Weapon && new Weapon(v.name))) return arr.filter(v => v instanceof Weapon && new Weapon(v.name)).map(v => v.name);
         if (arr.some(v => Boolean(new Class(v)))) return arr.filter(v => Boolean(new Class(v))).map(c => c.weapon.name);
         if (arr.some(v => v instanceof Class && new Class(v.weapon.name))) return arr.filter(v => v instanceof Class && new Class(v.weapon.name)).map(w => w.weapon.name);
-        return classArr;
+        return weaponArr;
     },
-    resolveServer: str => servers[str.toLowerCase().trim()] || ""
+    resolveServer: str => servers[str.toLowerCase().trim()] || "",
+    resolveWeapon(r) {
+        if (r instanceof Weapon) return r;
+        if (r instanceof Class) return r.weapon;
+        if (typeof r === "string") return new Weapon(r);
+        throw new TypeError("Can't resolve " + r + " to a Weapon.")
+    },
+    resolveRarity: r => ["Uncommon", "Rare", "Epic", "Legendary", "Relic", "Contraband"][r]
 };
