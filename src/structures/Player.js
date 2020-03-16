@@ -27,20 +27,19 @@ module.exports = class Player {
             
                 shots: stats.s,
                 hits: stats.h,
-                accuracy: Number((stats.s / stats.h).toFixed(2)),
-                
+                accuracy: Number((stats.h*100/stats.s).toFixed(2)),
                 nukes: stats.n || 0,
-                
                 kills: data.player_kills,
                 deaths: data.player_deaths,
                 kdr: Number((data.player_kills / data.player_deaths).toFixed(2)),
-                
                 gamesPlayed: data.player_games_played,
                 wins: data.player_wins,
                 losses: data.player_games_played - data.player_wins,
                 wlr: Number((data.player_wins / (data.player_games_played - data.player_wins)).toFixed(2)),
-            
-                kpg: Number((data.player_kills / data.player_games_played).toFixed(2))
+                kpg: Number((data.player_kills / data.player_games_played).toFixed(2)),
+                elo1 : player_elo1 || 0 ,
+                elo2: player_elo2 || 0,
+                elo4 : player_elo4 || 0,
             },
             social: {
                 clan: _playerClan,
