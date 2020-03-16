@@ -25,12 +25,12 @@ module.exports = class Player {
                     toString: () => Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + "d " + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m",
                     valueOf: () => data.player_timeplayed
                 },
-                joined : data.player_datenew, //Date the player joined on. Given in format YYYYY-MM-DDTHH:MM:SS.MS
+                joinedAt: new Date(data.player_datenew),
                 shots: stats.s,
                 hits: stats.h,
                 accuracy: Number((stats.h * 100 / stats.s).toFixed(2)),
                 nukes: stats.n || 0,
-                melee: stats.mk || 0,
+                melees: stats.mk || 0,
                 kills: data.player_kills,
                 deaths: data.player_deaths,
                 kdr: Number((data.player_kills / data.player_deaths).toFixed(2)),
