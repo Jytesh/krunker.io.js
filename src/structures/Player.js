@@ -5,6 +5,7 @@ module.exports = class Player {
         const stats = JSON.parse(data.player_stats);
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
         const _playerClan = data.player_clan ? await client.fetchClan(data.player_clan) : null;
+        
         return {
             username: data.player_name,
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
@@ -24,7 +25,7 @@ module.exports = class Player {
                     toString: () => Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + "d " + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m",
                     valueOf: () => data.player_timeplayed
                 },
-            
+                joined : data.player_datenew, //Date the player joined on. Given in format YYYYY-MM-DDTHH:MM:SS.MS
                 shots: stats.s,
                 hits: stats.h,
                 accuracy: Number((stats.h * 100 / stats.s).toFixed(2)),
