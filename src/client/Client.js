@@ -38,17 +38,16 @@ module.exports = class Client {
         });
     }
     fetchClan(name, { raw = false, cache = true } = {}) {
-        return new Promise(async (res, rej) => {
+        return new Promise((res, rej) => {
             if (!name) return rej(new ArgumentError("No clan name given"));
-            fetch("https://krunker.social/api?clan=" + name).then( r => {
-                if (!r.ok) return rej(new KrunkerAPIError("Clan not found, API may be down."));
+            fetch("https://krunker.social/api?clan=" + name).then(async r => {
+                if (!r.ok) return rej(new KrunkerAPIError("Clan not found"));
                 const json = await r.json();
                 if (json.error) return rej(new KrunkerAPIError("Clan not found"));
                 const c = new Clan(json);
                 if (cache) this.clans.set(c.name + "_" + c.id);
                 res(raw ? json : c);
-            })
-            
+            });
         });
     }
     getClan(nameOrID, { updateCache = true, raw = false } = {}) {
