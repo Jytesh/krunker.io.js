@@ -29,6 +29,7 @@ module.exports = class Player {
                 hits: stats.h,
                 accuracy: Number((stats.h * 100 / stats.s).toFixed(2)),
                 nukes: stats.n || 0,
+                melee: stats.mk || 0,
                 kills: data.player_kills,
                 deaths: data.player_deaths,
                 kdr: Number((data.player_kills / data.player_deaths).toFixed(2)),
