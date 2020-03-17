@@ -1,7 +1,5 @@
 const Skin = require("./Skin.js");
 
-
-
 module.exports = class Weapon {
     constructor(name = "Assault Rifle") {
         const pistol = {
