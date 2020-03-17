@@ -1,5 +1,7 @@
 const Skin = require("./Skin.js");
 
+
+
 module.exports = class Weapon {
     constructor(name = "Assault Rifle") {
         const pistol = {
@@ -129,7 +131,7 @@ module.exports = class Weapon {
             sight: "Red Dot",
             devNumber: 2,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
     
@@ -161,7 +163,7 @@ module.exports = class Weapon {
             sight: "Scope",
             devNumber: 1,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
 
@@ -193,7 +195,7 @@ module.exports = class Weapon {
             sight: "Red Dot",
             devNumber: 4,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
 
@@ -225,7 +227,7 @@ module.exports = class Weapon {
             sight: "Red Dot",
             devNumber: 5,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
         
@@ -257,7 +259,7 @@ module.exports = class Weapon {
             sight: "none",
             devNumber: 6,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
         
@@ -289,7 +291,7 @@ module.exports = class Weapon {
             sight: "none",
             devNumber: 7,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
         
@@ -321,7 +323,7 @@ module.exports = class Weapon {
             sight: "Red Dot",
             devNumber: 8,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
         
@@ -353,7 +355,7 @@ module.exports = class Weapon {
             sight: "none",
             devNumber: 9,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
         
@@ -385,7 +387,7 @@ module.exports = class Weapon {
             sight: null,
             devNumber: 10,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
         
@@ -417,7 +419,7 @@ module.exports = class Weapon {
             sight: "Red Dot",
             devNumber: 14,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }
         };
         
@@ -449,7 +451,7 @@ module.exports = class Weapon {
             sight: "none",
             devNumber: 13,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return "http://assets.krunker.io/textures/weapons/skins/weapon_" + this.devNumber + "_" + n + ".png";
+                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`
             }  
         };
         
