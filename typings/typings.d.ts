@@ -13,17 +13,18 @@ declare module "krunker.io.js" {
     export class Skin {
         constructor(wResolvable: Class | Weapon | string, data: ISkin);
         public fetchAuthor(client: Client): Promise<Player>;
-        public weapon: Weapon;
-        public name: string;
-        public id: number | string;
-        public tex: number;
-        public key: string;
-        public season: number;
-        private rarityI: number;
-        public rarity: string;
-        public authorUsername: string;
-        public glow: boolean;
-        public url: string;
+        author?: Player;
+        weapon: Weapon;
+        name: string;
+        id: number | string;
+        tex: number;
+        key: string;
+        season: number;
+        rarityI: number;
+        rarity: string;
+        authorUsername: string;
+        glow: boolean;
+        url: string;
     }
     export interface Player {
         username: string;
@@ -34,12 +35,15 @@ declare module "krunker.io.js" {
         displayName: string;
         id: string;
         lastPlayedClass?: Class;
+        mods?: Mod[];
+        joinedAt: Date;
         stats: {
             shots: number;
             hits: number;
             accuracy: number;
             nukes: number;
             kills: number;
+            melees: number;
             deaths: number;
             kdr: number;
             gamesPlayed: number;
@@ -57,7 +61,7 @@ declare module "krunker.io.js" {
             }
         };
         social: {
-            clan: Clan | null;
+            clan: Clan | string | null;
             followers: number;
             following: number;
         };
@@ -137,7 +141,9 @@ declare module "krunker.io.js" {
         private _updateCache(): void;
         public fetchPlayer(username: string, options: {
             cache: boolean,
-            raw: boolean
+            raw: boolean,
+            clan: boolean,
+            mods: boolean
         }): Promise<Player>;
         public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
@@ -147,7 +153,9 @@ declare module "krunker.io.js" {
         }): Promise<Clan>;
         public getPlayer(nameOrID: string, options: {
             updateCache: boolean,
-            raw: boolean
+            raw: boolean,
+            clan: boolean,
+            mods: boolean
         }): Player|Promise<Player>;
         public getGame(nameOrID: string, options: {
             updateCache: boolean,
@@ -155,5 +163,17 @@ declare module "krunker.io.js" {
         }): Clan|Promise<Clan>;
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
+    }
+    export class Mod {
+        constructor(data: Object);
+        public fetchAuthor(client: Client): Promise<Player>;
+        name: string;
+        authorUsername: string;
+        rank: number;
+        id: number;
+        votes: number;
+        url: string;
+        createdAt: Date;
+        image: string;
     }
 }

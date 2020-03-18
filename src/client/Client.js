@@ -57,10 +57,10 @@ module.exports = class Client {
         if (updateCache) this._updateCache();
         return raw ? c.raw : c;
     }
-    getPlayer(nameOrID, { updateCache = true, raw = false } = {}) {
+    getPlayer(nameOrID, { updateCache = true, raw = false, mods = false, clan = false } = {}) {
         if (!nameOrID) throw new ArgumentError("No name or ID given");
         const u = [ ...this.players.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
-        if (!u) return this.fetchPlayer(nameOrID, { cache: updateCache, raw });
+        if (!u) return this.fetchPlayer(nameOrID, { cache: updateCache, raw, clan, mods });
         if (updateCache) this._updateCache();
         return raw ? u.raw : u;
     }
