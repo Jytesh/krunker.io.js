@@ -17,7 +17,7 @@ module.exports = class Client {
         this.players = new Map();
         this.clans = new Map();
     }
-    fetchPlayer(username, { cache = true, raw = false } = {}) {
+    fetchPlayer(username, { cache = true, raw = false, mods = false, clan = false } = {}) {
         this._connectWS();
         return new Promise((res, rej) => {
             if (!username) return rej(new ArgumentError("No username given"));
@@ -31,7 +31,7 @@ module.exports = class Client {
                 const userData = decode(new Uint8Array(buffer.data))[1][2];
                 this._disconnectWS();
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError("Player not found"));
-                const p = await (new Player().setup(this, userData));
+                const p = await (new Player().setup(this, userData, { mods, clan }));
                 if (cache) this.players.set(p.username + "_" + p.id, p);
                 res(raw ? userData : p);
             };
