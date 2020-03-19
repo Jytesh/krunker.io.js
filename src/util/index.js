@@ -63,8 +63,9 @@ const spins = {
         rare: 48,
         epic: 35,
         legendary: 14,
-        relic: 2.5,
-        contraband: 0.5
+        relic: 2.4,
+        contraband: 0.5,
+        unobtainable: 0.1
     },
     hunter: {
         cost: 600,
