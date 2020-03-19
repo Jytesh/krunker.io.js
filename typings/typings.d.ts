@@ -153,16 +153,19 @@ declare module "krunker.io.js" {
             cache: boolean,
             raw: boolean
         }): Promise<Clan>;
+        public fetchLeaderboard(orderBy?: string): Promise<string[]>;
         public getPlayer(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean,
             clan: boolean,
             mods: boolean
-        }): Player|Promise<Player>;
+        }): Player | Promise<Player>;
         public getGame(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean
-        }): Clan|Promise<Clan>;
+        }): Clan | Promise<Clan>;
+        public getChangelog(): Changelog | Promise<Changelog>;
+        public getLeaderboard(orderBy?: string): string[] | Promise<string[]>;
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
         public getSkin(name: string): null | Skin;

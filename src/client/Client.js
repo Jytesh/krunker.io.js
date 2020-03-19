@@ -14,16 +14,32 @@ const ArgumentError      = require("../errors/ArgumentError.js");
 
 const skins              = require("../data/skins.json");
 
+const OrderBy = {
+    funds: "player_funds",
+    clans: "player_clan",
+    level: "player_score",
+    kills: "player_kills",
+    time: "player_timeplayed",
+    wins: "player_wins",
+    elo: "player_elo",
+    elo2: "player_elo2",
+    elo4: "player_elo4"
+}
+
 module.exports = class Client {
     constructor() {
         this.players = new Map();
+        this.leaderboard = new Map();
         this.clans = new Map();
     }
     fetchPlayer(username, { cache = true, raw = false, mods = false, clan = false } = {}) {
         this._connectWS();
         return new Promise((res, rej) => {
             if (!username) return rej(new ArgumentError("No username given"));
-            this.ws.onopen = () => this.ws.send(encode(["r", ["profile", username, "000000", null]]).buffer);
+            this.ws.onopen = () =>
+              this.ws.send(
+                encode(["r", ["profile", username, "000000", null]]).buffer
+              );
             this.ws.onerror = err => {
                 this.ws.terminate();
                 rej(err);
@@ -76,8 +92,42 @@ module.exports = class Client {
             res(raw ? await r.json() : new Game(await r.json()));
         });
     }
-    fetchChangelog() {
-        return new Promise(async r => r(new Changelog(await (await fetch("https://krunker.io/docs/versions.txt")).text())));
+    async fetchChangelog() {
+        this.changelog = new Changelog(
+          await (await fetch("https://krunker.io/docs/versions.txt")).text()
+        );
+        return this.changelog;
+    }
+    fetchLeaderboard(orderBy) {
+        orderBy = OrderBy[`${orderBy}`.toLowerCase()]
+        || Object.values(OrderBy).includes(`${orderBy}`)
+          ? `${orderBy}`
+          : OrderBy.level;
+        this._connectWS();
+        return new Promise((res, rej) => {
+            this.ws.onopen = () =>
+              this.ws.send(
+                encode(["r", ["leaders", orderBy, null, null]]).buffer
+              );
+            this.ws.onmessage = buffer => {
+                let data = decode(new Uint8Array(buffer.data))[1][2];
+                this._disconnectWS();
+                if (!data) return rej(new KrunkerAPIError("Something went wrong!"));
+                data = data.map(d => d.player_name);
+                this.leaderboard.set(orderBy, data);
+                res(this.leaderboard.get(orderBy));
+            }
+        });
+    }
+    getLeaderboard(orderBy) {
+        orderBy = OrderBy[`${orderBy}`.toLowerCase()]
+        || Object.values(OrderBy).includes(`${orderBy}`)
+          ? `${orderBy}`
+          : OrderBy.level;
+        return this.leaderboard.get(orderBy) || this.fetchLeaderboard(orderBy);
+    }
+    getChangelog() {
+        return this.changelog || this.fetchChangelog();
     }
     getClass(name) {
         return new Class(name);
