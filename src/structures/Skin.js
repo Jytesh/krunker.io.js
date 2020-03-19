@@ -23,6 +23,9 @@ module.exports = class Skin {
         this.glow = !!data.glow;
         this.url = this.weapon.getSkin(this.id);
     }
+    toString() {
+        return this.name;
+    }
     async fetchAuthor(client) {
         if (client instanceof Client === false) client = new Client();
         this.author = await client.fetchPlayer(this.authorUsername);

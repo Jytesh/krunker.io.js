@@ -12,6 +12,8 @@ const Clan               = require("../structures/Clan.js");
 const KrunkerAPIError    = require("../errors/KrunkerAPIError.js");
 const ArgumentError      = require("../errors/ArgumentError.js");
 
+const skins              = require("../data/skins.json");
+
 module.exports = class Client {
     constructor() {
         this.players = new Map();
@@ -83,6 +85,10 @@ module.exports = class Client {
     getWeapon(name) {
         return new Weapon(name);
     }
+    getSkin(name) {
+        const found = skins.find(s => s.name.toLowerCase() === `${name}`.toLowerCase());
+        return found ? new Skin(new Weapon(found.weapon), found) : null;
+    }
     
     _connectWS() {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", { handshakeTimeout: 10000 });
@@ -99,5 +105,36 @@ module.exports = class Client {
             const c = await this.fetchClan(cn);
             this.clans.set(c.name + "_" + c.id, c);
         }
+    }
+}
+
+const { resolveWeapon, resolveRarity } = {
+    resolveWeapon(r) {
+        if (r && r.constructor.name === "Class") return r.weapon;
+        if (typeof r === "string") return new Weapon(r);
+        return r
+    },
+    resolveRarity: r => ["Uncommon", "Rare", "Epic", "Legendary", "Relic", "Contraband"][r]
+};
+
+class Skin {
+    constructor(wResolvable, data) {
+        this.weapon = resolveWeapon(wResolvable);
+        if (!this.weapon) throw new TypeError("Can't resolve " + wResolvable + " to a Weapon.");
+        this.name = data.name;
+        this.id = data.id;
+        this.tex = data.tex;
+        this.key = data.key;
+        this.season = data.seas;
+        this.rarityI = data.rarity;
+        this.rarity = resolveRarity(data.rarity);
+        this.authorUsername = data.creator || "";
+        this.glow = !!data.glow;
+        this.url = this.weapon.getSkin(this.id);
+    }
+    async fetchAuthor(client) {
+        if (client instanceof Client === false) client = new Client();
+        this.author = await client.fetchPlayer(this.authorUsername);
+        return this.author;
     }
 }

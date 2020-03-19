@@ -454,9 +454,9 @@ module.exports = class Weapon {
         };
         
         const obj = {
-            pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, burst: famas
-        }[name.split(" ").join("").toLowerCase()]
-        || [ pistol, deserteagle, alienblaster, assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas ]
+            pistol, deserteagle, deagle: deserteagle, alienblaster, assaultrifle, ak: assaultrifle, sniperrifle, sniper: sniperrifle, submachinegun, smg: submachinegun, lightmachinegun, lmg: lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, burst: famas, crossbow, bow: crossbow
+        }[`${name}`.replace(/\s/g, "").toLowerCase()]
+        || [ pistol, deserteagle, alienblaster, assaultrifle, sniperrifle, submachinegun, lightmachinegun, shotgun, revolver, semiauto, rocketlauncher, famas, crossbow ]
              .find(e => e.devNumber == name);
         
         if (!obj) return;

@@ -37,6 +37,7 @@ declare module "krunker.io.js" {
         lastPlayedClass?: Class;
         mods?: Mod[];
         joinedAt: Date;
+        hacker: boolean;
         stats: {
             shots: number;
             hits: number;
@@ -44,6 +45,7 @@ declare module "krunker.io.js" {
             nukes: number;
             kills: number;
             melees: number;
+            headshots: number;
             deaths: number;
             kdr: number;
             gamesPlayed: number;
@@ -163,6 +165,7 @@ declare module "krunker.io.js" {
         }): Clan|Promise<Clan>;
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
+        public getSkin(name: string): null | Skin;
     }
     export class Mod {
         constructor(data: Object);
