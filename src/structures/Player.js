@@ -18,7 +18,7 @@ module.exports = class Player {
                 .map(modData => new Mod(modData))
                 .filter(mod => mod.authorUsername === data.player_name)
             )
-          : null;
+          : [];
           
           
         return {
