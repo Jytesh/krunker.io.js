@@ -3,15 +3,16 @@ const Mod = require("./Mod.js");
 const fetch = require("node-fetch");
 
 module.exports = class Player {
-    async setup(client, data, { clan, mods }) {
+    async setup(client, data, { clan = false , mods =false}) {
         const stats = JSON.parse(data.player_stats);
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
+        const hack = (data.player_hack === 0)?false:true
         const _playerClan = data.player_clan
           ? clan
             ? await client.fetchClan(data.player_clan)
             : data.player_clan
-          : null;
-        const _playerMods = mods
+          : data.player_clan        
+            const _playerMods = mods
           ? await fetch("https://api.krunker.io/mods?accountId=" + data.player_id).then(
             async d =>
               (await d.json()).data
@@ -19,7 +20,8 @@ module.exports = class Player {
                 .filter(mod => mod.authorUsername === data.player_name)
             )
           : null;
-        
+          
+          
         return {
             username: data.player_name,
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
@@ -30,6 +32,7 @@ module.exports = class Player {
             id: data.player_id,
             lastPlayedClass: new Class(classes[stats.c]),
             mods: _playerMods,
+            hack : hack,
             stats: {
                 timePlayed: {
                     ms: data.player_timeplayed,
@@ -45,6 +48,7 @@ module.exports = class Player {
                 hits: stats.h,
                 accuracy: Number((stats.h * 100 / stats.s).toFixed(2)),
                 nukes: stats.n || 0,
+                headshots : stats.hs,
                 melees: stats.mk || 0,
                 kills: data.player_kills,
                 deaths: data.player_deaths,
