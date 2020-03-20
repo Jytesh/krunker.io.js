@@ -3,7 +3,7 @@ const Mod = require("./Mod.js");
 const fetch = require("node-fetch");
 
 module.exports = class Player {
-    async setup(client, data, { clan = false , mods =false}) {
+    async setup(client, data, { clan = false , mods = false } = {}) {
         const stats = JSON.parse(data.player_stats);
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
         const _playerClan = data.player_clan
@@ -19,7 +19,11 @@ module.exports = class Player {
                 .filter(mod => mod.authorUsername === data.player_name)
             )
           : [];
-          
+          const _classes = Object.fromEntries(
+            Object.keys(stats)
+              .filter(k => /c\d+/.test(k))
+              .map(k => [ new Class(classes[k.substring(1)]).name, new Class(classes[k.substring(1)], data) ])
+          );
           
         return {
             username: data.player_name,
@@ -30,6 +34,14 @@ module.exports = class Player {
             displayName: (data.player_clan ? data.player_name + " [" + _playerClan.name + "]" : data.player_name),
             id: data.player_id,
             lastPlayedClass: new Class(classes[stats.c]),
+            joinedAt: new Date(data.player_datenew),
+            classes: {
+                ..._classes,
+                lastPlayed: new Class(classes[stats.c]),
+                sorted: Object.values(_classes).sort((a, b) => b.score - a.score),
+                highest: Object.values(_classes).sort((a, b) => b.score - a.score)[0],
+                lowest: Object.values(_classes).sort((a, b) => a.score - b.score)[0]
+            },
             mods: _playerMods,
             hacker: !!data.player_hack,
             stats: {
@@ -42,12 +54,11 @@ module.exports = class Player {
                     toString: () => Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + "d " + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + "h " + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + "m",
                     valueOf: () => data.player_timeplayed
                 },
-                joinedAt: new Date(data.player_datenew),
                 shots: stats.s,
                 hits: stats.h,
                 accuracy: Number((stats.h * 100 / stats.s).toFixed(2)),
                 nukes: stats.n || 0,
-                headshots: stats.hs,
+                headshots: stats.hs || 0,
                 melees: stats.mk || 0,
                 kills: data.player_kills,
                 deaths: data.player_deaths,
@@ -57,7 +68,7 @@ module.exports = class Player {
                 losses: data.player_games_played - data.player_wins,
                 wlr: Number((data.player_wins / (data.player_games_played - data.player_wins)).toFixed(2)),
                 kpg: Number((data.player_kills / data.player_games_played).toFixed(2)),
-                elo1: data.player_elo1 || 0,
+                elo1: data.player_elo || 0,
                 elo2: data.player_elo2 || 0,
                 elo4: data.player_elo4 || 0,
             },

@@ -35,6 +35,7 @@ declare module "krunker.io.js" {
         displayName: string;
         id: string;
         lastPlayedClass?: Class;
+        classes: object;
         mods?: Mod[];
         joinedAt: Date;
         hacker: boolean;
@@ -112,10 +113,11 @@ declare module "krunker.io.js" {
         name: string;
         secondary: boolean;
         weapon: Weapon;
+        devNumber: number;
         toString(): string;
     }
     export class Game {
-        constructor(data: Array<any>);
+        constructor(data: any[]);
         id: string;
         players: {
             players: number;
@@ -169,6 +171,7 @@ declare module "krunker.io.js" {
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
         public getSkin(name: string): null | Skin;
+        getSkins(filter?: function): Skin[];
     }
     export class Mod {
         constructor(data: Object);

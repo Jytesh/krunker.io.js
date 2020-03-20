@@ -1,7 +1,9 @@
 const Skin = require("./Skin.js");
 
 module.exports = class Class {
-    constructor (name = "Triggerman") {
+    constructor(name = "Triggerman", data) {
+        const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
+
         const triggerman = {
             health: 100,
             name: "Triggerman",
@@ -104,6 +106,8 @@ module.exports = class Class {
         
         if (!obj) return;
         obj.toString = () => obj.name;
+        obj.devNumber = classes.indexOf(obj.name);
+        if (data) obj.score = JSON.parse(data.player_stats)["c" + obj.devNumber] || 0;
         for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
         
         return obj;

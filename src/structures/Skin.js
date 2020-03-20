@@ -19,7 +19,7 @@ module.exports = class Skin {
         this.season = data.seas;
         this.rarityI = data.rarity;
         this.rarity = resolveRarity(data.rarity);
-        this.authorUsername = data.creator || "";
+        this.authorUsername = data.creator || "Krunker.io";
         this.glow = !!data.glow;
         this.url = this.weapon.getSkin(this.id);
     }

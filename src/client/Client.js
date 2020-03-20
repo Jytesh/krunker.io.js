@@ -139,6 +139,11 @@ module.exports = class Client {
         const found = skins.find(s => s.name.toLowerCase() === `${name}`.toLowerCase());
         return found ? new Skin(new Weapon(found.weapon), found) : null;
     }
+    getSkins(filter) {
+        return skins
+          .filter(typeof filter === "function" ? filter : () => true)
+          .map(d => new Skin(d));
+    }
     
     _connectWS() {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", { handshakeTimeout: 10000 });
