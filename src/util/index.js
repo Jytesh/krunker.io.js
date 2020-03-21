@@ -123,12 +123,25 @@ const resolveKey = txt => txt.split("").map((char, i) => {
     return char;
 }).join("");
 
+const orderBy = {
+    funds: "player_funds",
+    clans: "player_clan",
+    level: "player_score",
+    kills: "player_kills",
+    time: "player_timeplayed",
+    wins: "player_wins",
+    elo: "player_elo",
+    elo2: "player_elo2",
+    elo4: "player_elo4"
+}
+
 module.exports = {
     classes,
     weapons,
     spins,
     resolver,
-    gameIDregExp: /[A-Z]{2,3}:[a-z0-9]{5}/,
+    orderBy,
+    gameIDregex: /[A-Z]{1,3}\:[a-z0-9]{5}/g,
     averageStat(structure, stat, arr, decimalDigits = 2) {
         if (!structure) return;
         structure = structure.trim().toLowerCase();
@@ -137,17 +150,16 @@ module.exports = {
                 var exampleStat = new Class("Triggerman")[stat];
                 if (!exampleStat) break;
                 arr = arr ? resolver.classNameArray(arr) : classes;
-                if (typeof exampleStat === "number") return avg(...arr.map(n => new Class(n)[stat])).toFixed(decimalDigits);
-                if (typeof exampleStat.toNumber === "function") return avg(arr.map(n => new Class(n)[stat].toNumber())).toFixed(decimalDigits);
+                if (typeof exampleStat === "number") return Number(avg(...arr.map(n => new Class(n)[stat])).toFixed(decimalDigits));
+                if (!isNaN(Number(exampleStat))) return Number(avg(arr.map(n => Number(new Class(n)[stat]))).toFixed(decimalDigits));
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
             case "weapon":
                 var exampleStat = new Weapon("Assault Rifle")[stat];
                 if (!exampleStat) break;
                 arr = arr ? resolver.weaponNameArray(arr) : weapons;
-                if (exampleStat.toNumber && typeof exampleStat.toNumber() === "number") return avg(...arr.map(n => new Weapon(n)[stat].toNumber())).toFixed(decimalDigits);
-                if (typeof exampleStat === "number") return avg(...arr.map(n => new Weapon(n)[stat])).toFixed(decimalDigits);
+                if (!isNaN(Number(exampleStat))) return Number(avg(...arr.map(n => Number(new Weapon(n)[stat]))).toFixed(decimalDigits));
+                if (typeof exampleStat === "number") return Number(avg(...arr.map(n => new Weapon(n)[stat])).toFixed(decimalDigits));
                 return mostOccurs(arr.map(n => new Class(n)[stat])).element;
-            default: return void console.error("Invalid structure " + structure);
         }
     },
     spinChance(spin, rarity, kr) {
@@ -157,14 +169,6 @@ module.exports = {
         if (kr < spin.cost) return 0;
         kr = round(kr, spin.cost);
         return (kr / spin.cost * spin[rarity]).toFixed(2);
-    },
-    nukeChance(kills = 0, deaths = 0) {
-        if (kills < 25) return 0;
-        if (deaths >= kills) return 0;
-        if (!deaths) return 2;
-        if (kills / deaths >= 25 - deaths) return 2;
-        if (kills - deaths >= 25 - deaths) return 1;
-        return 1;
     },
     stringifySettings(str, { lineBreaks = 1, seperator = ": ", includeControls = true } = {}) {
         const data = JSON.parse(str);

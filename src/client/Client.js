@@ -13,18 +13,9 @@ const KrunkerAPIError    = require("../errors/KrunkerAPIError.js");
 const ArgumentError      = require("../errors/ArgumentError.js");
 
 const skins              = require("../data/skins.json");
-
-const OrderBy = {
-    funds: "player_funds",
-    clans: "player_clan",
-    level: "player_score",
-    kills: "player_kills",
-    time: "player_timeplayed",
-    wins: "player_wins",
-    elo: "player_elo",
-    elo2: "player_elo2",
-    elo4: "player_elo4"
-}
+const {
+    gameIDregex, orderBy: OrderBy
+}                        = require("../util/index.js");
 
 module.exports = class Client {
     constructor() {
@@ -85,10 +76,10 @@ module.exports = class Client {
     fetchGame(id, { raw = false } = {}) {
         return new Promise(async (res, rej) => {
             if (!id) return rej(new ArgumentError("No ID given"));
-            [ id ] = `${id}`.match(/[A-Z]{2,3}:[a-z0-9]{5}/) || [];
+            [ id ] = `${id}`.match(gameIDregex) || [];
             if (!id) return rej(new ArgumentError("Invalid ID given"));
             const r = await fetch("https://matchmaker.krunker.io/game-info?game=" + id);
-            if (!r.ok) rej(new KrunkerAPIError("Invalid ID given"));
+            if (!r.ok) rej(new KrunkerAPIError("Game not found"));
             res(raw ? await r.json() : new Game(await r.json()));
         });
     }

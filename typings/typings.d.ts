@@ -185,4 +185,24 @@ declare module "krunker.io.js" {
         createdAt: Date;
         image: string;
     }
+    export const util: {
+        classes: string[];
+        weapons: string[];
+        spins: object;
+        resolver: {
+            classNameArray(arr: (string | Class | Weapon)[]): Class[];
+            weaponNameArray(arr: (string | Class | Weapon)[]): Weapon[];
+            resolveServer(str: string): string;
+            resolveWeapon(r: string | Class | Weapon): Weapon;
+        };
+        orderBy: object;
+        gameIDregex: RegExp;
+        averageStat(structure: "class" | "weapon", stat: string, arr?: (Class | Weapon)[], decimalDigits?: number): number | string;
+        spinChance(spin: string, rarity: string, kr: number): number;
+        stringifySettings(str: string, obj: {
+            lineBreaks?: number;
+            seperator?: string;
+            includeControls?: boolean;
+        }): string;
+    };
 }
