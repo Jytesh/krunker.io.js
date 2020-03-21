@@ -44,6 +44,7 @@ module.exports = class Player {
             },
             mods: _playerMods,
             hacker: !!data.player_hack,
+            region: data.player_region,
             stats: {
                 timePlayed: {
                     ms: data.player_timeplayed,
@@ -71,6 +72,7 @@ module.exports = class Player {
                 elo1: data.player_elo || 0,
                 elo2: data.player_elo2 || 0,
                 elo4: data.player_elo4 || 0,
+                challengesLevel: data.player_chal
             },
             social: {
                 clan: _playerClan,

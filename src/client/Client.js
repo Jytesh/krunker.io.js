@@ -140,7 +140,7 @@ module.exports = class Client {
         this.ws = new ws("wss://krunker_social.krunker.io/ws", { handshakeTimeout: 10000 });
     }
     _disconnectWS() {
-        if (this.ws && this.ws.readyState === 1) this.ws.close();
+        if (this.ws) this.ws.close();
     }
     async _updateCache() {
         for (const un of [ ...this.players.keys() ].map(d => d.username)) {

@@ -39,6 +39,7 @@ declare module "krunker.io.js" {
         mods?: Mod[];
         joinedAt: Date;
         hacker: boolean;
+        region: number;
         stats: {
             shots: number;
             hits: number;
@@ -61,7 +62,8 @@ declare module "krunker.io.js" {
                 days: number;
                 toString(): string;
                 valueOf(): number;
-            }
+            };
+            challengesLevel: number;
         };
         social: {
             clan: Clan | string | null;
@@ -135,6 +137,7 @@ declare module "krunker.io.js" {
         score: number;
         leader: string;
         members: string[];
+        verified: boolean;
     }
     export class Client {
         constructor();
@@ -196,6 +199,7 @@ declare module "krunker.io.js" {
             resolveWeapon(r: string | Class | Weapon): Weapon;
         };
         orderBy: object;
+        verifiedClans: string[];
         gameIDregex: RegExp;
         averageStat(structure: "class" | "weapon", stat: string, arr?: (Class | Weapon)[], decimalDigits?: number): number | string;
         spinChance(spin: string, rarity: string, kr: number): number;

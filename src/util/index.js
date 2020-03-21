@@ -133,7 +133,9 @@ const orderBy = {
     elo: "player_elo",
     elo2: "player_elo2",
     elo4: "player_elo4"
-}
+};
+
+const verifiedClans = ["DEV","FaZe","Lore","nV","Oxic","Verb","Omen","ロリ幼女","VOID","JBP","PHIL","TIMP","g59","24/7","GLXY","MMOK","KPOP","SCTE"];
 
 module.exports = {
     classes,
@@ -141,6 +143,7 @@ module.exports = {
     spins,
     resolver,
     orderBy,
+    verifiedClans,
     gameIDregex: /[A-Z]{1,3}\:[a-z0-9]{5}/g,
     averageStat(structure, stat, arr, decimalDigits = 2) {
         if (!structure) return;
