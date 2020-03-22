@@ -130,14 +130,11 @@ module.exports = class Client {
         const found = skins.find(s => s.name.toLowerCase() === `${name}`.toLowerCase());
         return found ? new Skin(new Weapon(found.weapon), found) : null;
     }
-    getSkins({ filter, sort, count }) {
-        const mapped = skins.map(d => new Skin(new Weapon(d.weapon), d));
-        const res = typeof filter === "function"
-        ? mapped.filter(filter)
-        : typeof sort === "function"
-          ? mapped.sort(sort)
-          : mapped;
-        return count ? res.slice(count) : res;
+    getSkins({ filter, sort, count } = {}) {
+        let res = skins.map(d => new Skin(new Weapon(d.weapon), d));
+        if (typeof filter === "function") res = res.filter(filter);
+        if (typeof sort === "function") res = res.sort(sort);
+        return count ? res.slice(0, count) : res;
     }
     
     _connectWS() {
