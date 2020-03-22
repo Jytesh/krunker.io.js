@@ -130,10 +130,14 @@ module.exports = class Client {
         const found = skins.find(s => s.name.toLowerCase() === `${name}`.toLowerCase());
         return found ? new Skin(new Weapon(found.weapon), found) : null;
     }
-    getSkins(filter) {
-        return skins
-          .filter(typeof filter === "function" ? filter : () => true)
-          .map(d => new Skin(d));
+    getSkins({ filter, sort, count }) {
+        const mapped = skins.map(d => new Skin(new Weapon(d.weapon), d));
+        const res = typeof filter === "function"
+        ? mapped.filter(filter)
+        : typeof sort === "function"
+          ? mapped.sort(sort)
+          : mapped;
+        return count ? res.slice(count) : res;
     }
     
     _connectWS() {
@@ -176,7 +180,7 @@ class Skin {
         this.rarity = resolveRarity(data.rarity);
         this.authorUsername = data.creator || "";
         this.glow = !!data.glow;
-        this.url = this.weapon.getSkin(this.id);
+        this.url = this.weapon.getSkin ? this.weapon.getSkin(this.id) : null;
     }
     async fetchAuthor(client) {
         if (client instanceof Client === false) client = new Client();
