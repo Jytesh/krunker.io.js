@@ -2,6 +2,12 @@ const Class = require("./Class.js");
 const Mod = require("./Mod.js");
 const fetch = require("node-fetch");
 
+Object.fromEntries = arr => {
+    const obj = {};
+    for (const [ k, v ] of arr) obj[k] = v;
+    return obj;
+};
+
 module.exports = class Player {
     async setup(client, data, { clan = false , mods = false } = {}) {
         const stats = JSON.parse(data.player_stats);
