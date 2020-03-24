@@ -170,14 +170,15 @@ class Skin {
         if (!this.weapon) throw new TypeError("Can't resolve " + wResolvable + " to a Weapon.");
         this.name = data.name;
         this.id = data.id;
-        this.tex = data.tex;
-        this.key = data.key;
-        this.season = data.seas;
+        this.season = data.seas || 1;
         this.rarityI = data.rarity;
         this.rarity = resolveRarity(data.rarity);
-        this.authorUsername = data.creator || "";
+        this.authorUsername = data.creator || "Krunker.io";
         this.glow = !!data.glow;
         this.url = this.weapon.getSkin ? this.weapon.getSkin(this.id) : null;
+    }
+    toString() {
+        return this.name;
     }
     async fetchAuthor(client) {
         if (client instanceof Client === false) client = new Client();

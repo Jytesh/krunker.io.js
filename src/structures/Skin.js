@@ -14,9 +14,7 @@ module.exports = class Skin {
         if (!this.weapon) throw new TypeError("Can't resolve " + wResolvable + " to a Weapon.");
         this.name = data.name;
         this.id = data.id;
-        this.tex = data.tex;
-        this.key = data.key;
-        this.season = data.seas;
+        this.season = data.seas || 1;
         this.rarityI = data.rarity;
         this.rarity = resolveRarity(data.rarity);
         this.authorUsername = data.creator || "Krunker.io";

@@ -17,8 +17,6 @@ declare module "krunker.io.js" {
         weapon: Weapon;
         name: string;
         id: number | string;
-        tex: number;
-        key: string;
         season: number;
         rarityI: number;
         rarity: string;
@@ -110,13 +108,15 @@ declare module "krunker.io.js" {
         getSkin?(n: number): string;
     }
     export class Class {
-        constructor(name: string);
+        constructor(name: string, data?: object);
         health: number;
         name: string;
         secondary: boolean;
         weapon: Weapon;
         devNumber: number;
         toString(): string;
+        score?: number;
+        level?: number;
     }
     export class Game {
         constructor(data: any[]);

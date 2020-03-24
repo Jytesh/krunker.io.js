@@ -28,7 +28,10 @@ module.exports = class Player {
           const _classes = Object.fromEntries(
             Object.keys(stats)
               .filter(k => /c\d+/.test(k))
-              .map(k => [ new Class(classes[k.substring(1)]).name, new Class(classes[k.substring(1)], data) ])
+              .map(k => [
+                new Class(classes[k.substring(1)]).name,
+                new Class(classes[k.substring(1)], data)
+              ])
           );
           
         return {
@@ -43,7 +46,7 @@ module.exports = class Player {
             joinedAt: new Date(data.player_datenew),
             classes: {
                 ..._classes,
-                lastPlayed: new Class(classes[stats.c]),
+                lastPlayed: new Class(classes[stats.c], data),
                 sorted: Object.values(_classes).sort((a, b) => b.score - a.score),
                 highest: Object.values(_classes).sort((a, b) => b.score - a.score)[0],
                 lowest: Object.values(_classes).sort((a, b) => a.score - b.score)[0]
