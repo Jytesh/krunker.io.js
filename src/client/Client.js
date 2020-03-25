@@ -59,6 +59,29 @@ module.exports = class Client {
             });
         });
     }
+    fetchInfected() {
+        return new Promise((res, rej) => {
+            this._connectWS();
+            this.ws.onopen = () =>
+              this.ws.send(
+                  encode(["vst", [7]]).buffer
+              );
+            this.ws.onerror = err => {
+                this.ws.terminate();
+                rej(err);
+            };
+
+            this.ws.onmessage = buffer =>{
+                const stats = decode(new Uint8Array(buffer.data))[1][0];
+                this._disconnectWS();
+                this.infected = stats.map(d => ({
+                    date: new Date(d.dat),
+                    infected: d.inf
+                }));
+                res(this.infected);
+            };
+        });
+    }
     getClan(nameOrID, { updateCache = true, raw = false } = {}) {
         if (!nameOrID) throw new ArgumentError("No clan name or ID given");
         const c = [ ...this.clans.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
@@ -72,6 +95,9 @@ module.exports = class Client {
         if (!u) return this.fetchPlayer(nameOrID, { cache: updateCache, raw, clan, mods });
         if (updateCache) this._updateCache();
         return raw ? u.raw : u;
+    }
+    getInfected() {
+        return this.infected || this.fetchInfected();
     }
     fetchGame(id, { raw = false } = {}) {
         return new Promise(async (res, rej) => {

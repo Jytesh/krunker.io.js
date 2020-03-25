@@ -152,6 +152,8 @@ declare module "krunker.io.js" {
             clan: boolean,
             mods: boolean
         }): Promise<Player>;
+        public fetchInfected(): Promise<Array<{ date: Date, infected: number }>>;
+        public getInfected(): Array<{ date: Date, infected: number }> | Promise<Array<{ date: Date, infected: number }>>;
         public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
         public fetchClan(name: string, options: {
@@ -174,7 +176,11 @@ declare module "krunker.io.js" {
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
         public getSkin(name: string): null | Skin;
-        getSkins(filter?: function): Skin[];
+        getSkins(options: {
+            filter?: Function;
+            sort?: Function;
+            count?: number;
+        }): Skin[];
     }
     export class Mod {
         constructor(data: Object);
