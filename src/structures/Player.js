@@ -54,6 +54,7 @@ module.exports = class Player {
             mods: _playerMods,
             hacker: !!data.player_hack,
             region: data.player_region,
+            infected: !!data.player_infected,
             stats: {
                 timePlayed: {
                     ms: data.player_timeplayed,
