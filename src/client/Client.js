@@ -72,7 +72,7 @@ module.exports = class Client {
             };
 
             this.ws.onmessage = buffer =>{
-                const stats = decode(new Uint8Array(buffer.data))[1][0];
+                const stats = decode(new Uint8Array(buffer.data))[1];
                 this._disconnectWS();
                 this.infected = stats.map(d => ({
                     date: new Date(d.dat),
@@ -164,7 +164,7 @@ module.exports = class Client {
     }
     
     _connectWS() {
-        this.ws = new ws("wss://krunker_social.krunker.io/ws", { handshakeTimeout: 10000 });
+        this.ws = new ws("wss://social.krunker.io/ws", { handshakeTimeout: 10000 });
     }
     _disconnectWS() {
         if (this.ws) this.ws.close();
