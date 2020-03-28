@@ -4,6 +4,7 @@ const fetch = require("node-fetch");
 
 module.exports = class Player {
     async setup(client, data, { clan = false , mods =false}) {
+        console.log(data)
         const stats = JSON.parse(data.player_stats);
         const classes = ["Triggerman", "Hunter", "Run N Gun", "Spray N Pray", "Vince", "Detective", "Marksman", "Rocketeer", "Agent", "Runner", "Bowman", "Commando"];
         const hack = (data.player_hack === 0)?false:true
