@@ -24,7 +24,7 @@ module.exports = class Player {
 						.map(modData => new Mod(modData))
 						.filter(mod => mod.authorUsername === data.player_name),
 			)
-			: [];
+			: data.player_mods.map(m => m.mod_name);
 		const _classes = Object.fromEntries(
 			Object.keys(stats)
 				.filter(k => /c\d+/.test(k))
@@ -40,7 +40,7 @@ module.exports = class Player {
 			levelImage: `https://krunker.io/img/levels/${Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score)))}.png`,
 			levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
 			score: data.player_score,
-			displayName: (data.player_clan ? data.player_name + ' [' + _playerClan.name + ']' : data.player_name),
+			displayName: (data.player_clan ? data.player_name + ' [' + data.player_clan + ']' : data.player_name),
 			id: data.player_id,
 			lastPlayedClass: new Class(classes[stats.c]),
 			joinedAt: new Date(data.player_datenew),

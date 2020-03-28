@@ -1,12 +1,13 @@
 {
     "name": "krunker.io.js",
     "author": "1s3k3b",
-    "version": "1.4.6",
+    "version": "1.4.8",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "types": "./typings/typings.d.ts",
     "homepage": "https://1s3k3b.github.io/krunkerjs",
     "scripts": {
+        "test": "npm run fetchPlayer && npm run fetchGame && npm run util && npm run class && npm run weapon && npm run changelog && npm run fetchClan && npm run skins && npm run leaderboard && npm run infected && eslint src --fix",
         "fetchPlayer": "node ./test/fetchPlayer.js",
         "fetchGame": "node ./test/fetchGame.js",
         "util": "node ./test/util.js",

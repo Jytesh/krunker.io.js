@@ -29,16 +29,7 @@ class Client {
 			if (!username) return rej(new ArgumentError('No username given'));
 			this.ws.onopen = () =>
 				this.ws.send(
-					encode([
-						"r",
-						"profile",
-						"yeehow",
-						null,
-						null,
-						null,
-						0,
-						null
-					  ]).buffer,
+					encode(['r', 'profile', username, null, null, null, 0, null]).buffer,
 				);
 			this.ws.onerror = err => {
 				this.ws.terminate();
@@ -46,17 +37,15 @@ class Client {
 			};
 
 			this.ws.onmessage = async buffer => {
-				
 				const completeData = decode(new Uint8Array(buffer.data));
 				this._disconnectWS();
-				let userData = completeData[3]
-				const userMods = completeData[5]
-				userData.player_mods = userMods
+				const [,,, userData,, userMods ] = completeData;
 				if (!userData || !userData.player_stats) return rej(new KrunkerAPIError('Player not found'));
-				if(raw) res(raw)
+				userData.player_mods = userMods;
+				if (raw) res(userData);
 				const p = await (new Player().setup(this, userData, { mods, clan }));
 				if (cache) this.players.set(p.username + '_' + p.id, p);
-				res(userData);
+				res(p);
 			};
 		});
 	}
