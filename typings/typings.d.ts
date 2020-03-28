@@ -34,7 +34,7 @@ declare module "krunker.io.js" {
         id: string;
         lastPlayedClass?: Class;
         classes: object;
-        mods?: Mod[];
+        mods: Mod[] | string[];
         joinedAt: Date;
         hacker: boolean;
         region: number;
@@ -132,10 +132,11 @@ declare module "krunker.io.js" {
         custom: boolean;
     }
     export class Clan {
+        public fetchLeader(): Promise<Player>;
         id: number;
         name: string;
         score: number;
-        leader: string;
+        leaderUsername: string;
         members: string[];
         verified: boolean;
     }

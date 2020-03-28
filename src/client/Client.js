@@ -50,16 +50,22 @@ class Client {
 		});
 	}
 	fetchClan(name, { raw = false, cache = true } = {}) {
-		return new Promise((res, rej) => {
-			if (!name) return rej(new ArgumentError('No clan name given'));
-			fetch('https://krunker.social/api?clan=' + name).then(async r => {
-				if (!r.ok) return rej(new KrunkerAPIError('Clan not found'));
-				const json = await r.json();
-				if (json.error) return rej(new KrunkerAPIError('Clan not found'));
-				const c = new Clan(json);
-				if (cache) this.clans.set(c.name + '_' + c.id);
-				res(raw ? json : c);
-			});
+		this._connectWS();
+		return new Promise(res => {
+			this.ws.onopen = () =>
+				this.ws.send(
+					encode(['r', 'clan', name, null, null]).buffer,
+				);
+
+			this.ws.onmessage = buffer => {
+				const data = decode(new Uint8Array(buffer.data))[3];
+				if (data) {
+					this._disconnectWS();
+					const c = new Clan(this, data);
+					if (cache) this.clans.set(c.name + '_' + c.id);
+					res(raw ? data : c);
+				}
+			};
 		});
 	}
 	fetchInfected() {
@@ -128,10 +134,10 @@ class Client {
 		return new Promise((res, rej) => {
 			this.ws.onopen = () =>
 				this.ws.send(
-					encode(['r', ['leaders', orderBy, null, null]]).buffer,
+					encode(['r', 'leaders', orderBy, null, null]).buffer,
 				);
 			this.ws.onmessage = buffer => {
-				let data = decode(new Uint8Array(buffer.data))[1][2];
+				let data = decode(new Uint8Array(buffer.data))[3];
 				this._disconnectWS();
 				if (!data) return rej(new KrunkerAPIError('Something went wrong!'));
 				data = data.map(d => d.player_name);
