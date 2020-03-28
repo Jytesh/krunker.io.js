@@ -1,4 +1,4 @@
-declare module "krunker.io.js" {
+declare module 'krunker.io.js' {
     export interface ISkin {
         name: string;
         id: number | string;
@@ -71,10 +71,10 @@ declare module "krunker.io.js" {
     }
     export class Changelog {
         constructor(text: string);
-        versions: Array<{
+        versions: {
             version: string;
             changes: string[];
-        }>;
+        }[];
         latestVersion: {
             version: string;
             changes: string[];
@@ -153,8 +153,8 @@ declare module "krunker.io.js" {
             clan: boolean,
             mods: boolean
         }): Promise<Player>;
-        public fetchInfected(): Promise<Array<{ date: Date, infected: number }>>;
-        public getInfected(): Array<{ date: Date, infected: number }> | Promise<Array<{ date: Date, infected: number }>>;
+        public fetchInfected(): Promise<{ date: Date, infected: number }[]>;
+        public getInfected(): { date: Date, infected: number }[] | Promise<{ date: Date, infected: number }[]>;
         public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
         public fetchClan(name: string, options: {
@@ -178,13 +178,14 @@ declare module "krunker.io.js" {
         public getClass(name?: string): Class;
         public getSkin(name: string): null | Skin;
         getSkins(options: {
-            filter?: Function;
-            sort?: Function;
+            filter?: () => boolean;
+            sort?: () => number;
+            map?: (() => any) | string;
             count?: number;
         }): Skin[];
     }
     export class Mod {
-        constructor(data: Object);
+        constructor(data: object);
         public fetchAuthor(client: Client): Promise<Player>;
         name: string;
         authorUsername: string;
@@ -208,7 +209,7 @@ declare module "krunker.io.js" {
         orderBy: object;
         verifiedClans: string[];
         gameIDregex: RegExp;
-        averageStat(structure: "class" | "weapon", stat: string, arr?: (Class | Weapon)[], decimalDigits?: number): number | string;
+        averageStat(structure: 'class' | 'weapon', stat: string, arr?: (Class | Weapon)[], decimalDigits?: number): number | string;
         spinChance(spin: string, rarity: string, kr: number): number;
         stringifySettings(str: string, obj: {
             lineBreaks?: number;

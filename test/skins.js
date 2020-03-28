@@ -11,3 +11,5 @@ console.log(client.getSkins({ count: 10, sort: (
     - b.weapon ? b.weapon.damage : 0
 ),
 }));
+console.log(client.getSkins({ map: 'name' }));
+console.log(client.getSkins({ map: s => s.name }))
