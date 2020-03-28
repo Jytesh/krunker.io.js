@@ -1,4 +1,4 @@
-const Krunker = require("../src/index.js");
-const client = new Krunker.Client();
+const { Client } = require("../src/index.js");
+const client = new Client();
 
 client.fetchPlayer("1s3k3b").then(console.log);

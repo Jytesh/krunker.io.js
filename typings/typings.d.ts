@@ -17,8 +17,6 @@ declare module "krunker.io.js" {
         weapon: Weapon;
         name: string;
         id: number | string;
-        tex: number;
-        key: string;
         season: number;
         rarityI: number;
         rarity: string;
@@ -35,8 +33,11 @@ declare module "krunker.io.js" {
         displayName: string;
         id: string;
         lastPlayedClass?: Class;
+        classes: object;
         mods?: Mod[];
         joinedAt: Date;
+        hacker: boolean;
+        region: number;
         stats: {
             shots: number;
             hits: number;
@@ -44,6 +45,7 @@ declare module "krunker.io.js" {
             nukes: number;
             kills: number;
             melees: number;
+            headshots: number;
             deaths: number;
             kdr: number;
             gamesPlayed: number;
@@ -58,7 +60,8 @@ declare module "krunker.io.js" {
                 days: number;
                 toString(): string;
                 valueOf(): number;
-            }
+            };
+            challengesLevel: number;
         };
         social: {
             clan: Clan | string | null;
@@ -105,15 +108,18 @@ declare module "krunker.io.js" {
         getSkin?(n: number): string;
     }
     export class Class {
-        constructor(name: string);
+        constructor(name: string, data?: object);
         health: number;
         name: string;
         secondary: boolean;
         weapon: Weapon;
+        devNumber: number;
         toString(): string;
+        score?: number;
+        level?: number;
     }
     export class Game {
-        constructor(data: Array<any>);
+        constructor(data: any[]);
         id: string;
         players: {
             players: number;
@@ -131,6 +137,7 @@ declare module "krunker.io.js" {
         score: number;
         leader: string;
         members: string[];
+        verified: boolean;
     }
     export class Client {
         constructor();
@@ -145,24 +152,35 @@ declare module "krunker.io.js" {
             clan: boolean,
             mods: boolean
         }): Promise<Player>;
+        public fetchInfected(): Promise<Array<{ date: Date, infected: number }>>;
+        public getInfected(): Array<{ date: Date, infected: number }> | Promise<Array<{ date: Date, infected: number }>>;
         public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
         public fetchClan(name: string, options: {
             cache: boolean,
             raw: boolean
         }): Promise<Clan>;
+        public fetchLeaderboard(orderBy?: string): Promise<string[]>;
         public getPlayer(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean,
             clan: boolean,
             mods: boolean
-        }): Player|Promise<Player>;
+        }): Player | Promise<Player>;
         public getGame(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean
-        }): Clan|Promise<Clan>;
+        }): Clan | Promise<Clan>;
+        public getChangelog(): Changelog | Promise<Changelog>;
+        public getLeaderboard(orderBy?: string): string[] | Promise<string[]>;
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
+        public getSkin(name: string): null | Skin;
+        getSkins(options: {
+            filter?: Function;
+            sort?: Function;
+            count?: number;
+        }): Skin[];
     }
     export class Mod {
         constructor(data: Object);
@@ -176,4 +194,25 @@ declare module "krunker.io.js" {
         createdAt: Date;
         image: string;
     }
+    export const util: {
+        classes: string[];
+        weapons: string[];
+        spins: object;
+        resolver: {
+            classNameArray(arr: (string | Class | Weapon)[]): Class[];
+            weaponNameArray(arr: (string | Class | Weapon)[]): Weapon[];
+            resolveServer(str: string): string;
+            resolveWeapon(r: string | Class | Weapon): Weapon;
+        };
+        orderBy: object;
+        verifiedClans: string[];
+        gameIDregex: RegExp;
+        averageStat(structure: "class" | "weapon", stat: string, arr?: (Class | Weapon)[], decimalDigits?: number): number | string;
+        spinChance(spin: string, rarity: string, kr: number): number;
+        stringifySettings(str: string, obj: {
+            lineBreaks?: number;
+            seperator?: string;
+            includeControls?: boolean;
+        }): string;
+    };
 }

@@ -1,7 +1,7 @@
 {
     "name": "krunker.io.js",
     "author": "1s3k3b",
-    "version": "1.3.0",
+    "version": "1.4.6",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "types": "./typings/typings.d.ts",
@@ -12,9 +12,11 @@
         "util": "node ./test/util.js",
         "class": "node ./test/class.js",
         "weapon": "node ./test/weapon.js",
-        "fetchChangelog": "node ./test/fetchChangelog.js",
+        "changelog": "node ./test/changelog.js",
         "fetchClan": "node ./test/fetchClan.js",
-        "skins": "node ./test/skins.js"
+        "skins": "node ./test/skins.js",
+        "leaderboard": "node ./test/leaderboard.js",
+        "infected": "node ./test/infected.js"
     },
     "files": [
         "src"
@@ -34,6 +36,7 @@
         "url": "https://github.com/1s3k3b/krunker.io.js/issues"
     },
     "dependencies": {
+        "eslint": "^6.8.0",
         "msgpack-lite": "^0.1.26",
         "node-fetch": "^2.6.0",
         "ws": "^7.2.3"
