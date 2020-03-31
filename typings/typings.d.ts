@@ -137,7 +137,13 @@ declare module 'krunker.io.js' {
         name: string;
         score: number;
         leaderUsername: string;
-        members: string[];
+        members: Array<{
+            username: string;
+            level: number;
+            levelProgress: number;
+            score: number;
+            toString(): string;
+        }>;
         verified: boolean;
     }
     export class Client {

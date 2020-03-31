@@ -7,7 +7,7 @@ module.exports = class Clan {
             id: data.clan_id,
             name: data.clan_name,
             score: data.clan_score,
-            memberCount : data.members.length,
+            memberCount: data.members.length,
             members: data.members
                 .sort((a, b) =>
                     b.player_score - a.player_score,
@@ -34,4 +34,4 @@ module.exports = class Clan {
     toString() {
         return this.name;
     }
-}
+};
