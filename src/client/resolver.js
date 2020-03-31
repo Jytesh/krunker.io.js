@@ -1,5 +1,7 @@
 const Class = require('../structures/Class.js');
 const Weapon = require('../structures/Weapon.js');
+const Player = require('../structures/Player.js');
+const Clan = require('../structures/Clan.js');
 
 const classArr = ['Triggerman', 'Hunter', 'Run N Gun', 'Spray N Pray', 'Vince', 'Detective', 'Marksman', 'Rocketeer', 'Agent', 'Runner', 'Bowman', 'Commando'];
 const weaponArr = classArr.map(n => new Class(n).weapon.name);
@@ -41,4 +43,9 @@ module.exports = {
         throw new TypeError('Can\'t resolve ' + r + ' to a Weapon.');
     },
     resolveRarity: r => ['Uncommon', 'Rare', 'Epic', 'Legendary', 'Relic', 'Contraband'][r],
+    resolveUsername(r) {
+        if (r instanceof Player) return r.username;
+        if (typeof r === 'string') return r;
+        if (r instanceof Clan) return r.leaderUsername;
+    },
 };

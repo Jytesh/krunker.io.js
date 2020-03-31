@@ -191,6 +191,18 @@ declare module 'krunker.io.js' {
             map?: (() => any) | string;
             count?: number;
         }): Skin[];
+        fetchMods(options: {
+            player?: string | Player | Clan;
+            filter?: () => boolean;
+            sort?: () => number;
+            map?: (() => any) | string;
+            count?: number;
+        }): Promise<Mod[]>;
+        getMod(options: {
+            name?: string;
+            id?: number;
+            rank?: number;
+        }): Promise<Mod>;
     }
     export class Mod {
         constructor(data: object);

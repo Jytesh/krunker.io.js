@@ -9,13 +9,11 @@ const Weapon = require('../structures/Weapon.js');
 const Class = require('../structures/Class.js');
 const Clan = require('../structures/Clan.js');
 
-const KrunkerAPIError = require('../errors/KrunkerAPIError.js');
-const ArgumentError = require('../errors/ArgumentError.js');
+const { KrunkerAPIError, ArgumentError } = require('../errors/index.js');
 
 const skins = require('../data/skins.json');
-const {
-    gameIDregex, orderBy: OrderBy,
-} = require('../util/index.js');
+const { gameIDregex, orderBy: OrderBy } = require('../util/index.js');
+const { resolveUsername } = require('./resolver.js');
 
 class Client {
     constructor() {
@@ -31,7 +29,7 @@ class Client {
         this._connectWS();
         const start = Date.now();
         return new Promise((res, rej) => {
-            if (!username) return rej(new ArgumentError('No username given'));
+            if (!username) return rej(new ArgumentError('NO_ARGUMENT', 'username'));
             this.ws.onopen = () =>
                 this.ws.send(
                     encode(['r', 'profile', username, null, null, null, 0, null]).buffer,
@@ -46,7 +44,7 @@ class Client {
                 this._disconnectWS();
                 this._pings.push(Date.now() - start);
                 const [,,, userData,, userMods ] = completeData;
-                if (!userData || !userData.player_stats) return rej(new KrunkerAPIError('Player not found'));
+                if (!userData || !userData.player_stats) return rej(new KrunkerAPIError('404_NOT_FOUND', 'Player'));
                 userData.player_mods = userMods;
                 if (raw) res(userData);
                 const p = await (new Player().setup(this, userData, { mods, clan }));
@@ -93,6 +91,7 @@ class Client {
                 const stats = decode(new Uint8Array(buffer.data))[1];
                 this._disconnectWS();
                 this._pings.push(Date.now() - start);
+                if (!stats) return rej(new KrunkerAPIError('SOMETHING_WENT_WRONG'));
                 this.infected = stats.map(d => ({
                     date: new Date(d.dat),
                     infected: d.inf,
@@ -102,14 +101,14 @@ class Client {
         });
     }
     getClan(nameOrID, { updateCache = true, raw = false } = {}) {
-        if (!nameOrID) throw new ArgumentError('No clan name or ID given');
+        if (!nameOrID) throw new ArgumentError('NO_ARGUMENT', 'clan name or ID');
         const c = [ ...this.clans.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
         if (!c) return this.fetchClan(nameOrID, { cache: updateCache, raw });
         if (updateCache) this._updateCache();
         return raw ? c.raw : c;
     }
     getPlayer(nameOrID, { updateCache = true, raw = false, mods = false, clan = false } = {}) {
-        if (!nameOrID) throw new ArgumentError('No name or ID given');
+        if (!nameOrID) throw new ArgumentError('NO_ARGUMENT', 'username or ID');
         const u = [ ...this.players.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
         if (!u) return this.fetchPlayer(nameOrID, { cache: updateCache, raw, clan, mods });
         if (updateCache) this._updateCache();
@@ -120,11 +119,11 @@ class Client {
     }
     fetchGame(id, { raw = false } = {}) {
         return new Promise((res, rej) => {
-            if (!id) return rej(new ArgumentError('No ID given'));
+            if (!id) return rej(new ArgumentError('NO_ARGUMENT', 'game ID'));
             [ id ] = `${id}`.match(gameIDregex) || [];
-            if (!id) return rej(new ArgumentError('Invalid ID given'));
+            if (!id) return rej(new ArgumentError('INVALID_ARGUMENT', 'game ID'));
             fetch('https://matchmaker.krunker.io/game-info?game=' + id).then(async r => {
-                if (!r.ok) rej(new KrunkerAPIError('Game not found'));
+                if (!r.ok) rej(new KrunkerAPIError('404_NOT_FOUND', 'Game'));
                 res(raw ? await r.json() : new Game(await r.json()));
             });
         });
@@ -151,7 +150,7 @@ class Client {
                 let data = decode(new Uint8Array(buffer.data))[3];
                 this._disconnectWS();
                 this._pings.push(Date.now() - start);
-                if (!data) return rej(new KrunkerAPIError('Something went wrong!'));
+                if (!data) return rej(new KrunkerAPIError('SOMETHING_WENT_WRONG'));
                 data = data.map(d => d.player_name);
                 this.leaderboard.set(orderBy, data);
                 res(this.leaderboard.get(orderBy));
@@ -190,6 +189,29 @@ class Client {
             );
         }
         return count ? res.slice(0, count) : res;
+    }
+    async fetchMods({ player, filter, sort, count, map } = {}) {
+        if (resolveUsername(player)) filter = m => m.authorUsername === resolveUsername(player);
+        let res = await fetch('https://api.krunker.io/mods').then(
+            async d =>
+                (await d.json()).data.map(modData => new Mod(modData)),
+        );
+        if (typeof filter === 'function') res = res.filter(filter);
+        if (typeof sort === 'function') res = res.sort(sort);
+        if (['string', 'symbol', 'function'].includes(typeof map)) {
+            res = res.map(
+                typeof map === 'function'
+                    ? map
+                    : x => x[map],
+            );
+        }
+        return count ? res.slice(0, count) : res;
+    }
+    async getMod({ name, rank, id } = {}) {
+        if (!name && !rank && !id) return new ArgumentError('NO_ARGUMENT', 'mod name, rank, or ID');
+        const prop = Object.keys(arguments[0]).find(x => x);
+        const val = name || rank || id;
+        return (await this.fetchMods()).find(m => m[prop] === val);
     }
 
     _connectWS() {
@@ -234,6 +256,28 @@ class Skin {
     }
     toString() {
         return this.name;
+    }
+    async fetchAuthor(client) {
+        if (client instanceof Client === false) client = new Client();
+        this.author = await client.fetchPlayer(this.authorUsername);
+        return this.author;
+    }
+}
+
+class Mod {
+    constructor(data) {
+        this.name = data.mod_name;
+        this.authorUsername = data.creatorname;
+        this.rank = data.mod_rank;
+        this.id = data.mod_id;
+        this.url = data.mod_url;
+        this.votes = data.mod_votes;
+        this.createdAt = new Date(data.mod_date);
+        Object.defineProperty(this, 'image', {
+            value: data.mod_image,
+            writable: true,
+            configurable: true,
+        });
     }
     async fetchAuthor(client) {
         if (client instanceof Client === false) client = new Client();
