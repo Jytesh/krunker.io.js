@@ -142,6 +142,8 @@ declare module 'krunker.io.js' {
     }
     export class Client {
         constructor();
+        private _pings: number[];
+        public ping: number;
         public players: Map<string, Player>;
         public clans: Map<string, Clan>;
         private _connectWS(): void;

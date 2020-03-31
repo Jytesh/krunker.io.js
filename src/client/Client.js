@@ -22,9 +22,14 @@ class Client {
         this.players = new Map();
         this.leaderboard = new Map();
         this.clans = new Map();
+        this._pings = [];
+    }
+    get ping() {
+        return this._pings.reduce((a, b) => a + b, 0);
     }
     fetchPlayer(username, { cache = true, raw = false, mods = false, clan = false } = {}) {
         this._connectWS();
+        const start = Date.now();
         return new Promise((res, rej) => {
             if (!username) return rej(new ArgumentError('No username given'));
             this.ws.onopen = () =>
@@ -39,6 +44,7 @@ class Client {
             this.ws.onmessage = async buffer => {
                 const completeData = decode(new Uint8Array(buffer.data));
                 this._disconnectWS();
+                this._pings.push(Date.now() - start);
                 const [,,, userData,, userMods ] = completeData;
                 if (!userData || !userData.player_stats) return rej(new KrunkerAPIError('Player not found'));
                 userData.player_mods = userMods;
@@ -51,6 +57,7 @@ class Client {
     }
     fetchClan(name, { raw = false, cache = true } = {}) {
         this._connectWS();
+        const start = Date.now();
         return new Promise(res => {
             this.ws.onopen = () =>
                 this.ws.send(
@@ -61,6 +68,7 @@ class Client {
                 const data = decode(new Uint8Array(buffer.data))[3];
                 if (data) {
                     this._disconnectWS();
+                    this._pings.push(Date.now() - start);
                     const c = new Clan(this, data);
                     if (cache) this.clans.set(c.name + '_' + c.id);
                     res(raw ? data : c);
@@ -69,8 +77,9 @@ class Client {
         });
     }
     fetchInfected() {
+        this._connectWS();
+        const start = Date.now();
         return new Promise((res, rej) => {
-            this._connectWS();
             this.ws.onopen = () =>
                 this.ws.send(
                     encode(['vst', [7]]).buffer,
@@ -83,6 +92,7 @@ class Client {
             this.ws.onmessage = buffer =>{
                 const stats = decode(new Uint8Array(buffer.data))[1];
                 this._disconnectWS();
+                this._pings.push(Date.now() - start);
                 this.infected = stats.map(d => ({
                     date: new Date(d.dat),
                     infected: d.inf,
@@ -131,6 +141,7 @@ class Client {
             ? `${orderBy}`
             : OrderBy.level;
         this._connectWS();
+        const start = Date.now();
         return new Promise((res, rej) => {
             this.ws.onopen = () =>
                 this.ws.send(
@@ -139,6 +150,7 @@ class Client {
             this.ws.onmessage = buffer => {
                 let data = decode(new Uint8Array(buffer.data))[3];
                 this._disconnectWS();
+                this._pings.push(Date.now() - start);
                 if (!data) return rej(new KrunkerAPIError('Something went wrong!'));
                 data = data.map(d => d.player_name);
                 this.leaderboard.set(orderBy, data);
@@ -169,12 +181,14 @@ class Client {
     getSkins({ filter, sort, count, map } = {}) {
         let res = skins.map(d => new Skin(new Weapon(d.weapon), d));
         if (typeof filter === 'function') res = res.filter(filter);
-		if (typeof sort === 'function') res = res.sort(sort);
-		if (['string', 'symbol', 'function'].includes(typeof map)) res = res.map(
-			typeof map === 'function'
-			? map
-			: x => x[map]
-		);
+        if (typeof sort === 'function') res = res.sort(sort);
+        if (['string', 'symbol', 'function'].includes(typeof map)) {
+            res = res.map(
+                typeof map === 'function'
+                    ? map
+                    : x => x[map],
+            );
+        }
         return count ? res.slice(0, count) : res;
     }
 
@@ -185,11 +199,11 @@ class Client {
         if (this.ws) this.ws.close();
     }
     async _updateCache() {
-        for (const un of [ ...this.players.keys() ].map(d => d.username)) {
+        for (const un of [ ...this.players.values() ].map(d => d.username)) {
             const u = await this.fetchPlayer(un);
             this.players.set(u.username + '_' + u.id, u);
         }
-        for (const cn of [ ...this.clans.keys() ].map(d => d.name)) {
+        for (const cn of [ ...this.clans.values() ].map(d => d.name)) {
             const c = await this.fetchClan(cn);
             this.clans.set(c.name + '_' + c.id, c);
         }

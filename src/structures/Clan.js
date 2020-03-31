@@ -7,7 +7,11 @@ module.exports = class Clan {
             id: data.clan_id,
             name: data.clan_name,
             score: data.clan_score,
-            members: data.members.map(m => m.player_name),
+            members: data.members
+                .sort((a, b) =>
+                    b.player_score - a.player_score,
+                )
+                .map(m => m.player_name),
             leaderUsername: data.creatorname,
             verified: verifiedClans.includes(data.clan_name),
         };
