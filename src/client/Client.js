@@ -1,6 +1,5 @@
-const ws = require('ws');
+const WebSocketManager = require('./ws/WebSocketManager.js');
 const fetch = require('node-fetch');
-const { encode, decode } = require('msgpack-lite');
 
 const Player = require('../structures/Player.js');
 const Game = require('../structures/Game.js');
@@ -20,85 +19,53 @@ class Client {
         this.players = new Map();
         this.leaderboard = new Map();
         this.clans = new Map();
-        this._pings = [];
+        this.ws = new WebSocketManager(this);
     }
     get ping() {
-        return this._pings.reduce((a, b) => a + b, 0);
+        return this.ws.ping;
     }
     fetchPlayer(username, { cache = true, raw = false, mods = false, clan = false } = {}) {
-        this._connectWS();
-        const start = Date.now();
-        return new Promise((res, rej) => {
-            if (!username) return rej(new ArgumentError('NO_ARGUMENT', 'username'));
-            this.ws.onopen = () =>
-                this.ws.send(
-                    encode(['r', 'profile', username, null, null, null, 0, null]).buffer,
-                );
-            this.ws.onerror = err => {
-                this.ws.terminate();
-                rej(err);
-            };
-
-            this.ws.onmessage = async buffer => {
-                const completeData = decode(new Uint8Array(buffer.data));
-                this._disconnectWS();
-                this._pings.push(Date.now() - start);
-                const [,,, userData,, userMods ] = completeData;
-                if (!userData || !userData.player_stats) return rej(new KrunkerAPIError('404_NOT_FOUND', 'Player'));
+        if (!username) throw new ArgumentError('NO_ARGUMENT', 'username');
+        return this.ws.request(
+            ['r', 'profile', username, null, null, null, 0, null],
+            x => x,
+            async ([,,, userData,, userMods ]) => {
+                if (!userData || !userData.player_stats) throw new KrunkerAPIError('404_NOT_FOUND', 'Player');
                 userData.player_mods = userMods;
-                if (raw) res(userData);
+                if (raw) return userData;
                 const p = await (new Player().setup(this, userData, { mods, clan }));
                 if (cache) this.players.set(p.username + '_' + p.id, p);
-                res(p);
-            };
-        });
+                return p;
+            },
+        );
     }
     fetchClan(name, { raw = false, cache = true } = {}) {
-        this._connectWS();
-        const start = Date.now();
-        return new Promise(res => {
-            this.ws.onopen = () =>
-                this.ws.send(
-                    encode(['r', 'clan', name, null, null]).buffer,
-                );
-
-            this.ws.onmessage = buffer => {
-                const data = decode(new Uint8Array(buffer.data))[3];
-                if (data) {
-                    this._disconnectWS();
-                    this._pings.push(Date.now() - start);
-                    const c = new Clan(this, data);
-                    if (cache) this.clans.set(c.name + '_' + c.id);
-                    res(raw ? data : c);
-                }
-            };
-        });
+        if (!name) throw new ArgumentError('NO_ARGUMENT', 'clan name');
+        return this.ws.request(
+            ['r', 'clan', name, null, null],
+            x => x[3],
+            data => {
+                if (!data) return;
+                const c = new Clan(this, data);
+                if (cache) this.clans.set(c.name + '_' + c.id);
+                return raw ? data : c;
+            },
+            true,
+        );
     }
     fetchInfected() {
-        this._connectWS();
-        const start = Date.now();
-        return new Promise((res, rej) => {
-            this.ws.onopen = () =>
-                this.ws.send(
-                    encode(['vst', [7]]).buffer,
-                );
-            this.ws.onerror = err => {
-                this.ws.terminate();
-                rej(err);
-            };
-
-            this.ws.onmessage = buffer =>{
-                const stats = decode(new Uint8Array(buffer.data))[1];
-                this._disconnectWS();
-                this._pings.push(Date.now() - start);
-                if (!stats) return rej(new KrunkerAPIError('SOMETHING_WENT_WRONG'));
+        return this.ws.request(
+            ['vst', [7]],
+            x => x[1],
+            stats => {
+                if (!stats) throw new KrunkerAPIError('SOMETHING_WENT_WRONG');
                 this.infected = stats.map(d => ({
                     date: new Date(d.dat),
                     infected: d.inf,
                 }));
-                res(this.infected);
-            };
-        });
+                return this.infected;
+            },
+        );
     }
     getClan(nameOrID, { updateCache = true, raw = false } = {}) {
         if (!nameOrID) throw new ArgumentError('NO_ARGUMENT', 'clan name or ID');
@@ -139,23 +106,16 @@ class Client {
         || Object.values(OrderBy).includes(`${orderBy}`)
             ? `${orderBy}`
             : OrderBy.level;
-        this._connectWS();
-        const start = Date.now();
-        return new Promise((res, rej) => {
-            this.ws.onopen = () =>
-                this.ws.send(
-                    encode(['r', 'leaders', orderBy, null, null]).buffer,
-                );
-            this.ws.onmessage = buffer => {
-                let data = decode(new Uint8Array(buffer.data))[3];
-                this._disconnectWS();
-                this._pings.push(Date.now() - start);
-                if (!data) return rej(new KrunkerAPIError('SOMETHING_WENT_WRONG'));
+        return this.ws.request(
+            ['r', 'leaders', orderBy, null, null],
+            x => x[3],
+            data => {
+                if (!data) throw new KrunkerAPIError('SOMETHING_WENT_WRONG');
                 data = data.map(d => d.player_name);
                 this.leaderboard.set(orderBy, data);
-                res(this.leaderboard.get(orderBy));
-            };
-        });
+                return this.leaderboard.get(orderBy);
+            },
+        );
     }
     getLeaderboard(orderBy) {
         orderBy = OrderBy[`${orderBy}`.toLowerCase()]
@@ -214,12 +174,6 @@ class Client {
         return (await this.fetchMods()).find(m => m[prop] === val);
     }
 
-    _connectWS() {
-        this.ws = new ws('wss://social.krunker.io/ws', { handshakeTimeout: 10000 });
-    }
-    _disconnectWS() {
-        if (this.ws) this.ws.close();
-    }
     async _updateCache() {
         for (const un of [ ...this.players.values() ].map(d => d.username)) {
             const u = await this.fetchPlayer(un);

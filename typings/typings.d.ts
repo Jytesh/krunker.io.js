@@ -142,6 +142,7 @@ declare module 'krunker.io.js' {
             level: number;
             levelProgress: number;
             score: number;
+            levelImage: string;
             toString(): string;
         }>;
         verified: boolean;
@@ -152,9 +153,6 @@ declare module 'krunker.io.js' {
         public ping: number;
         public players: Map<string, Player>;
         public clans: Map<string, Clan>;
-        private _connectWS(): void;
-        private _disconnectWS(): void;
-        private _updateCache(): void;
         public fetchPlayer(username: string, options: {
             cache: boolean,
             raw: boolean,

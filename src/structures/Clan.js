@@ -12,15 +12,17 @@ module.exports = class Clan {
                 .sort((a, b) =>
                     b.player_score - a.player_score,
                 )
-                .map(m =>
-                    ({
+                .map(m => {
+                    const level = Math.max(1, Math.floor(0.03 * Math.sqrt(m.player_score)));
+                    return {
                         username: m.player_name,
                         score: m.player_score,
-                        level: Math.max(1, Math.floor(0.03 * Math.sqrt(m.player_score))),
+                        level,
                         levelProgress: Math.round(100 * ((0.03 * Math.sqrt(m.player_score)) - Math.floor(0.03 * Math.sqrt(m.player_score)))),
+                        levelImage: `https://krunker.io/img/levels/${Math.min(level % 2 ? level : level - 1, 101)}.png`.replace('100', '101'),
                         toString: () => m.player_name,
-                    }),
-                ),
+                    };
+                }),
             leaderUsername: data.creatorname,
             verified: verifiedClans.includes(data.clan_name),
         };

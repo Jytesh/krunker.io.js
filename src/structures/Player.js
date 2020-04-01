@@ -33,11 +33,12 @@ module.exports = class Player {
                     new Class(classes[k.substring(1)], data),
                 ]),
         );
+        const level = Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score)));
 
         return {
             username: data.player_name,
-            level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score))),
-            levelImage: `https://krunker.io/img/levels/${Math.max(1, Math.floor(0.03 * Math.sqrt(data.player_score)))}.png`,
+            level,
+            levelImage: `https://krunker.io/img/levels/${Math.min(level % 2 ? level : level - 1, 101)}.png`.replace('100', '101'),
             levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
             score: data.player_score,
             displayName: (data.player_clan ? data.player_name + ' [' + data.player_clan + ']' : data.player_name),
