@@ -62,6 +62,12 @@ declare module 'krunker.io.js' {
                 valueOf(): number;
             };
             challengesLevel: number;
+            elo1: number;
+            elo2: number;
+            elo4: number;
+            elo1Image: string;
+            elo2Image: string;
+            elo4Image: string;
         };
         social: {
             clan: Clan | string | null;

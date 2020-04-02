@@ -38,7 +38,7 @@ module.exports = class Player {
         return {
             username: data.player_name,
             level,
-            levelImage: `https://krunker.io/img/levels/${Math.min(level % 2 ? level : level - 1, 101)}.png`.replace('100', '101'),
+            levelImage: `https://krunker.io/img/levels/${Math.min(level % 2 ? level : level - 1, 101)}.png`,
             levelProgress: Math.round(100 * ((0.03 * Math.sqrt(data.player_score)) - Math.floor(0.03 * Math.sqrt(data.player_score)))),
             score: data.player_score,
             displayName: (data.player_clan ? data.player_name + ' [' + data.player_clan + ']' : data.player_name),
@@ -83,6 +83,9 @@ module.exports = class Player {
                 elo1: data.player_elo || 0,
                 elo2: data.player_elo2 || 0,
                 elo4: data.player_elo4 || 0,
+                elo1Image: `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs((data.player_elo || 0) - 120) / 120)}.png`,
+                elo2Image: `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs((data.player_elo2 || 0) - 120) / 120)}.png`,
+                elo4Image: `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs((data.player_elo4 || 0) - 120) / 120)}.png`,
                 challengesLevel: data.player_chal,
             },
             social: {

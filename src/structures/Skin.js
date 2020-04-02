@@ -1,4 +1,5 @@
 const Client = require('../client/Client.js');
+const { ArgumentError } = require('../errors/index.js');
 const { resolveWeapon, resolveRarity } = {
     resolveWeapon(r) {
         if (r && r.constructor.name === 'Class') return r.weapon;
@@ -11,7 +12,7 @@ const { resolveWeapon, resolveRarity } = {
 module.exports = class Skin {
     constructor(wResolvable, data) {
         this.weapon = resolveWeapon(wResolvable);
-        if (!this.weapon) throw new TypeError('Can\'t resolve ' + wResolvable + ' to a Weapon.');
+        if (!this.weapon) throw new ArgumentError('CANNOT_RESOLVE', wResolvable, 'Weapon');
         this.name = data.name;
         this.id = data.id;
         this.season = data.seas || 1;

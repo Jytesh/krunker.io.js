@@ -19,7 +19,7 @@ module.exports = class Clan {
                         score: m.player_score,
                         level,
                         levelProgress: Math.round(100 * ((0.03 * Math.sqrt(m.player_score)) - Math.floor(0.03 * Math.sqrt(m.player_score)))),
-                        levelImage: `https://krunker.io/img/levels/${Math.min(level % 2 ? level : level - 1, 101)}.png`.replace('100', '101'),
+                        levelImage: `https://krunker.io/img/levels/${Math.min(level % 2 ? level : level - 1, 101)}.png`,
                         toString: () => m.player_name,
                     };
                 }),

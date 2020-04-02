@@ -3,6 +3,8 @@ const Weapon = require('../structures/Weapon.js');
 const Player = require('../structures/Player.js');
 const Clan = require('../structures/Clan.js');
 
+const { ArgumentError } = require('../errors/index.js');
+
 const classArr = ['Triggerman', 'Hunter', 'Run N Gun', 'Spray N Pray', 'Vince', 'Detective', 'Marksman', 'Rocketeer', 'Agent', 'Runner', 'Bowman', 'Commando'];
 const weaponArr = classArr.map(n => new Class(n).weapon.name);
 const servers = {
@@ -40,7 +42,7 @@ module.exports = {
         if (r instanceof Weapon) return r;
         if (r instanceof Class) return r.weapon;
         if (typeof r === 'string') return new Weapon(r);
-        throw new TypeError('Can\'t resolve ' + r + ' to a Weapon.');
+        throw new ArgumentError('CANNOT_RESOLVE', r, 'Weapon');
     },
     resolveRarity: r => ['Uncommon', 'Rare', 'Epic', 'Legendary', 'Relic', 'Contraband'][r],
     resolveUsername(r) {
