@@ -55,6 +55,7 @@ module.exports = class Player {
             mods: _playerMods,
             hacker: !!data.player_hack,
             region: data.player_region,
+            regionImage: `https://krunker.io/img/flags/flag_${data.player_region}.png`,
             infected: !!data.player_infected,
             stats: {
                 timePlayed: {
@@ -83,9 +84,9 @@ module.exports = class Player {
                 elo1: data.player_elo || 0,
                 elo2: data.player_elo2 || 0,
                 elo4: data.player_elo4 || 0,
-                elo1Image: `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs((data.player_elo || 0) - 120) / 120)}.png`,
-                elo2Image: `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs((data.player_elo2 || 0) - 120) / 120)}.png`,
-                elo4Image: `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs((data.player_elo4 || 0) - 120) / 120)}.png`,
+                elo1Image: data.player_elo ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo - 120) / 120)}.png` : '',
+                elo2Image: data.player_elo2 ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo2 - 120) / 120)}.png` : '',
+                elo4Image: data.player_elo3 ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo4 - 120) / 120)}.png` : '',
                 challengesLevel: data.player_chal,
             },
             social: {
