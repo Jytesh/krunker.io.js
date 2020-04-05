@@ -167,8 +167,8 @@ declare module 'krunker.io.js' {
             clan: boolean,
             mods: boolean
         }): Promise<Player>;
-        public fetchInfected(days?: number = 7): Promise<{ date: Date, infected: number }[]>;
-        public getInfected(days?: number = 7): { date: Date, infected: number }[] | Promise<{ date: Date, infected: number }[]>;
+        public fetchInfected(days?: number): Promise<{ date: Date, infected: number }[]>;
+        public getInfected(days?: number): { date: Date, infected: number }[] | Promise<{ date: Date, infected: number }[]>;
         public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
         public fetchClan(name: string, options: {
