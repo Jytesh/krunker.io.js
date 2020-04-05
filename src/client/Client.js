@@ -16,10 +16,11 @@ const { resolveUsername } = require('./resolver.js');
 
 class Client {
     constructor() {
+        this.ws = new WebSocketManager(this);
         this.players = new Map();
         this.leaderboard = new Map();
         this.clans = new Map();
-        this.ws = new WebSocketManager(this);
+        this.infected = new Map();
     }
     get ping() {
         return this.ws.ping;
@@ -53,17 +54,18 @@ class Client {
             true,
         );
     }
-    fetchInfected() {
+    fetchInfected(days = 7) {
         return this.ws.request(
-            ['vst', [7]],
+            ['vst', [days]],
             x => x[1],
             stats => {
                 if (!stats) throw new KrunkerAPIError('SOMETHING_WENT_WRONG');
-                this.infected = stats.map(d => ({
+                const data = stats.map(d => ({
                     date: new Date(d.dat),
                     infected: d.inf,
                 }));
-                return this.infected;
+                this.infected.set(days, data);
+                return data;
             },
         );
     }
@@ -81,8 +83,8 @@ class Client {
         if (updateCache) this._updateCache();
         return raw ? u.raw : u;
     }
-    getInfected() {
-        return this.infected || this.fetchInfected();
+    getInfected(days = 7) {
+        return this.infected.get(days) || this.infected.get(7) || this.fetchInfected(days);
     }
     fetchGame(id, { raw = false } = {}) {
         return new Promise((res, rej) => {

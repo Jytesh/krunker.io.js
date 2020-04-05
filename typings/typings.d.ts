@@ -142,6 +142,7 @@ declare module 'krunker.io.js' {
         id: number;
         name: string;
         score: number;
+        level: number;
         leaderUsername: string;
         members: Array<{
             username: string;
@@ -159,14 +160,15 @@ declare module 'krunker.io.js' {
         public ping: number;
         public players: Map<string, Player>;
         public clans: Map<string, Clan>;
+        public infected: Map<number, { date: Date; infected: number; }>;
         public fetchPlayer(username: string, options: {
             cache: boolean,
             raw: boolean,
             clan: boolean,
             mods: boolean
         }): Promise<Player>;
-        public fetchInfected(): Promise<{ date: Date, infected: number }[]>;
-        public getInfected(): { date: Date, infected: number }[] | Promise<{ date: Date, infected: number }[]>;
+        public fetchInfected(days?: number = 7): Promise<{ date: Date, infected: number }[]>;
+        public getInfected(days?: number = 7): { date: Date, infected: number }[] | Promise<{ date: Date, infected: number }[]>;
         public fetchGame(id: string): Promise<Game>;
         public fetchChangelog(): Promise<Changelog>;
         public fetchClan(name: string, options: {

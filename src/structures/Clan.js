@@ -7,6 +7,7 @@ module.exports = class Clan {
             id: data.clan_id,
             name: data.clan_name,
             score: data.clan_score,
+            level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.clan_score))),
             memberCount: data.members.length,
             members: data.members
                 .sort((a, b) =>
