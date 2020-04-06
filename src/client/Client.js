@@ -104,10 +104,11 @@ class Client {
         return this.changelog;
     }
     fetchLeaderboard(orderBy) {
-        orderBy = OrderBy[`${orderBy}`.toLowerCase()]
-        || Object.values(OrderBy).includes(`${orderBy}`)
-            ? `${orderBy}`
-            : OrderBy.level;
+        orderBy = OrderBy[`${orderBy}`.toLowerCase()] || (
+            Object.values(OrderBy).includes(`${orderBy}`)
+                ? `${orderBy}`
+                : OrderBy.level
+        );
         return this.ws.request(
             ['r', 'leaders', orderBy, null, null],
             x => x[3],
@@ -120,10 +121,11 @@ class Client {
         );
     }
     getLeaderboard(orderBy) {
-        orderBy = OrderBy[`${orderBy}`.toLowerCase()]
-        || Object.values(OrderBy).includes(`${orderBy}`)
-            ? `${orderBy}`
-            : OrderBy.level;
+        orderBy = OrderBy[`${orderBy}`.toLowerCase()] || (
+            Object.values(OrderBy).includes(`${orderBy}`)
+                ? `${orderBy}`
+                : OrderBy.level
+        );
         return this.leaderboard.get(orderBy) || this.fetchLeaderboard(orderBy);
     }
     getChangelog() {
