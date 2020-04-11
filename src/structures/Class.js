@@ -109,7 +109,9 @@ module.exports = class Class {
         obj.devNumber = classes.indexOf(obj.name);
         if (data) {
             obj.score = JSON.parse(data.player_stats)['c' + obj.devNumber] || 0;
-            obj.level = Math.max(1, Math.floor(0.03 * Math.sqrt(obj.score))) + 1;
+            obj.level = Math.max(0, Math.floor(0.03 * Math.sqrt(obj.score))) + 1;
+            obj.level = Math.floor(obj.score - Math.pow((obj.level - 1) / 0.03, 2)) < 0 ? obj.level - 1 : obj.level;
+            obj.levelProgress = Math.floor(obj.score - Math.pow((obj.level - 1) / 0.03, 2));
         }
         for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
 
