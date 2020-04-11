@@ -7,4 +7,5 @@ module.exports = {
     Skin: require('./structures/Skin.js'),
     Mod: require('./structures/Mod.js'),
     util: require('./util/index.js'),
+    ...require('./util/index.js'),
 };

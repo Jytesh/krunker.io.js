@@ -11,13 +11,32 @@ krunker.io.js is an API wrapper for [krunker.io](https://krunker.io/) which allo
 
 # Usage
 ```js
-const krunker = require("krunker.io.js");
+const krunker = require('krunker.io.js');
 const client = new krunker.Client();
 
-// getting info about a player
-client.fetchPlayer("1s3k3b").then(console.log);
+// getting player info
+client
+    .fetchPlayer('1s3k3b')
+    .then(console.log);
 
 // calculating chances for getting a contraband from heroic spins with 20k KR
-console.log(krunker.util.spinChance("heroic", "contraband", 20000));
+console.log(`There is a ${krunker.util.spinChance('heroic', 'contraband', 20000)}% chance for getting a Contraband from 40 Heroic Spins`);
+
+// getting the top 1 player on the level leaderboard
+client
+    .fetchLeaderboard('level')
+    .then(leaderboard => console.log(`The highest level player is ${leaderboard[0]}`));
+
+// getting skin info
+console.log(client.getSkin('Flame Viper'));
+
+// getting mod info
+client
+    .getMod({ name: 'EternityAU' })
+    .then(console.log);
+
+client
+    .fetchChangelog()
+    .then(changelog => console.log(changelog.latestVersion));
 ```
 [More examples](https://github.com/1s3k3b/krunker.io.js/tree/master/test)

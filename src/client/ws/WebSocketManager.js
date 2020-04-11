@@ -7,7 +7,7 @@ class WebSocketManager {
         this._pings = [];
     }
     get pings() {
-        return this._pings.reduce((a, b) => a + b, 0);
+        return this._pings.reduce((a, b) => a + b, 0) / this._pings.length;
     }
     request(toSend, bufferData, callback, mult = false) {
         this.connect();
