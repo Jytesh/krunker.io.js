@@ -3,16 +3,26 @@ module.exports = class Changelog {
         this.raw = text;
 
         let arr = [];
-        text.split('\n').filter(x => x).forEach(x => {
-            if (x.startsWith(' == ')) {
-                return arr.push({
-                    version: x.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/) ? x.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)[0] : '',
-                    changes: [],
-                });
-            }
-            arr[arr.length - 1] && arr[arr.length - 1].changes.push(x);
-        });
-        arr = arr.filter(x => x.version);
+        text
+            .split('\n')
+            .filter(x => x)
+            .forEach(x => {
+                if (x.startsWith(' == ')) {
+                    return arr.push({
+                        version: x.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/) ? x.match(/\d{1,3}\.\d{1,3}\.\d{1,3}/)[0] : '',
+                        changes: [],
+                    });
+                }
+                arr[arr.length - 1] && arr[arr.length - 1].changes.push(x);
+            });
+        arr = arr
+            .filter(x => x.version)
+            .map(x => {
+                x.changes = x.changes
+                    .map(s => s.trim())
+                    .filter(s => s);
+                return x;
+            });
 
         this.versions = arr;
         this.latestVersion = arr[0];

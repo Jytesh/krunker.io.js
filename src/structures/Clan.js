@@ -17,6 +17,7 @@ module.exports = class Clan {
                     const level = Math.max(1, Math.floor(0.03 * Math.sqrt(m.player_score)));
                     return {
                         username: m.player_name,
+                        displayName: m.player_name + ' [' + data.clan_name + ']',
                         score: m.player_score,
                         level,
                         levelProgress: Math.round(100 * ((0.03 * Math.sqrt(m.player_score)) - Math.floor(0.03 * Math.sqrt(m.player_score)))),

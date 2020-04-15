@@ -175,7 +175,7 @@ declare module 'krunker.io.js' {
             cache: boolean,
             raw: boolean
         }): Promise<Clan>;
-        public fetchLeaderboard(orderBy?: string): Promise<string[]>;
+        public fetchLeaderboard(orderBy?: string): Promise<object[]>;
         public getPlayer(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean,

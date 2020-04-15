@@ -48,7 +48,7 @@ class Client {
             data => {
                 if (!data) return;
                 const c = new Clan(this, data);
-                if (cache) this.clans.set(c.name + '_' + c.id);
+                if (cache) this.clans.set(c.name + '_' + c.id, c);
                 return raw ? data : c;
             },
             true,
@@ -71,7 +71,7 @@ class Client {
     }
     getClan(nameOrID, { updateCache = true, raw = false } = {}) {
         if (!nameOrID) throw new ArgumentError('NO_ARGUMENT', 'clan name or ID');
-        const c = [ ...this.clans.values() ].find(obj => [ obj.id, obj.username ].includes(nameOrID));
+        const c = [ ...this.clans.values() ].find(obj => [ obj.id, obj.name ].includes(nameOrID));
         if (!c) return this.fetchClan(nameOrID, { cache: updateCache, raw });
         if (updateCache) this._updateCache();
         return raw ? c.raw : c;
@@ -114,7 +114,14 @@ class Client {
             x => x[3],
             data => {
                 if (!data) throw new KrunkerAPIError('SOMETHING_WENT_WRONG');
-                data = data.map(d => d.player_name);
+                data = data.map(d => ({
+                    username: d.player_name,
+                    displayName: d.player_name + (d.player_clan ? ' [' + d.player_clan + ']' : ''),
+                    verified: !!d.player_featured,
+                    clan: d.player_clan || null,
+                    hacker: !!d.player_hack,
+                    [orderBy.split('_')[1]]: d[orderBy],
+                }));
                 this.leaderboard.set(orderBy, data);
                 return this.leaderboard.get(orderBy);
             },
