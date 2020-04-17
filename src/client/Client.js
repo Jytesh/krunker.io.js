@@ -30,9 +30,10 @@ class Client {
         return this.ws.request(
             ['r', 'profile', username, null, null, null, 0, null],
             x => x,
-            async ([,,, userData,, userMods ]) => {
+            async ([,,, userData, userMaps, userMods ]) => {
                 if (!userData || !userData.player_stats) throw new KrunkerAPIError('404_NOT_FOUND', 'Player');
                 userData.player_mods = userMods;
+                userData.player_maps = userMaps;
                 if (raw) return userData;
                 const p = await (new Player().setup(this, userData, { mods, clan }));
                 if (cache) this.players.set(p.username + '_' + p.id, p);
@@ -184,6 +185,31 @@ class Client {
         const val = name || rank || id;
         return (await this.fetchMods()).find(m => m[prop] === val);
     }
+    async fetchMaps({ player, filter, sort, count, map } = {}) {
+        if (resolveUsername(player)) filter = m => m.authorUsername === resolveUsername(player);
+        let res = await fetch('https://api.krunker.io/maps').then(
+            async d =>
+                (await d.json()).data
+                    .filter(x => x)
+                    .map(mapData => new KrunkerMap(mapData)),
+        );
+        if (typeof filter === 'function') res = res.filter(filter);
+        if (typeof sort === 'function') res = res.sort(sort);
+        if (['string', 'symbol', 'function'].includes(typeof map)) {
+            res = res.map(
+                typeof map === 'function'
+                    ? map
+                    : x => x[map],
+            );
+        }
+        return count ? res.slice(0, count) : res;
+    }
+    async getMap({ name, rank, id } = {}) {
+        if (!name && !rank && !id) return new ArgumentError('NO_ARGUMENT', 'map name, rank, or ID');
+        const prop = Object.keys(arguments[0]).find(x => x);
+        const val = name || rank || id;
+        return (await this.fetchMaps()).find(m => m[prop] === val);
+    }
 
     async _updateCache() {
         for (const un of [ ...this.players.values() ].map(d => d.username)) {
@@ -240,6 +266,29 @@ class Mod {
         this.createdAt = new Date(data.mod_date);
         Object.defineProperty(this, 'image', {
             value: data.mod_image,
+            writable: true,
+            configurable: true,
+        });
+    }
+    async fetchAuthor(client) {
+        if (client instanceof Client === false) client = new Client();
+        this.author = await client.fetchPlayer(this.authorUsername);
+        return this.author;
+    }
+}
+
+class KrunkerMap {
+    constructor(data) {
+        this.name = data.map_name;
+        this.authorUsername = data.creatorname;
+        this.rank = data.map_rank;
+        this.id = data.map_id;
+        this.votes = data.map_votes;
+        this.createdAt = new Date(data.map_date);
+        this.featured = !!data.map_featured;
+        this.verified = !!data.map_verified;
+        Object.defineProperty(this, 'image', {
+            value: data.map_image,
             writable: true,
             configurable: true,
         });

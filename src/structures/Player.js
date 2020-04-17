@@ -53,10 +53,18 @@ module.exports = class Player {
                 lowest: Object.values(_classes).sort((a, b) => a.score - b.score)[0],
             },
             mods: _playerMods,
+            maps: data.player_maps.map(map => ({
+                author: data.player_name,
+                name: map.map_name,
+                votes: map.map_votes,
+                verified: !!map.map_verified,
+                fetch: () => client.getMap(map.map_name),
+            })),
             hacker: !!data.player_hack,
             region: data.player_region,
             regionImage: `https://krunker.io/img/flags/flag_${data.player_region}.png`,
             infected: !!data.player_infected,
+            eggs: data.player_eventcount || 0,
             stats: {
                 timePlayed: {
                     ms: data.player_timeplayed,

@@ -133,6 +133,7 @@ const orderBy = {
     elo: 'player_elo',
     elo2: 'player_elo2',
     elo4: 'player_elo4',
+    eggs: 'player_eventcount',
 };
 
 const verifiedClans = ['DEV', 'FaZe', 'Lore', 'nV', 'Oxic', 'Verb', 'Omen', 'ロリ幼女', 'VOID', 'JBP', 'PHIL', 'TIMP', 'g59', '24/7', 'GLXY', 'MMOK', 'KPOP', 'SCTE'];
