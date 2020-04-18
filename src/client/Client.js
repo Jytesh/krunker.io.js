@@ -31,7 +31,7 @@ class Client {
         if (!username) throw new ArgumentError('NO_ARGUMENT', 'username');
         return this.ws.request(
             ['r', 'profile', username, null, null, null, 0, null],
-            x => console.log(x) || x,
+            x => x,
             async ([,,, userData, userMaps, userMods ]) => {
                 if (!userData || !userData.player_stats) throw new KrunkerAPIError('404_NOT_FOUND', 'Player');
                 userData.player_mods = userMods;
