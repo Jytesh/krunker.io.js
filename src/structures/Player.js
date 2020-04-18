@@ -1,4 +1,4 @@
-const Class = require('./Class.js');
+const { Class } = require('./ClassWeapon.js');
 const Mod = require('./Mod.js');
 const fetch = require('node-fetch');
 
@@ -21,7 +21,7 @@ module.exports = class Player {
             ? await fetch('https://api.krunker.io/mods?accountId=' + data.player_id).then(
                 async d =>
                     (await d.json()).data
-                        .map(modData => new Mod(modData))
+                        .map(modData => new Mod(client, modData))
                         .filter(mod => mod.authorUsername === data.player_name),
             )
             : data.player_mods.map(m => m.mod_name);

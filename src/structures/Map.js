@@ -1,7 +1,6 @@
-const Client = require('../client/Client.js');
-
 module.exports = class KrunkerMap {
-    constructor(data) {
+    constructor(client, data) {
+        Object.defineProperty(this, 'client', { value: client });
         this.name = data.map_name;
         this.authorUsername = data.creatorname;
         this.rank = data.map_rank;
@@ -16,9 +15,8 @@ module.exports = class KrunkerMap {
             configurable: true,
         });
     }
-    async fetchAuthor(client) {
-        if (client instanceof Client === false) client = new Client();
-        this.author = await client.fetchPlayer(this.authorUsername);
+    async fetchAuthor() {
+        this.author = await this.client.fetchPlayer(this.authorUsername);
         return this.author;
     }
 };

@@ -1,4 +1,18 @@
+import { Utils } from 'tslint';
+
 declare module 'krunker.io.js' {
+    interface IOrderBy {
+        funds: 'player_funds',
+        clans: 'player_clan',
+        level: 'player_score',
+        kills: 'player_kills',
+        time: 'player_timeplayed',
+        wins: 'player_wins',
+        elo: 'player_elo',
+        elo2: 'player_elo2',
+        elo4: 'player_elo4',
+        eggs: 'player_eventcount',
+    }
     export interface ISkin {
         name: string;
         id: number | string;
@@ -11,8 +25,8 @@ declare module 'krunker.io.js' {
         glow?: boolean;
     }
     export class Skin {
-        constructor(wResolvable: Class | Weapon | string, data: ISkin);
-        public fetchAuthor(client: Client): Promise<Player>;
+        constructor(client: Client, wResolvable: Class | Weapon | string, data: ISkin);
+        public readonly client: Client;
         author?: Player;
         weapon: Weapon;
         name: string;
@@ -123,6 +137,7 @@ declare module 'krunker.io.js' {
         toString(): string;
         score?: number;
         level?: number;
+        levelProgress?: number;
     }
     export class Game {
         constructor(data: any[]);
@@ -156,7 +171,6 @@ declare module 'krunker.io.js' {
     }
     export class Client {
         constructor();
-        private _pings: number[];
         public ping: number;
         public players: Map<string, Player>;
         public clans: Map<string, Clan>;
@@ -175,19 +189,19 @@ declare module 'krunker.io.js' {
             cache: boolean,
             raw: boolean
         }): Promise<Clan>;
-        public fetchLeaderboard(orderBy?: string): Promise<object[]>;
+        public fetchLeaderboard(orderBy?: keyof IOrderBy): Promise<object[]>;
         public getPlayer(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean,
             clan: boolean,
             mods: boolean
         }): Player | Promise<Player>;
-        public getGame(nameOrID: string, options: {
+        public getClan(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean
         }): Clan | Promise<Clan>;
         public getChangelog(): Changelog | Promise<Changelog>;
-        public getLeaderboard(orderBy?: string): string[] | Promise<string[]>;
+        public getLeaderboard(orderBy?: keyof IOrderBy): string[] | Promise<string[]>;
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
         public getSkin(name: string): null | Skin;
@@ -211,8 +225,8 @@ declare module 'krunker.io.js' {
         }): Promise<Mod>;
     }
     export class Mod {
-        constructor(data: object);
-        public fetchAuthor(client: Client): Promise<Player>;
+        constructor(client: Client, data: object);
+        public readonly client: Client;
         name: string;
         authorUsername: string;
         rank: number;
@@ -223,6 +237,18 @@ declare module 'krunker.io.js' {
         image: string;
     }
     export const util: {
+        orderBy: {
+            funds: 'player_funds',
+            clans: 'player_clan',
+            level: 'player_score',
+            kills: 'player_kills',
+            time: 'player_timeplayed',
+            wins: 'player_wins',
+            elo: 'player_elo',
+            elo2: 'player_elo2',
+            elo4: 'player_elo4',
+            eggs: 'player_eventcount',
+        };
         classes: string[];
         weapons: string[];
         spins: object;

@@ -1,6 +1,5 @@
 const resolver = require('../client/resolver.js');
-const Class = require('../structures/Class.js');
-const Weapon = require('../structures/Weapon.js');
+const { Class, Weapon } = require('../structures/ClassWeapon.js');
 
 const round = (n, r) => {
     while (n % r !== 0) n--;

@@ -1,4 +1,3 @@
-const Client = require('../client/Client.js');
 const { ArgumentError } = require('../errors/index.js');
 const { resolveWeapon, resolveRarity } = {
     resolveWeapon(r) {
@@ -10,7 +9,8 @@ const { resolveWeapon, resolveRarity } = {
 };
 
 module.exports = class Skin {
-    constructor(wResolvable, data) {
+    constructor(client, wResolvable, data) {
+        Object.defineProperty(this, 'client', { value: client });
         this.weapon = resolveWeapon(wResolvable);
         if (!this.weapon) throw new ArgumentError('CANNOT_RESOLVE', wResolvable, 'Weapon');
         this.name = data.name;
@@ -25,9 +25,8 @@ module.exports = class Skin {
     toString() {
         return this.name;
     }
-    async fetchAuthor(client) {
-        if (client instanceof Client === false) client = new Client();
-        this.author = await client.fetchPlayer(this.authorUsername);
+    async fetchAuthor() {
+        this.author = await this.client.fetchPlayer(this.authorUsername);
         return this.author;
     }
 };

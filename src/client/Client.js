@@ -4,9 +4,11 @@ const fetch = require('node-fetch');
 const Player = require('../structures/Player.js');
 const Game = require('../structures/Game.js');
 const Changelog = require('../structures/Changelog.js');
-const Weapon = require('../structures/Weapon.js');
-const Class = require('../structures/Class.js');
+const { Class, Weapon } = require('../structures/ClassWeapon.js');
 const Clan = require('../structures/Clan.js');
+const KrunkerMap = require('../structures/Map.js');
+const Mod = require('../structures/Mod.js');
+const Skin = require('../structures/Skin.js');
 
 const { KrunkerAPIError, ArgumentError } = require('../errors/index.js');
 
@@ -29,7 +31,7 @@ class Client {
         if (!username) throw new ArgumentError('NO_ARGUMENT', 'username');
         return this.ws.request(
             ['r', 'profile', username, null, null, null, 0, null],
-            x => x,
+            x => console.log(x) || x,
             async ([,,, userData, userMaps, userMods ]) => {
                 if (!userData || !userData.player_stats) throw new KrunkerAPIError('404_NOT_FOUND', 'Player');
                 userData.player_mods = userMods;
@@ -147,10 +149,10 @@ class Client {
     }
     getSkin(name) {
         const found = skins.find(s => s.name.toLowerCase() === `${name}`.toLowerCase());
-        return found ? new Skin(new Weapon(found.weapon), found) : null;
+        return found ? new Skin(this, new Weapon(found.weapon), found) : null;
     }
     getSkins({ filter, sort, count, map } = {}) {
-        let res = skins.map(d => new Skin(new Weapon(d.weapon), d));
+        let res = skins.map(d => new Skin(this, new Weapon(d.weapon), d));
         if (typeof filter === 'function') res = res.filter(filter);
         if (typeof sort === 'function') res = res.sort(sort);
         if (['string', 'symbol', 'function'].includes(typeof map)) {
@@ -166,7 +168,7 @@ class Client {
         if (resolveUsername(player)) filter = m => m.authorUsername === resolveUsername(player);
         let res = await fetch('https://api.krunker.io/mods').then(
             async d =>
-                (await d.json()).data.map(modData => new Mod(modData)),
+                (await d.json()).data.map(modData => new Mod(this, modData)),
         );
         if (typeof filter === 'function') res = res.filter(filter);
         if (typeof sort === 'function') res = res.sort(sort);
@@ -191,7 +193,7 @@ class Client {
             async d =>
                 (await d.json()).data
                     .filter(x => x)
-                    .map(mapData => new KrunkerMap(mapData)),
+                    .map(mapData => new KrunkerMap(this, mapData)),
         );
         if (typeof filter === 'function') res = res.filter(filter);
         if (typeof sort === 'function') res = res.sort(sort);
@@ -220,83 +222,6 @@ class Client {
             const c = await this.fetchClan(cn);
             this.clans.set(c.name + '_' + c.id, c);
         }
-    }
-}
-
-const { resolveWeapon, resolveRarity } = {
-    resolveWeapon(r) {
-        if (r && r.constructor.name === 'Class') return r.weapon;
-        if (typeof r === 'string') return new Weapon(r);
-        return r;
-    },
-    resolveRarity: r => ['Uncommon', 'Rare', 'Epic', 'Legendary', 'Relic', 'Contraband'][r],
-};
-
-class Skin {
-    constructor(wResolvable, data) {
-        this.weapon = resolveWeapon(wResolvable);
-        if (!this.weapon) throw new ArgumentError('CANNOT_RESOLVE', wResolvable, 'Weapon');
-        this.name = data.name;
-        this.id = data.id;
-        this.season = data.seas || 1;
-        this.rarityI = data.rarity;
-        this.rarity = resolveRarity(data.rarity);
-        this.authorUsername = data.creator || 'Krunker.io';
-        this.glow = !!data.glow;
-        this.url = this.weapon.getSkin ? this.weapon.getSkin(this.id) : null;
-    }
-    toString() {
-        return this.name;
-    }
-    async fetchAuthor(client) {
-        if (client instanceof Client === false) client = new Client();
-        this.author = await client.fetchPlayer(this.authorUsername);
-        return this.author;
-    }
-}
-
-class Mod {
-    constructor(data) {
-        this.name = data.mod_name;
-        this.authorUsername = data.creatorname;
-        this.rank = data.mod_rank;
-        this.id = data.mod_id;
-        this.url = data.mod_url;
-        this.votes = data.mod_votes;
-        this.createdAt = new Date(data.mod_date);
-        Object.defineProperty(this, 'image', {
-            value: data.mod_image,
-            writable: true,
-            configurable: true,
-        });
-    }
-    async fetchAuthor(client) {
-        if (client instanceof Client === false) client = new Client();
-        this.author = await client.fetchPlayer(this.authorUsername);
-        return this.author;
-    }
-}
-
-class KrunkerMap {
-    constructor(data) {
-        this.name = data.map_name;
-        this.authorUsername = data.creatorname;
-        this.rank = data.map_rank;
-        this.id = data.map_id;
-        this.votes = data.map_votes;
-        this.createdAt = new Date(data.map_date);
-        this.featured = !!data.map_featured;
-        this.verified = !!data.map_verified;
-        Object.defineProperty(this, 'image', {
-            value: data.map_image,
-            writable: true,
-            configurable: true,
-        });
-    }
-    async fetchAuthor(client) {
-        if (client instanceof Client === false) client = new Client();
-        this.author = await client.fetchPlayer(this.authorUsername);
-        return this.author;
     }
 }
 

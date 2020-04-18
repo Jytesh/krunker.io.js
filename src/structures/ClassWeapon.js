@@ -1,10 +1,128 @@
 const Skin = require('./Skin.js');
 
-module.exports = class Weapon {
+class Class {
+    constructor(name = 'Triggerman', data) {
+        const classes = ['Triggerman', 'Hunter', 'Run N Gun', 'Spray N Pray', 'Vince', 'Detective', 'Marksman', 'Rocketeer', 'Agent', 'Runner', 'Bowman', 'Commando'];
+
+        const triggerman = {
+            health: 100,
+            name: 'Triggerman',
+            secondary: true,
+            weapon: new Weapon('Assault Rifle'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/1/15/Trigger.PNG/revision/latest/scale-to-width-down/310?cb=20191021162058',
+        };
+
+        const hunter = {
+            health: 60,
+            name: 'Hunter',
+            secondary: true,
+            weapon: new Weapon('Sniper Rifle'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/1/1f/Hunter.PNG/revision/latest/scale-to-width-down/310?cb=20191021161821',
+        };
+
+        const runngun = {
+            health: 100,
+            name: 'Run N Gun',
+            secondary: false,
+            weapon: new Weapon('Submachine Gun'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/c/c8/Run_n_gun.PNG/revision/latest/scale-to-width-down/310?cb=20191021161851',
+        };
+
+        const spraynpray = {
+            health: 170,
+            name: 'Spray N Pray',
+            secondary: true,
+            weapon: new Weapon('Light Machine Gun'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/c/c7/Capture.PNG/revision/latest/scale-to-width-down/310?cb=20191021162149',
+        };
+
+        const vince = {
+            health: 100,
+            name: 'Vince',
+            secondary: true,
+            weapon: new Weapon('Shotgun'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/d/d3/Vinc.PNG/revision/latest/scale-to-width-down/310?cb=20191021162119',
+        };
+
+        const detective = {
+            health: 100,
+            name: 'Detective',
+            secondary: false,
+            weapon: new Weapon('Revolver'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/a/a6/Screenshot_2018-10-13_at_7.14.06_PM.png/revision/latest/scale-to-width-down/310?cb=20191021161955',
+        };
+
+        const marksman = {
+            health: 90,
+            name: 'Marksman',
+            secondary: true,
+            weapon: new Weapon('Semi Auto'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/0/08/MARKS.PNG/revision/latest/scale-to-width-down/310?cb=20191021162026',
+        };
+
+        const rocketeer = {
+            health: 130,
+            name: 'Rocketeer',
+            secondary: true,
+            weapon: new Weapon('Rocket Launcher'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/b/b1/RLAUNCH.PNG/revision/latest/scale-to-width-down/310?cb=20191021162212',
+        };
+
+        const agent = {
+            health: 100,
+            name: 'Agent',
+            secondary: false,
+            weapon: new Weapon('Akimbo Uzi'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/8/84/Agent-select-screen.png/revision/latest/scale-to-width-down/310?cb=20191021161719',
+        };
+
+        const runner = {
+            health: 100,
+            name: 'Runner',
+            secondary: false,
+            weapon: new Weapon('Combat Knife'),
+            _avatar: '',
+        };
+
+        const bowman = {
+            health: 100,
+            name: 'Bowman',
+            secondary: true,
+            weapon: new Weapon('Crossbow'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/3/30/Bowman.png/revision/latest/scale-to-width-down/310?cb=20191021161923',
+        };
+
+        const commando = {
+            health: 100,
+            name: 'Commando',
+            secondary: true,
+            weapon: new Weapon('Famas'),
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/5/50/Commando.png/revision/latest/scale-to-width-down/310?cb=20191021160148',
+        };
+
+        const obj = {
+            triggerman, hunter, runngun, spraynpray, vince, detective, marksman, rocketeer, agent, runner, bowman, commando,
+        }[name.split(' ').join('').toLowerCase()];
+
+        if (!obj) return;
+        obj.toString = () => obj.name;
+        obj.devNumber = classes.indexOf(obj.name);
+        if (data) {
+            obj.score = JSON.parse(data.player_stats)['c' + obj.devNumber] || 0;
+            obj.level = Math.max(0, Math.floor(0.03 * Math.sqrt(obj.score))) + 1;
+            obj.level = Math.floor(obj.score - Math.pow((obj.level - 1) / 0.03, 2)) < 0 ? obj.level - 1 : obj.level;
+            obj.levelProgress = Math.floor(obj.score - Math.pow((obj.level - 1) / 0.03, 2));
+        }
+        for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
+
+        return obj;
+    }
+}
+
+class Weapon {
     constructor(name = 'Assault Rifle') {
         const pistol = {
             name: 'Pistol',
-            class: null,
             swapTime: 350,
             aimSpeed: 120,
             speedMultiplier: 1.05,
@@ -29,11 +147,13 @@ module.exports = class Weapon {
             baseScore: 75,
             sight: null,
             devNumber: 3,
+            toString() {
+                return 'Pistol';
+            },
         };
 
         const deserteagle = {
             name: 'Desert Eagle',
-            class: null,
             swapTime: 200,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -58,11 +178,13 @@ module.exports = class Weapon {
             baseScore: 50,
             sight: null,
             devNumber: 11,
+            toString() {
+                return 'Desert Eagle';
+            },
         };
 
         const alienblaster = {
             name: 'Alien Blaster',
-            class: null,
             swapTime: 200,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -87,11 +209,13 @@ module.exports = class Weapon {
             baseScore: 50,
             sight: null,
             devNumber: 12,
+            toString() {
+                return 'Alien Blaster';
+            },
         };
 
         const combatknife = {
             name: 'Combat Knife',
-            class: new Class('Runner'),
             baseScore: 150,
             damage: {
                 damage: 50,
@@ -99,11 +223,13 @@ module.exports = class Weapon {
                 toString: () => '50',
                 valueOf: () => 50,
             },
+            toString() {
+                return 'Combat Knife';
+            },
         };
 
         const assaultrifle = {
             name: 'Assault Rifle',
-            class: new Class('Triggerman'),
             swapTime: 300,
             aimSpeed: 130,
             speedMultiplier: 0.95,
@@ -129,13 +255,15 @@ module.exports = class Weapon {
             sight: 'Red Dot',
             devNumber: 2,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Assault Rifle';
             },
         };
 
         const sniperrifle = {
             name: 'Sniper Rifle',
-            class: new Class('Hunter'),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 0.95,
@@ -161,13 +289,15 @@ module.exports = class Weapon {
             sight: 'Scope',
             devNumber: 1,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Sniper Rifle';
             },
         };
 
         const submachinegun = {
             name: 'Submachine Gun',
-            class: new Class('Run N Gun'),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -193,13 +323,15 @@ module.exports = class Weapon {
             sight: 'Red Dot',
             devNumber: 4,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Submachine Gun';
             },
         };
 
         const lightmachinegun = {
             name: 'Light Machine Gun',
-            class: new Class('Spray N Pray'),
             swapTime: 700,
             aimSpeed: 200,
             speedMultiplier: 0.79,
@@ -225,13 +357,15 @@ module.exports = class Weapon {
             sight: 'Red Dot',
             devNumber: 5,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Light Machine Gun';
             },
         };
 
         const shotgun = {
             name: 'Shotgun',
-            class: new Class('Vince'),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -257,13 +391,15 @@ module.exports = class Weapon {
             sight: 'none',
             devNumber: 6,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Shotgun';
             },
         };
 
         const revolver = {
             name: 'Revolver',
-            class: new Class('Detective'),
             swapTime: 200,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -289,13 +425,15 @@ module.exports = class Weapon {
             sight: 'none',
             devNumber: 7,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Revolver';
             },
         };
 
         const semiauto = {
             name: 'Semi Auto',
-            class: new Class('Marksman'),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -321,13 +459,15 @@ module.exports = class Weapon {
             sight: 'Red Dot',
             devNumber: 8,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Semi Auto';
             },
         };
 
         const rocketlauncher = {
             name: 'Rocket Launcher',
-            class: new Class('Rocketeer'),
             swapTime: 600,
             aimSpeed: 200,
             speedMultiplier: 1.9,
@@ -353,13 +493,15 @@ module.exports = class Weapon {
             sight: 'none',
             devNumber: 9,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Rocket Launcher';
             },
         };
 
         const akimbouzi = {
             name: 'Akimbo Uzi',
-            class: new Class('Agent'),
             swapTime: 300,
             aimSpeed: 120,
             speedMultiplier: 1.04,
@@ -385,13 +527,15 @@ module.exports = class Weapon {
             sight: null,
             devNumber: 10,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Akimbo Uzi';
             },
         };
 
         const crossbow = {
             name: 'Crossbow',
-            class: new Class('Bowman'),
             swapTime: 200,
             aimSpeed: 120,
             speedMultiplier: 1,
@@ -417,13 +561,15 @@ module.exports = class Weapon {
             sight: 'Red Dot',
             devNumber: 14,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'Crossbow';
             },
         };
 
         const famas = {
             name: 'FAMAS',
-            class: new Class('Detective'),
             swapTime: 300,
             aimSpeed: 130,
             speedMultiplier: 0.95,
@@ -449,7 +595,10 @@ module.exports = class Weapon {
             sight: 'none',
             devNumber: 13,
             getSkin(n = Math.floor(Math.random() * 100)) {
-                return `http://assets.krunker.io/textures/weapons/skins/weapon_${this.devNumber}_${n}.png`;
+                return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
+            },
+            toString() {
+                return 'FAMAS';
             },
         };
 
@@ -461,95 +610,11 @@ module.exports = class Weapon {
 
         if (!obj) return;
         obj.toString = () => obj.name;
-        obj.skins = require('../data/skins.json').filter(s => s.weapon === obj.devNumber).map(s => new Skin(obj, s));
-        for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
-
-        return obj;
-    }
-};
-
-class Class {
-    constructor(name = 'Triggerman') {
-        const triggerman = {
-            health: 100,
-            name: 'Triggerman',
-            secondary: true,
-        };
-
-        const hunter = {
-            health: 60,
-            name: 'Hunter',
-            secondary: true,
-        };
-
-        const runngun = {
-            health: 100,
-            name: 'Run N Gun',
-            secondary: false,
-        };
-
-        const spraynpray = {
-            health: 170,
-            name: 'Spray N Pray',
-            secondary: true,
-        };
-
-        const vince = {
-            health: 100,
-            name: 'Vince',
-            secondary: true,
-        };
-
-        const detective = {
-            health: 100,
-            name: 'Detective',
-            secondary: false,
-        };
-
-        const marksman = {
-            health: 90,
-            name: 'Marksman',
-            secondary: true,
-        };
-
-        const rocketeer = {
-            health: 130,
-            name: 'Rocketeer',
-            secondary: true,
-        };
-
-        const agent = {
-            health: 100,
-            name: 'Agent',
-            secondary: false,
-        };
-
-        const runner = {
-            health: 100,
-            name: 'Runner',
-            secondary: false,
-        };
-
-        const bowman = {
-            health: 100,
-            name: 'Bowman',
-            secondary: true,
-        };
-
-        const commando = {
-            health: 100,
-            name: 'Commando',
-            secondary: true,
-        };
-
-        const obj = {
-            triggerman, hunter, runngun, spraynpray, vince, detective, marksman, rocketeer, agent, runner, bowman, commando,
-        }[name.replace(/\s/g, '').toLowerCase()];
-
-        if (!obj) return;
-        obj.toString = () => obj.name;
+        obj.skins = require('../data/skins.json').filter(s => s.weapon === obj.devNumber).map(s => new Skin({}, obj, s));
         for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
 
         return obj;
     }
 }
+
+module.exports = { Class, Weapon };

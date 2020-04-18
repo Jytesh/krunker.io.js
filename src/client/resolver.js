@@ -1,5 +1,4 @@
-const Class = require('../structures/Class.js');
-const Weapon = require('../structures/Weapon.js');
+const { Class, Weapon } = require('../structures/ClassWeapon.js');
 const Player = require('../structures/Player.js');
 const Clan = require('../structures/Clan.js');
 
