@@ -10,38 +10,32 @@ class WebSocketManager {
         return this._pings.reduce((a, b) => a + b, 0) / this._pings.length;
     }
     request(toSend, bufferData, callback, mult = false) {
-        this.connect();
+        const ws = new WS('wss://social.krunker.io/ws', { handshakeTimeout: 10000 });
         const start = Date.now();
         return new Promise((res, rej) => {
-            this.ws.onopen = () =>
-                this.ws.send(
+            ws.onopen = () =>
+                ws.send(
                     encode(toSend).buffer,
                 );
-            this.ws.onerror = err => {
-                this.ws.terminate();
+            ws.onerror = err => {
+                ws.terminate();
                 rej(err);
             };
 
-            this.ws.onmessage = buffer =>{
+            ws.onmessage = buffer =>{
                 const data = bufferData(decode(new Uint8Array(buffer.data)));
                 this._pings.push(Date.now() - start);
                 const r = callback(data);
                 if (!mult) {
-                    this.disconnect();
+                    ws.close();
                     return res(r);
                 }
                 if (r) {
-                    this.disconnect();
+                    ws.close();
                     res(r);
                 }
             };
         });
-    }
-    connect() {
-        this.ws = new WS('wss://social.krunker.io/ws', { handshakeTimeout: 10000 });
-    }
-    disconnect() {
-        if (this.ws) this.ws.close();
     }
 }
 

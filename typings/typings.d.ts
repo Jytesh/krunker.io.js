@@ -16,27 +16,26 @@ declare module 'krunker.io.js' {
     export interface ISkin {
         name: string;
         id: number | string;
-        tex: number;
-        key: string;
         seas: number;
-        rarity: number;
-        weapon: number;
+        rarity: string;
+        rarityI: number;
+        weapon: Weapon;
+        url: string | null;
         creator?: string;
         glow?: boolean;
     }
-    export class Skin {
+    export class Skin implements ISkin {
         constructor(client: Client, wResolvable: Class | Weapon | string, data: ISkin);
         public readonly client: Client;
-        author?: Player;
-        weapon: Weapon;
         name: string;
         id: number | string;
-        season: number;
-        rarityI: number;
+        seas: number;
         rarity: string;
-        authorUsername: string;
-        glow: boolean;
-        url: string;
+        rarityI: number;
+        weapon: Weapon;
+        url: string | null;
+        creator?: string;
+        glow?: boolean;
     }
     export interface Player {
         username: string;
@@ -49,9 +48,17 @@ declare module 'krunker.io.js' {
         lastPlayedClass?: Class;
         classes: object;
         mods: Mod[] | string[];
+        maps: {
+            author: string;
+            name: string;
+            votes: number;
+            verified: boolean;
+            fetch(): KrunkerMap;
+        }[];
         joinedAt: Date;
         hacker: boolean;
         region: number;
+        eggs: number;
         stats: {
             shots: number;
             hits: number;
@@ -222,7 +229,62 @@ declare module 'krunker.io.js' {
             name?: string;
             id?: number;
             rank?: number;
-        }): Promise<Mod>;
+        }): Promise<Mod | null>;
+        fetchMaps(options: {
+            player?: string | Player | Clan;
+            filter?: () => boolean;
+            sort?: () => number;
+            map?: (() => any) | string;
+            count?: number;
+        }): Promise<KrunkerMap[]>;
+        getMap(options: {
+            name?: string;
+            id?: number;
+            rank?: number;
+        }): Promise<KrunkerMap | null>;
+        fetchWeekly(): Promise<{
+            d: string;
+            n: string;
+            r: number;
+            t: {
+                l: string[];
+                n: string;
+                p: string;
+            }[];
+        }[]>;
+        fetchWeekly(): {
+            d: string;
+            n: string;
+            r: number;
+            t: {
+                l: string[];
+                n: string;
+                p: string;
+            }[];
+        }[] | Promise<{
+            d: string;
+            n: string;
+            r: number;
+            t: {
+                l: string[];
+                n: string;
+                p: string;
+            }[];
+        }[]>;
+    }
+    export class KrunkerMap {
+        constructor(client: Client, data: object);
+        public readonly client: Client;
+        name: string;
+        authorUsername: string;
+        rank: number;
+        id: number;
+        votes: number;
+        createdAt: Date;
+        featured: boolean;
+        verified: boolean;
+        image: string;
+        fetchAuthor(): Promise<Player>;
     }
     export class Mod {
         constructor(client: Client, data: object);
@@ -258,7 +320,6 @@ declare module 'krunker.io.js' {
             resolveServer(str: string): string;
             resolveWeapon(r: string | Class | Weapon): Weapon;
         };
-        orderBy: object;
         verifiedClans: string[];
         gameIDregex: RegExp;
         averageStat(structure: 'class' | 'weapon', stat: string, arr?: (Class | Weapon)[], decimalDigits?: number): number | string;

@@ -1,13 +1,13 @@
 {
     "name": "krunker.io.js",
     "author": "1s3k3b",
-    "version": "1.6.7",
+    "version": "1.6.8",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "types": "./typings/typings.d.ts",
     "homepage": "https://1s3k3b.github.io/krunkerjs",
     "scripts": {
-        "test": "npm run player && npm run mods && npm run fetchGame && npm run util && npm run class && npm run weapon && npm run changelog && npm run fetchClan && npm run skins && npm run leaderboard && npm run infected && eslint src --fix",
+        "test": "npm run player && npm run mods && npm run maps && npm run weekly && npm run fetchGame && npm run util && npm run class && npm run weapon && npm run changelog && npm run fetchClan && npm run skins && npm run leaderboard && npm run infected && npm run lint",
         "player": "node ./test/player.js",
         "fetchGame": "node ./test/fetchGame.js",
         "util": "node ./test/util.js",
@@ -18,7 +18,10 @@
         "skins": "node ./test/skins.js",
         "leaderboard": "node ./test/leaderboard.js",
         "infected": "node ./test/infected.js",
-        "mods": "node ./test/mods.js"
+        "mods": "node ./test/mods.js",
+        "maps": "node ./test/maps.js",
+        "weekly": "node ./test/weekly.js",
+        "lint": "eslint src --fix && tslint 'typings/*.ts' --fix"
     },
     "files": [
         "src"

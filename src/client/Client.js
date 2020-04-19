@@ -212,6 +212,13 @@ class Client {
         const val = name || rank || id;
         return (await this.fetchMaps()).find(m => m[prop] === val);
     }
+    async fetchWeekly() {
+        this.weekly = await fetch('http://assets.krunker.io/json/weekly.json').then(d => d.json());
+        return this.weekly;
+    }
+    getWeekly() {
+        return this.weekly || this.fetchWeekly();
+    }
 
     async _updateCache() {
         for (const un of [ ...this.players.values() ].map(d => d.username)) {
