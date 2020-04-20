@@ -20,8 +20,8 @@ declare module 'krunker.io.js' {
         rarity: string;
         rarityI: number;
         weapon: Weapon;
-        keyW: String;
-        tex: number;
+        keyword: string | null;
+        texture: number | null;
         creator?: string;
         glow?: boolean;
     }
@@ -34,6 +34,8 @@ declare module 'krunker.io.js' {
         rarity: string;
         rarityI: number;
         weapon: Weapon;
+        keyword: string | null;
+        texture: number | null;
         url: string | null;
         creator?: string;
         glow?: boolean;

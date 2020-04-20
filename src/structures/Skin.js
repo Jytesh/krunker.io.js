@@ -20,8 +20,8 @@ module.exports = class Skin {
         this.rarity = resolveRarity(data.rarity);
         this.authorUsername = data.creator || 'Krunker.io';
         this.glow = !!data.glow;
-        this.keyW = data.keyW;
-        this.tex = data.tex;
+        this.keyword = data.keyW || null;
+        this.texture = data.tex || null;
     }
     toString() {
         return this.name;
