@@ -9,6 +9,7 @@ const Clan = require('../structures/Clan.js');
 const KrunkerMap = require('../structures/Map.js');
 const Mod = require('../structures/Mod.js');
 const Skin = require('../structures/Skin.js');
+const Weekly = require('../structures/Weekly.js');
 
 const { KrunkerAPIError, ArgumentError } = require('../errors/index.js');
 
@@ -213,7 +214,7 @@ class Client {
         return (await this.fetchMaps()).find(m => m[prop] === val);
     }
     async fetchWeekly() {
-        this.weekly = await fetch('http://assets.krunker.io/json/weekly.json').then(d => d.json());
+        this.weekly = new Weekly(await fetch('http://assets.krunker.io/json/weekly.json').then(d => d.json()));
         return this.weekly;
     }
     getWeekly() {

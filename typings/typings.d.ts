@@ -242,7 +242,12 @@ declare module 'krunker.io.js' {
             id?: number;
             rank?: number;
         }): Promise<KrunkerMap | null>;
-        fetchWeekly(): Promise<{
+        fetchWeekly(): Promise<Weekly>;
+        getWeekly(): Weekly | Promise<Weekly>;
+    }
+    export class Weekly {
+        constructor(data: object);
+        raw: {
             d: string;
             n: string;
             r: number;
@@ -251,26 +256,17 @@ declare module 'krunker.io.js' {
                 n: string;
                 p: string;
             }[];
-        }[]>;
-        fetchWeekly(): {
-            d: string;
-            n: string;
-            r: number;
-            t: {
-                l: string[];
-                n: string;
-                p: string;
+        }[];
+        arr: {
+            date: Date;
+            name: string;
+            region: number;
+            teams: {
+                players: string[];
+                name: string;
+                prize: string;
             }[];
-        }[] | Promise<{
-            d: string;
-            n: string;
-            r: number;
-            t: {
-                l: string[];
-                n: string;
-                p: string;
-            }[];
-        }[]>;
+        }[];
     }
     export class KrunkerMap {
         constructor(client: Client, data: object);

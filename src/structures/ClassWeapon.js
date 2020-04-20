@@ -355,7 +355,7 @@ class Weapon {
             automatic: true,
             baseScore: 50,
             sight: 'Red Dot',
-            devNumber: 5,
+            devNumber: 7,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
             },
@@ -423,7 +423,7 @@ class Weapon {
             automatic: false,
             baseScore: 50,
             sight: 'none',
-            devNumber: 7,
+            devNumber: 5,
             getSkin(n = Math.floor(Math.random() * 100)) {
                 return 'http://assets.krunker.io/textures/weapons/skins/weapon_' + this.devNumber + '_' + n + '.png';
             },

@@ -92,9 +92,9 @@ module.exports = class Player {
                 elo1: data.player_elo || 0,
                 elo2: data.player_elo2 || 0,
                 elo4: data.player_elo4 || 0,
-                elo1Image: data.player_elo ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo - 120) / 120)}.png` : '',
-                elo2Image: data.player_elo2 ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo2 - 120) / 120)}.png` : '',
-                elo4Image: data.player_elo3 ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo4 - 120) / 120)}.png` : '',
+                elo1Image: data.player_elo ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo - 119.99) / 120)}.png` : '',
+                elo2Image: data.player_elo2 ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo2 - 119.99) / 120)}.png` : '',
+                elo4Image: data.player_elo3 ? `https://krunker.io/img/ranks/icon_${Math.floor(Math.abs(data.player_elo4 - 119.99) / 120)}.png` : '',
                 challengesLevel: data.player_chal || 0,
             },
             social: {

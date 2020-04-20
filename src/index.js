@@ -9,6 +9,7 @@ module.exports = {
     Mod: require('./structures/Mod.js'),
     Player: require('./structures/Player.js'),
     Skin: require('./structures/Skin.js'),
+    Weekly: require('./structures/Weekly.js'),
     ...require('./structures/ClassWeapon.js'),
     ...require('./util/index.js'),
 };
