@@ -1861,7 +1861,7 @@
     },
     {"name": "World of Light","id": 77,"creator": "Electrode","glow":"true","weapon": 15,"rarity": 3,"seas": 2
     },
-    {"name": "Vantablack","id": 0,"shirtCol": 197379,"sleeveCol": 197379,"pantsCol": 197379,"shoeCol": 197379,"seas": 2,"type": 5,"rarity": 5
+    {"name": "Vantablack","id": 0,"shirtCol": 197379,"sleeveCol": 197379,"pantsCol": 197379,"shoeCol": 197379,"seas": 2,"type": 5,"rarity": 5,"keyW":"Dye"
     },
     {"name": "Lederhose","id": 120,"weapon": 1,"rarity": 3,"seas": 2
     },
@@ -1889,7 +1889,7 @@
     },
     {"name": "Facemask","keyW": "Mask","limited":"true","id": 60,"rarity": 2,"type": 1,"seas": 2,"sclMlt":0.54,"sitOff":0.9,"scl": 1.6
     },
-    {"name": "Spectralon","id": 1,"shirtCol": 16777215,"sleeveCol": 16777215,"pantsCol": 16777215,"shoeCol": 16777215,"seas": 2,"type": 5,"rarity": 5
+    {"name": "Spectralon","id": 1,"shirtCol": 16777215,"sleeveCol": 16777215,"pantsCol": 16777215,"shoeCol": 16777215,"seas": 2,"type": 5,"rarity": 5,"keyW":"Dye"
     },
     {"name": "24/7","id": 127,"creator": "Drag","weapon": 1,"rarity": 4,"glow":"true","seas": 2
     },
@@ -1961,7 +1961,7 @@
     },
     {"name": "RevBG","id": 82,"creator": "cimota","weapon": 5,"rarity": 2,"seas": 2
     },
-    {"name": "Thunder Serpent","midT": "weapons/weapon_3_0","glow":"true","noMuz":"true","mid": 0,"weapon": 3,"spnScl": 1.3,"scl":0.9,"mScl":0.84,"zOff": 0,"yOff": 0,"rarity": 4,"seas": 2
+    {"name": "Thunder Serpent","midT": "weapons/weapon_3_0","glow":"true","noMuz":"true","mid": 0,"weapon": 3,"spnScl": 1.3,"scl":0.9,"mScl":0.84,"zOff": 0,"yOff": 0,"rarity": 4,"seas": 2,"keyW":"Pistol"
     },
     {"name": "Sheikah","id": 136,"creator": "FlowerKid","weapon": 1,"rarity": 4,"glow":"true","seas": 2
     },
@@ -1991,7 +1991,7 @@
     },
     {"name": "Automatis","id": 24,"type": 2,"keyW": "Back","scl": 4.5,"sclMlt": 3.1,"spnSpd":0.1,"xOff": -3,"sitOff":-0.9,"sitOffZ":-0.2,"yOff":-0.5,"rarity": 4,"seas": 2,"rAnim":0.0015,"rAnimA": "x"
     },
-    {"name": "Osiris' Servant","midT": "weapons/weapon_3_1","glow":"true","minGlo":0.35,"noMuz":"true","mid": 0,"weapon": 3,"pulsT":0.0015,"spnScl": 1.3,"scl":0.9,"mScl":0.84,"zOff": 0,"yOff": 0,"rarity": 5,"seas": 2
+    {"name": "Osiris' Servant","midT": "weapons/weapon_3_1","glow":"true","minGlo":0.35,"noMuz":"true","mid": 0,"weapon": 3,"pulsT":0.0015,"spnScl": 1.3,"scl":0.9,"mScl":0.84,"zOff": 0,"yOff": 0,"rarity": 5,"seas": 2,"keyW":"Pistol"
     },
     {"name": "Shatter Wings","id": 16,"tex": 2,"rarity": 4,"glow":"true","type": 2,"keyW": "Back","seas": 2,"scl": 3,"sclMlt": 3,"sitOff":-0.5,"sitOffZ": -2,"xOff": -2,"yOff": -3,"movT": 3e-4
     },
@@ -2009,7 +2009,7 @@
     },
     {"name": "Injection","creator": "Cimota","id": 74,"weapon": 7,"rarity": 4,"glow":"true","pulsT":0.0015,"seas": 2
     },
-    {"name": "Sugarbear","id": 2,"shirtCol": 15956900,"sleeveCol": 15956900,"pantsCol": 15956900,"shoeCol": 15956900,"seas": 2,"type": 5,"rarity": 4
+    {"name": "Sugarbear","id": 2,"shirtCol": 15956900,"sleeveCol": 15956900,"pantsCol": 15956900,"shoeCol": 15956900,"seas": 2,"type": 5,"rarity": 4,"keyW":"Dye"
     },
     {"name": "Pride","id": 141,"creator": "FlowerKid","weapon": 1,"rarity": 4,"glow":"true","minGlo":0.35,"pulsT":0.0015,"seas": 2
     },
@@ -2047,7 +2047,7 @@
     },
     {"name": "Egg Tamer","limT": "Easter","keyW": "Back","id": 31,"type": 2,"scl": 3,"sclMlt": 2.6,"sitOff": -1.1,"sitOffZ": -2,"yOff":-0.9,"xOff":-0.3,"rarity": 5,"seas": 2,"rAnim":0.0015,"rAnimA": "x"
     },
-    {"name": "Carotine","limT": "Easter","id": 3,"shirtCol": 13203507,"sleeveCol": 3911758,"pantsCol": 13203507,"shoeCol": 3911758,"seas": 2,"type": 5,"rarity": 4
+    {"name": "Carotine","limT": "Easter","id": 3,"shirtCol": 13203507,"sleeveCol": 3911758,"pantsCol": 13203507,"shoeCol": 3911758,"seas": 2,"type": 5,"rarity": 4,"keyW":"Dye"
     },
     {"name": "Zig-Zag","limT": "Easter","id": 142,"weapon": 1,"rarity": 1,"seas": 2
     },
@@ -2136,5 +2136,8 @@
     {"name": "Vertigo","limT": "Easter","keyW": "Hat","id": 67,"rarity": 6,"type": 1,"seas": 2,"sclMlt":0.9,"sitOff":-0.8,"scl": 1.6,"rAnim":-0.0022,"rAnimA": "y"
     },
     {"name": "U.F.0","keyW": "Hat","id": 68,"rarity": 5,"type": 1,"seas": 2,"sclMlt": 1.75,"sitOff":-0.5,"xOff": -3.6,"scl": 1.6,"rAnim":-0.0022,"rAnimA": "y","trans":"true","glow":"true"
-    }
+    },
+    {"name":"RGB","id":4,"seas":2,"type":5,"rarity":6,"rgb":true,"rgbS":0.5,"keyW":"Dye"
+    },
+    {"name":"Raynb0w","weapon":3,"pat":1,"tex":"weapons/pat/1","sameGlow":true,"movT":0.0015,"rarity":5,"seas":2,"keyW":"Pistol"}
 ]
