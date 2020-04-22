@@ -33,7 +33,7 @@ declare module 'krunker.io.js' {
         seas: number;
         rarity: string;
         rarityI: number;
-        weapon: number;
+        weapon: Weapon;
         keyword: string | null;
         texture: number | null;
         limited: string | null;
