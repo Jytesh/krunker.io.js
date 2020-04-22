@@ -22,6 +22,7 @@ module.exports = class Skin {
         this.glow = !!data.glow;
         this.keyword = data.keyW || null;
         this.texture = data.tex || null;
+        this.limited = data.limT || null;
     }
     toString() {
         return this.name;
