@@ -11,7 +11,7 @@ const { resolveWeapon, resolveRarity } = {
 module.exports = class Skin {
     constructor(client, wResolvable, data) {
         Object.defineProperty(this, 'client', { value: client });
-        this.weapon = data.weapon || null;
+        this.weapon = resolveWeapon(wResolvable);
         if (!this.weapon) throw new ArgumentError('CANNOT_RESOLVE', wResolvable, 'Weapon');
         this.name = data.name;
         this.id = data.id;
