@@ -172,7 +172,7 @@ module.exports = {
         if (!spin) return 0;
         if (kr < spin.cost) return 0;
         kr = round(kr, spin.cost);
-        return ((1 - Math.pow(spin[rarity], kr / spin.cost)) * 100).toFixed(4);
+        return ((1 - Math.pow(spin[rarity], kr / spin.cost)) * 100).toFixed(2);
     },
     stringifySettings(str, { lineBreaks = 1, seperator = ': ', includeControls = true } = {}) {
         const data = JSON.parse(str);
