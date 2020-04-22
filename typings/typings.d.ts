@@ -36,6 +36,7 @@ declare module 'krunker.io.js' {
         weapon: Weapon;
         keyword: string | null;
         texture: number | null;
+        limited: string | null;
         url: string | null;
         creator?: string;
         glow?: boolean;
