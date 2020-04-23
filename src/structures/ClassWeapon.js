@@ -81,7 +81,7 @@ class Class {
             name: 'Runner',
             secondary: false,
             weapon: new Weapon('Combat Knife'),
-            _avatar: '',
+            _avatar: 'https://vignette.wikia.nocookie.net/krunkerio/images/9/93/Runnericon.png/revision/latest?cb=20200423125252',
         };
 
         const bowman = {
