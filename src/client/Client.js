@@ -118,14 +118,14 @@ class Client {
             x => x[3],
             data => {
                 if (!data) throw new KrunkerAPIError('SOMETHING_WENT_WRONG');
-                data = data.map(d => ({
+                data = data.map(d => orderBy === 'player_clan' ? new Clan(this, d, true) : {
                     username: d.player_name,
                     displayName: d.player_name + (d.player_clan ? ' [' + d.player_clan + ']' : ''),
                     verified: !!d.player_featured,
                     clan: d.player_clan || null,
                     hacker: !!d.player_hack,
                     [orderBy.split('_')[1]]: d[orderBy],
-                }));
+                });
                 this.leaderboard.set(orderBy, data);
                 return this.leaderboard.get(orderBy);
             },

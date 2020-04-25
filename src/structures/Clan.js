@@ -1,15 +1,15 @@
 const { verifiedClans } = require('../util/index.js');
 
 module.exports = class Clan {
-    constructor(client, data) {
+    constructor(client, data, partial = false) {
         Object.defineProperty(this, 'client', { value: client });
         const obj = {
-            id: data.clan_id,
+            id: partial ? null : data.clan_id,
             name: data.clan_name,
             score: data.clan_score,
             level: Math.max(1, Math.floor(0.03 * Math.sqrt(data.clan_score))),
-            memberCount: data.members.length,
-            members: data.members
+            memberCount: partial ? data.clan_membercount : data.members.length,
+            members: partial ? [] : data.members
                 .sort((a, b) =>
                     b.player_score - a.player_score,
                 )

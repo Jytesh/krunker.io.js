@@ -165,7 +165,7 @@ declare module 'krunker.io.js' {
     }
     export class Clan {
         public fetchLeader(): Promise<Player>;
-        id: number;
+        id: number | null;
         name: string;
         score: number;
         level: number;
@@ -200,7 +200,7 @@ declare module 'krunker.io.js' {
             cache: boolean,
             raw: boolean
         }): Promise<Clan>;
-        public fetchLeaderboard(orderBy?: keyof IOrderBy): Promise<object[]>;
+        public fetchLeaderboard(orderBy?: keyof IOrderBy): Promise<(object | Clan)[]>;
         public getPlayer(nameOrID: string, options: {
             updateCache: boolean,
             raw: boolean,
@@ -212,7 +212,7 @@ declare module 'krunker.io.js' {
             raw: boolean
         }): Clan | Promise<Clan>;
         public getChangelog(): Changelog | Promise<Changelog>;
-        public getLeaderboard(orderBy?: keyof IOrderBy): string[] | Promise<string[]>;
+        public getLeaderboard(orderBy?: keyof IOrderBy): (object | Clan)[] | Promise<(object | Clan)[]>;
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
         public getSkin(name: string): null | Skin;

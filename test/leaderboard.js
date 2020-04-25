@@ -4,5 +4,5 @@ const client = new Client();
 client.fetchLeaderboard().then(c => {
 	console.log(c);
 	console.log(client.getLeaderboard());
-	client.fetchLeaderboard('funds').then(console.log);
+	client.fetchLeaderboard('clans').then(console.log);
 });
