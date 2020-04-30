@@ -1,11 +1,5 @@
 const resolver = require('../client/resolver.js');
 
-Object.prototype.forEach = function(callback) {
-    Object.keys(this).forEach((key, index) => {
-        callback(key, this[key], index, this);
-    });
-};
-
 module.exports = class Game {
     constructor(data) {
         const obj = {
@@ -26,8 +20,7 @@ module.exports = class Game {
             server: resolver.resolveServer(data[0].split(':')[0]),
         };
 
-        obj.forEach((k, v) => Object.defineProperty(this, k, { value: v, writable: false, enumerable: true }));
-
+        for (const [ k, v ] of Object.entries(obj)) Object.defineProperty(this, k, { value: v, writable: false, enumerable: true });
         return obj;
     }
 };

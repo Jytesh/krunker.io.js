@@ -18,12 +18,12 @@ const { gameIDregex, orderBy: OrderBy } = require('../util/index.js');
 const { resolveUsername } = require('./resolver.js');
 
 class Client {
-    constructor() {
-        this.ws = new WebSocketManager(this);
-        this.players = new Map();
-        this.leaderboard = new Map();
-        this.clans = new Map();
-        this.infected = new Map();
+    constructor({ ws, cache: { players, leaderboard, clans, infected } = {} } = {}) {
+        this.ws = new WebSocketManager(this, ws);
+        this.players = new Map(players);
+        this.leaderboard = new Map(leaderboard);
+        this.clans = new Map(clans);
+        this.infected = new Map(infected);
     }
     get ping() {
         return this.ws.ping;
@@ -219,6 +219,10 @@ class Client {
     }
     getWeekly() {
         return this.weekly || this.fetchWeekly();
+    }
+
+    raw(d) {
+        return this.ws.request(d, x => x, x => x);
     }
 
     async _updateCache() {

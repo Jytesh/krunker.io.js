@@ -1,5 +1,3 @@
-import { Utils } from 'tslint';
-
 declare module 'krunker.io.js' {
     interface IOrderBy {
         funds: 'player_funds',
@@ -181,7 +179,13 @@ declare module 'krunker.io.js' {
         verified: boolean;
     }
     export class Client {
-        constructor();
+        constructor(options?: {
+            ws?: {
+                url?: string;
+                handshakeTimeout?: number;
+            };
+            cache: object;
+        });
         public ping: number;
         public players: Map<string, Player>;
         public clans: Map<string, Clan>;
@@ -216,38 +220,39 @@ declare module 'krunker.io.js' {
         public getWeapon(name?: string): Weapon;
         public getClass(name?: string): Class;
         public getSkin(name: string): null | Skin;
-        getSkins(options: {
+        public getSkins(options: {
             filter?: () => boolean;
             sort?: () => number;
             map?: (() => any) | string;
             count?: number;
         }): Skin[];
-        fetchMods(options: {
+        public fetchMods(options: {
             player?: string | Player | Clan;
             filter?: () => boolean;
             sort?: () => number;
             map?: (() => any) | string;
             count?: number;
         }): Promise<Mod[]>;
-        getMod(options: {
+        public getMod(options: {
             name?: string;
             id?: number;
             rank?: number;
         }): Promise<Mod | null>;
-        fetchMaps(options: {
+        public fetchMaps(options: {
             player?: string | Player | Clan;
             filter?: () => boolean;
             sort?: () => number;
             map?: (() => any) | string;
             count?: number;
         }): Promise<KrunkerMap[]>;
-        getMap(options: {
+        public getMap(options: {
             name?: string;
             id?: number;
             rank?: number;
         }): Promise<KrunkerMap | null>;
-        fetchWeekly(): Promise<Weekly>;
-        getWeekly(): Weekly | Promise<Weekly>;
+        public fetchWeekly(): Promise<Weekly>;
+        public getWeekly(): Weekly | Promise<Weekly>;
+        public raw(obj: any): Promise<any>;
     }
     export class Weekly {
         constructor(data: object);
