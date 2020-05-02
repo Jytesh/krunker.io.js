@@ -62,6 +62,7 @@ declare module 'krunker.io.js' {
         region: number;
         eggs: number;
         stats: {
+            wallbangs: number;
             shots: number;
             hits: number;
             accuracy: number;

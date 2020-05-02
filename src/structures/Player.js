@@ -75,6 +75,7 @@ module.exports = class Player {
                     toString: () => Math.floor(Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) / 24) + 'd ' + Math.floor(Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60) % 24 + 'h ' + Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) % 60 + 'm',
                     valueOf: () => data.player_timeplayed,
                 },
+                wallbangs: stats.wb || 0,
                 shots: stats.s,
                 hits: stats.h,
                 accuracy: Number((stats.h * 100 / stats.s).toFixed(2)),
