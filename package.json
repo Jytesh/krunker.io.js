@@ -1,7 +1,7 @@
 {
     "name": "krunker.io.js",
     "author": "1s3k3b",
-    "version": "1.7.5",
+    "version": "1.7.6",
     "description": "Easy-to-use API wrapper for Krunker.io",
     "main": "./src/index.js",
     "types": "./typings/typings.d.ts",
@@ -21,6 +21,7 @@
         "mods": "node ./test/mods.js",
         "maps": "node ./test/maps.js",
         "weekly": "node ./test/weekly.js",
+        "skinmakers": "node ./test/skinmakers.js"
         "lint": "eslint src --fix && tslint 'typings/*.ts' --fix"
     },
     "files": [
