@@ -75,5 +75,5 @@ exports.getSkinsByCreator = function (creator) {
         };
         itemNum++;
     };
-    return skinsByCreatorArray
+    return {"username" : creator, "skins" : skinsByCreatorArray}
 };
