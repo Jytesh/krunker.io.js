@@ -46,4 +46,8 @@ client.fetchItemsByName("lore").then(d => console.log(d))
 ```js
 client.version().then(d => console.log(d)) // it will return the version
 ```
+### getting all skins by a skinmaker 
+```js
+console.log(client.getSkinsByCreator('Jytesh'))
+```
 

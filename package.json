@@ -21,6 +21,7 @@
         "mods": "node ./test/mods.js",
         "maps": "node ./test/maps.js",
         "weekly": "node ./test/weekly.js",
+        "skinmakers": "node ./test/skinmakers.js",
         "lint": "eslint src --fix && tslint 'typings/*.ts' --fix"
     },
     "files": [
