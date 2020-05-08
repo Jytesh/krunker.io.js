@@ -64,6 +64,7 @@ module.exports = class Player {
             region: data.player_region,
             regionImage: `https://krunker.io/img/flags/flag_${data.player_region}.png`,
             infected: !!data.player_infected,
+            premium: !!data.player_premium,
             eggs: data.player_eventcount || 0,
             stats: {
                 timePlayed: {

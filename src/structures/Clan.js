@@ -11,18 +11,20 @@ module.exports = class Clan {
             memberCount: partial ? data.clan_membercount : data.members.length,
             members: partial ? [] : data.members
                 .sort((a, b) =>
-                    b.player_score - a.player_score,
+                    b.s - a.s,
                 )
                 .map(m => {
-                    const level = Math.max(1, Math.floor(0.03 * Math.sqrt(m.player_score)));
+                    const level = Math.max(1, Math.floor(0.03 * Math.sqrt(m.s)));
                     return {
-                        username: m.player_name,
-                        displayName: m.player_name + ' [' + data.clan_name + ']',
-                        score: m.player_score,
+                        username: m.p,
+                        hacker: !!m.h,
+                        premium: !!m.r,
+                        displayName: m.p + ' [' + data.clan_name + ']',
+                        score: m.s,
                         level,
-                        levelProgress: Math.round(100 * ((0.03 * Math.sqrt(m.player_score)) - Math.floor(0.03 * Math.sqrt(m.player_score)))),
+                        levelProgress: Math.round(100 * ((0.03 * Math.sqrt(m.s)) - Math.floor(0.03 * Math.sqrt(m.s)))),
                         levelImage: `https://krunker.io/img/levels/${Math.min(level % 2 ? level : level - 1, 101)}.png`,
-                        toString: () => m.player_name,
+                        toString: () => m.p,
                     };
                 }),
             leaderUsername: data.creatorname,

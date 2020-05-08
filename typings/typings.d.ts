@@ -65,6 +65,7 @@ declare module 'krunker.io.js' {
         hacker: boolean;
         region: number;
         eggs: number;
+        premium: boolean;
         stats: {
             wallbangs: number;
             shots: number;
@@ -175,6 +176,8 @@ declare module 'krunker.io.js' {
         leaderUsername: string;
         members: Array<{
             username: string;
+            hacker: boolean;
+            premium: boolean;
             level: number;
             levelProgress: number;
             score: number;
