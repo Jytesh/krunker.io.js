@@ -10,7 +10,7 @@ const KrunkerMap = require('../structures/Map.js');
 const Mod = require('../structures/Mod.js');
 const Skin = require('../structures/Skin.js');
 const Weekly = require('../structures/Weekly.js');
-const Skinmakers = require("../structures/Skinmakers.js");
+const Skinmakers = require('../structures/Skinmakers.js');
 
 const { KrunkerAPIError, ArgumentError } = require('../errors/index.js');
 
@@ -167,7 +167,7 @@ class Client {
         return count ? res.slice(0, count) : res;
     }
     getSkinsByCreator(creator) {
-        return Skinmakers.getSkinsByCreator(creator)
+        return Skinmakers.getSkinsByCreator(creator);
     }
     async fetchMods({ player, filter, sort, count, map } = {}) {
         if (resolveUsername(player)) filter = m => m.authorUsername === resolveUsername(player);

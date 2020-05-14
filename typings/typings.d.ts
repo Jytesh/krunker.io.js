@@ -1,4 +1,8 @@
 declare module 'krunker.io.js' {
+    type skinMaker = {
+        username: string;
+        skins: string[];
+    };
     interface IOrderBy {
         funds: 'player_funds',
         clans: 'player_clan',
@@ -61,6 +65,7 @@ declare module 'krunker.io.js' {
         hacker: boolean;
         region: number;
         eggs: number;
+        premium: boolean;
         stats: {
             wallbangs: number;
             shots: number;
@@ -171,6 +176,8 @@ declare module 'krunker.io.js' {
         leaderUsername: string;
         members: Array<{
             username: string;
+            hacker: boolean;
+            premium: boolean;
             level: number;
             levelProgress: number;
             score: number;
@@ -227,6 +234,7 @@ declare module 'krunker.io.js' {
             map?: (() => any) | string;
             count?: number;
         }): Skin[];
+        getSkinsByCreator(creator: string): skinMaker;
         public fetchMods(options: {
             player?: string | Player | Clan;
             filter?: () => boolean;
@@ -335,5 +343,8 @@ declare module 'krunker.io.js' {
             seperator?: string;
             includeControls?: boolean;
         }): string;
+    };
+    export const Skinmakers: {
+        getSkinsByCreator(creator: string): skinMaker;
     };
 }

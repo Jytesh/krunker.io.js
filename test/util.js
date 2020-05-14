@@ -46,10 +46,13 @@ breakLn();
 
 console.log('Stringify Krunker settings JSON:');
 console.log(util.stringifySettings(
-	settings,
-	{
-		seperator: ': ', // default: ": "
-		lineBreaks: 1, // default: 1
-		includeControls: false, // default: true
-	},
+    settings,
+    {
+        seperator: ': ',
+        // default: ": "
+        lineBreaks: 1,
+        // default: 1
+        includeControls: false,
+        // default: true
+    },
 ));
