@@ -9,89 +9,89 @@ module.exports.getSkinsByCreator = creator => {
     const lowcCreator = creator.toLowerCase();
     let skinCreator;
 
-    if (lowcCreator == 'krunker') {
+    if (lowcCreator === 'krunker') {
         creator1 = 'krunker.io';
     }
-    else if (lowcCreator == 'jon') {
+    else if (lowcCreator === 'jon') {
         creator1 = 'jonschmiddy';
     }
-    else if (lowcCreator == 'spy') {
+    else if (lowcCreator === 'spy') {
         creator1 = 'ispy';
     }
-    else if (lowcCreator == 'blitz') {
+    else if (lowcCreator === 'blitz') {
         creator1 = 'blitz-.';
         creator2 = 'blitz';
     }
-    else if (lowcCreator == 'blitz-.') {
+    else if (lowcCreator === 'blitz-.') {
         creator1 = 'blitz-.';
         creator2 = 'blitz';
     }
-    else if (lowcCreator == 'halloluke') {
+    else if (lowcCreator === 'halloluke') {
         creator1 = 'halloluke0201';
     }
-    else if (lowcCreator == 'irizu') {
+    else if (lowcCreator === 'irizu') {
         creator1 = '_irizu';
     }
-    else if (lowcCreator == 'vx_bomb') {
+    else if (lowcCreator === 'vx_bomb') {
         creator1 = 'vx bomb';
     }
-    else if (lowcCreator == 'electrode') {
+    else if (lowcCreator === 'electrode') {
         creator1 = 'electrode';
         creator2 = 'electrode_';
     }
-    else if (lowcCreator == 'electrode_') {
+    else if (lowcCreator === 'electrode_') {
         creator1 = 'electrode';
         creator2 = 'electrode_';
     }
-    else if (lowcCreator == 'float') {
+    else if (lowcCreator === 'float') {
         creator1 = 'floatingpoint';
     }
-    else if (lowcCreator == 'kltter') {
+    else if (lowcCreator === 'kltter') {
         creator1 = 'kitter';
         creator2 = 'kltter';
     }
-    else if (lowcCreator == 'kitter') {
+    else if (lowcCreator === 'kitter') {
         creator1 = 'kitter';
         creator2 = 'kltter';
     }
-    else if (lowcCreator == 'zino') {
+    else if (lowcCreator === 'zino') {
         creator1 = 'zino';
         creator2 = 'zinoob';
     }
-    else if (lowcCreator == 'zinoob') {
+    else if (lowcCreator === 'zinoob') {
         creator1 = 'zino';
         creator2 = 'zinoob';
     }
-    else if (lowcCreator == 'jhonxay') {
+    else if (lowcCreator === 'jhonxay') {
         creator1 = 'jhonxay_playz';
         creator2 = 'jhonxay';
     }
-    else if (lowcCreator == 'jhonxay_playz') {
+    else if (lowcCreator === 'jhonxay_playz') {
         creator1 = 'jhonxay';
         creator2 = 'jhonxay_playz';
     }
-    else if (lowcCreator == 'omar') {
+    else if (lowcCreator === 'omar') {
         creator1 = '0mar';
     }
-    else if (lowcCreator == 'porg') {
+    else if (lowcCreator === 'porg') {
         creator1 = 'edibleporg';
     }
-    else if (lowcCreator == 'nightlybuild') {
+    else if (lowcCreator === 'nightlybuild') {
         creator1 = 'nightly-build7';
     }
 
     while (itemNum < arrayLength) {
         skinCreator = skins[itemNum].creator;
-        if (skinCreator == undefined) {
+        if (skinCreator === undefined) {
             skinCreator = 'Krunker.io';
         }
-        if (skinCreator.toLowerCase() == lowcCreator) {
+        if (skinCreator.toLowerCase() === lowcCreator) {
             skinsByCreatorArray.push(skins[itemNum].name);
         }
-        else if (skinCreator.toLowerCase() == creator1.toLowerCase()) {
+        else if (skinCreator.toLowerCase() === creator1.toLowerCase()) {
             skinsByCreatorArray.push(skins[itemNum].name);
         }
-        else if (skinCreator.toLowerCase() == creator2.toLowerCase()) {
+        else if (skinCreator.toLowerCase() === creator2.toLowerCase()) {
             skinsByCreatorArray.push(skins[itemNum].name);
         }
         itemNum++;
