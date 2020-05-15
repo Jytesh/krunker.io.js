@@ -11,6 +11,7 @@ module.exports = {
     Skin: require('./structures/Skin.js'),
     Weekly: require('./structures/Weekly.js'),
     Skinmakers: require('./structures/Skinmakers.js'),
+    ItemSales: require('./structures/Skinmakers.js'),
     ...require('./structures/ClassWeapon.js'),
     ...require('./util/index.js'),
 };

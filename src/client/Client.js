@@ -11,6 +11,7 @@ const Mod = require('../structures/Mod.js');
 const Skin = require('../structures/Skin.js');
 const Weekly = require('../structures/Weekly.js');
 const Skinmakers = require('../structures/Skinmakers.js');
+const ItemSales = require('../structures/ItemSales.js');
 
 const { KrunkerAPIError, ArgumentError } = require('../errors/index.js');
 
@@ -168,7 +169,22 @@ class Client {
     }
     getSkinsByCreator(creator) {
         return Skinmakers.getSkinsByCreator(creator);
-    }
+    };
+    getItemSales(skinName) {
+        if (skinName !== undefined && ItemSales.getItemNum(skinName) !== undefined) {
+            return ItemSales.getItemSales(skinName);
+        } else if (skinName == undefined || skinName == "") {
+            let error = new Promise((resolve) => {
+                resolve('Expected Item');
+            });
+            return error;
+        } else {
+            let error = new Promise((resolve) => {
+                resolve('Unknown Item');
+            });
+            return error;
+        };
+    };
     async fetchMods({ player, filter, sort, count, map } = {}) {
         if (resolveUsername(player)) filter = m => m.authorUsername === resolveUsername(player);
         let res = await fetch('https://api.krunker.io/mods').then(

@@ -22,6 +22,7 @@
         "maps": "node ./test/maps.js",
         "weekly": "node ./test/weekly.js",
         "skinmakers": "node ./test/skinmakers.js",
+        "itemsales": "node ./test/itemsales.js",
         "lint": "eslint src --fix && tslint 'typings/*.ts' --fix"
     },
     "files": [
