@@ -1,5 +1,5 @@
-const skins = require('../data/skins.json');
 const avgPrices = require('../data/avgPrices.json');
+const { getItemNum } = require('./ItemSales.js');
 const { ArgumentError } = require('../errors/index.js');
 const { resolveWeapon, resolveRarity } = {
     resolveWeapon(r) {
@@ -26,8 +26,7 @@ module.exports = class Skin {
         this.texture = data.tex || null;
         this.limited = data.limT || null;
         this.itemNum = getItemNum(this.name);
-        this.estVal = `~ ${avgPrices[this.itemNum]} KR`;
-        this.estValInt = avgPrices[this.itemNum];
+        this.estimatedPrice = avgPrices[this.itemNum];
     }
     toString() {
         return this.name;
@@ -589,16 +588,4 @@ class Class {
 
         return obj;
     }
-}
-
-getItemNum = skinName => {
-    let num = 0;
-    const arrayLength = skins.length;
-    let itemNum = 0;
-    while (num < arrayLength) {
-        if (skins[num].name.toLowerCase() === skinName.toLowerCase()) itemNum = num;
-        num++;
-    }
-    if (itemNum === 0 && skinName.toLowerCase() !== 'arctic hunt') return;
-    return itemNum;
 }

@@ -26,6 +26,8 @@ declare module 'krunker.io.js' {
         texture: number | null;
         creator?: string;
         glow?: boolean;
+        itemNum: number;
+        averagePrice: number;
     }
     export class ItemSales {
         constructor(data: object, sales: object[], skinName: string);
@@ -57,6 +59,8 @@ declare module 'krunker.io.js' {
         url: string | null;
         creator?: string;
         glow?: boolean;
+        itemNum: number;
+        averagePrice: number;
     }
     export interface Player {
         username: string;
