@@ -169,22 +169,22 @@ class Client {
     }
     getSkinsByCreator(creator) {
         return Skinmakers.getSkinsByCreator(creator);
-    };
-    getItemSales(skinName) {
-        if (skinName !== undefined && ItemSales.getItemNum(skinName) !== undefined) {
-            return ItemSales.getItemSales(skinName);
-        } else if (skinName == undefined || skinName == "") {
-            let error = new Promise((resolve) => {
-                resolve('Expected Item');
-            });
-            return error;
-        } else {
-            let error = new Promise((resolve) => {
-                resolve('Unknown Item');
-            });
-            return error;
-        };
-    };
+    }
+    fetchItemSales(skinName) {
+        const averageSales = d =>
+            this.ws.request(
+                ['st', `${ItemSales.getItemNum(skinName)}`, d],
+                x => x[1],
+                x => x,
+                true,
+            );
+        return this.ws.request(
+            ['r', 'itemsales', null, null, null, null, 0, `${ItemSales.getItemNum(skinName)}`],
+            x => x[3],
+            async x => new ItemSales(x, await Promise.all([7, 30, 90, 120].map(d => averageSales(d))), skinName),
+            true,
+        );
+    }
     async fetchMods({ player, filter, sort, count, map } = {}) {
         if (resolveUsername(player)) filter = m => m.authorUsername === resolveUsername(player);
         let res = await fetch('https://api.krunker.io/mods').then(

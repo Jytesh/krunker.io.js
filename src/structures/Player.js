@@ -2,11 +2,10 @@ const { Class } = require('./ClassWeapon.js');
 const Mod = require('./Mod.js');
 const fetch = require('node-fetch');
 
-Object.fromEntries = arr => {
-    const obj = {};
-    for (const [ k, v ] of arr) obj[k] = v;
-    return obj;
-};
+const fromEntries = arr => arr.reduce((o, [ k, v ]) => {
+    o[k] = v;
+    return o;
+}, {});
 
 module.exports = class Player {
     async setup(client, data, { clan = false, mods = false } = {}) {
@@ -25,7 +24,7 @@ module.exports = class Player {
                         .filter(mod => mod.authorUsername === data.player_name),
             )
             : data.player_mods.map(m => m.mod_name);
-        const _classes = Object.fromEntries(
+        const _classes = fromEntries(
             Object.keys(stats)
                 .filter(k => /c\d+/.test(k))
                 .map(k => [

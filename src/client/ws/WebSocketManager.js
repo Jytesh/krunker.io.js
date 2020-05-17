@@ -24,10 +24,10 @@ class WebSocketManager {
                 rej(err);
             };
 
-            ws.onmessage = buffer =>{
+            ws.onmessage = async buffer =>{
                 const data = bufferData(decode(new Uint8Array(buffer.data)));
                 this._pings.push(Date.now() - start);
-                const r = callback(data);
+                const r = await callback(data);
                 if (!mult) {
                     ws.close();
                     return res(r);

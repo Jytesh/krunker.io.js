@@ -27,6 +27,21 @@ declare module 'krunker.io.js' {
         creator?: string;
         glow?: boolean;
     }
+    export class ItemSales {
+        constructor(data: object, sales: object[], skinName: string);
+        static getItemNum(skinName: string): number | undefined;
+        name: string;
+        itemNumber: number;
+        high: number;
+        low: number;
+        inCirculation: number;
+        onSale: number;
+        days: { [key in '7' | '30' | '90' | '120']: {
+            itemsSold: number;
+            totalSales: number;
+            averagePrice: number;
+        } }[];
+    }
     export class Skin implements ISkin {
         constructor(client: Client, wResolvable: Class | Weapon | string, data: ISkin);
         public readonly client: Client;
@@ -261,6 +276,7 @@ declare module 'krunker.io.js' {
         }): Promise<KrunkerMap | null>;
         public fetchWeekly(): Promise<Weekly>;
         public getWeekly(): Weekly | Promise<Weekly>;
+        public fetchItemSales(skinName: string): Promise<ItemSales>;
         public raw(obj: any): Promise<any>;
     }
     export class Weekly {
