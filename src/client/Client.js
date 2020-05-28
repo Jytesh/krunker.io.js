@@ -36,9 +36,10 @@ class Client {
             ['r', 'profile', username, null, null, null, 0, null],
             x => x,
             async ([,,, userData, userMaps, userMods ]) => {
-                if (!userData || !userData.player_stats) throw new KrunkerAPIError('404_NOT_FOUND', 'Player');
+                if (!userData) throw new KrunkerAPIError('404_NOT_FOUND', 'Player');
                 userData.player_mods = userMods;
                 userData.player_maps = userMaps;
+                if (!userData.player_stats) userData.player_stats = 'null';
                 if (raw) return userData;
                 const p = await (new Player().setup(this, userData, { mods, clan }));
                 if (cache) this.players.set(p.username + '_' + p.id, p);

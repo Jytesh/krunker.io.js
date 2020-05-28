@@ -25,7 +25,7 @@ module.exports = class Player {
             )
             : data.player_mods.map(m => m.mod_name);
         const _classes = fromEntries(
-            Object.keys(stats)
+            Object.keys(stats || {})
                 .filter(k => /c\d+/.test(k))
                 .map(k => [
                     new Class(classes[k.substring(1)]).name,
@@ -42,9 +42,9 @@ module.exports = class Player {
             score: data.player_score,
             displayName: (data.player_clan ? data.player_name + ' [' + data.player_clan + ']' : data.player_name),
             id: data.player_id,
-            lastPlayedClass: new Class(classes[stats.c]),
+            lastPlayedClass: new Class(classes[(stats || {}).c]),
             joinedAt: new Date(data.player_datenew),
-            classes: {
+            classes: stats && {
                 ..._classes,
                 lastPlayed: new Class(classes[stats.c], data),
                 sorted: Object.values(_classes).sort((a, b) => b.score - a.score),
@@ -65,7 +65,7 @@ module.exports = class Player {
             infected: !!data.player_infected,
             premium: !!data.player_premium,
             eggs: data.player_eventcount || 0,
-            stats: {
+            stats: stats && {
                 timePlayed: {
                     ms: data.player_timeplayed,
                     mins: Math.floor(Math.floor(data.player_timeplayed / 1000) / 60) / 60,

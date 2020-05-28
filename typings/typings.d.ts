@@ -71,14 +71,14 @@ declare module 'krunker.io.js' {
         displayName: string;
         id: string;
         lastPlayedClass?: Class;
-        classes: object;
+        classes: object | null;
         mods: Mod[] | string[];
         maps: {
             author: string;
             name: string;
             votes: number;
             verified: boolean;
-            fetch(): KrunkerMap;
+            fetch(): Promise<KrunkerMap>;
         }[];
         joinedAt: Date;
         hacker: boolean;
@@ -116,7 +116,7 @@ declare module 'krunker.io.js' {
             elo1Image: string;
             elo2Image: string;
             elo4Image: string;
-        };
+        } | null;
         social: {
             clan: Clan | string | null;
             followers: number;
