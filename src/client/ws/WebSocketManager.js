@@ -33,7 +33,7 @@ class WebSocketManager {
                 }
                 catch (e) {
                     ws.close();
-                    throw e;
+                    return rej(e);
                 }
                 if (!mult) {
                     ws.close();
