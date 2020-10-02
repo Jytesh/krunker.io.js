@@ -42,6 +42,8 @@ module.exports = class Skin {
         return this.author;
     }
 };
+const types = ["weapons/weapon_", "hats/hat_", "body/body_", "melee/melee_", "sprays/", "dyes/","waist/waist_","faces/face_"];
+
 function getPreview(t) {
     return "https://assets.krunker.io/textures/"+(t.type&&4==t.type?"sprays/"+t.id:"previews/"+(t.type&&(3>t.type||4<t.type)?"cosmetics/"+t.type+"_"+t.id+(t.tex?"_"+t.tex:""):types[t.type||0]+(t.type&&3==t.type?t.id+(null==t.pat?null==t.tex?"":"_"+t.tex:"_c"+t.pat):(t.weapon||0)+"_"+(null==t.mid?null==t.pat?t.tex?t.tex:t.id:"c"+t.pat:"m"+t.mid+(null==t.midT?"":"_"+t.midT)))))+".png?build=u9K3c";
     
